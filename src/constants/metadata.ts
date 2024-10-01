@@ -1,6 +1,6 @@
 export const metadata = {
 	name: "DMS-Admin",
-	appNameDesc: "Admin Module for DMS",
+	appNameDesc: "DMS-Admin",
 	appPublisher: "Team DMS",
 	appVersion: "0.0.1",
 	author: {
