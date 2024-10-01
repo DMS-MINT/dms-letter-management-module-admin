@@ -2,7 +2,10 @@ import localFont from "next/font/local";
 
 import { NextIntlClientProvider } from "next-intl";
 import { getMessages } from "next-intl/server";
+import { Toaster } from "sonner";
 
+import StoreProvider from "@/providers/Store-provider";
+import LoadingProvider from "@/providers/loading-provider";
 import { ThemeProvider } from "@/providers/theme-provider";
 
 // Define the type for the metadata function's parameter
@@ -30,16 +33,20 @@ export default async function LocaleLayout({
 				></link>
 			</head>
 			<body className={myFont.className}>
-				<ThemeProvider
-					attribute="class"
-					defaultTheme="system"
-					enableSystem
-					disableTransitionOnChange
-				>
-					<NextIntlClientProvider messages={messages}>
-						{children}
-					</NextIntlClientProvider>
-				</ThemeProvider>
+				<StoreProvider>
+					<ThemeProvider
+						attribute="class"
+						defaultTheme="system"
+						enableSystem
+						disableTransitionOnChange
+					>
+						<NextIntlClientProvider messages={messages}>
+							<LoadingProvider />
+							{children}
+							<Toaster position="bottom-right" />
+						</NextIntlClientProvider>
+					</ThemeProvider>
+				</StoreProvider>
 			</body>
 		</html>
 	);

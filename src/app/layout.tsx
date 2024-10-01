@@ -1,5 +1,6 @@
 import type { ReactNode } from "react";
 
+import "../styles/loader.css";
 import "./globals.css";
 
 type RootLayoutProps = {

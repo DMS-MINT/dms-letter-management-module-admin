@@ -1,7 +1,7 @@
 export const metadata = {
-	name: "Toorax",
-	appNameDesc: "Toorax",
-	appPublisher: "KABA Software Development",
+	name: "DMS-Admin",
+	appNameDesc: "Admin Module for DMS",
+	appPublisher: "Team DMS",
 	appVersion: "0.0.1",
 	author: {
 		email: "kalishdesandy@gmail.com",

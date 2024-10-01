@@ -5,6 +5,10 @@
 			"home": "Home"
 		}
 	},
+	"PathnamesPage": {
+		"description": "",
+		"title": ""
+	},
 	"mode-toggle": {
 		"dark": "Dark",
 		"light": "Light",
@@ -15,5 +19,11 @@
 		"changeLanguage": "Change Language",
 		"english": "English",
 		"amharic": "Amharic"
+	},
+	"Error": {
+		"title": "There was a problem",
+		"description": "We could not find the page you were looking for.",
+		"GoBack": "Go back to the",
+		"dashboard": "Dashboard"
 	}
 }

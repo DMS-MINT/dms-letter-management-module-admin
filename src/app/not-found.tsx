@@ -1,16 +1,26 @@
-"use client";
+import { NextIntlClientProvider } from "next-intl";
+import { getMessages } from "next-intl/server";
 
-import Error from "next/error";
+import NotFoundClient from "@/components/screen/NotFoundClient";
+import { ThemeProvider } from "@/providers/theme-provider";
 
-// Render the default Next.js 404 page when a route
-// is requested that doesn't match the middleware and
-// therefore doesn't have a locale associated with it.
+export default async function NotFound() {
+	// Fetch messages on the server side
+	const messages = await getMessages();
 
-export default function NotFound() {
 	return (
 		<html lang="en">
 			<body>
-				<Error statusCode={404} />
+				<ThemeProvider
+					attribute="class"
+					defaultTheme="system"
+					enableSystem
+					disableTransitionOnChange
+				>
+					<NextIntlClientProvider messages={messages}>
+						<NotFoundClient />;
+					</NextIntlClientProvider>
+				</ThemeProvider>
 			</body>
 		</html>
 	);

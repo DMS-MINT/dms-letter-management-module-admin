@@ -13,5 +13,17 @@
 		"changeLanguage": "ቋንቋን ለውጥ",
 		"english": "እንግሊዝኛ",
 		"amharic": "አማርኛ"
+	},
+	"mode-toggle": {
+		"dark": "ጥቁር",
+		"light": "ነጭ",
+		"system": "በኮምፒዩተር",
+		"toggleTheme": "የቀለም መቀየር"
+	},
+	"Error": {
+		"title": "ችግር ተፈጥሯል",
+		"description": "የሚፈልጉትን ገጽ ማግኘት አልቻልንም።",
+		"GoBack": "ወደ መለያዎ ተመለስ",
+		"dashboard": "የመለያዎ ገጽ"
 	}
 }

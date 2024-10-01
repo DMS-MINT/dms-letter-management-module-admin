@@ -1,8 +1,9 @@
-import { Metadata } from "next";
+import { type Metadata } from "next";
 
 import { getTranslations } from "next-intl/server";
 
 import { siteConfig } from "@/app";
+import NewPage from "@/components/screen/newPage";
 import LocaleSwitcher from "@/components/shared/DropDown/LocaleSwitcher";
 import { ModeToggle } from "@/components/ui/custom/modeToggle";
 
@@ -28,6 +29,8 @@ export default function HomePage() {
 				Language Toggle
 				<LocaleSwitcher inHamburger={true} />
 			</span>
+
+			<NewPage />
 		</div>
 	);
 }
