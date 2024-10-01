@@ -1,36 +1,7 @@
-import { type Metadata } from "next";
+import { redirect } from "next/navigation";
 
-import { getTranslations } from "next-intl/server";
-
-import { siteConfig } from "@/app";
-import NewPage from "@/components/screen/newPage";
-import LocaleSwitcher from "@/components/shared/DropDown/LocaleSwitcher";
-import { ModeToggle } from "@/components/ui/custom/modeToggle";
-
-export async function generateMetadata() {
-	// useTranslations works both on the server and client;
-	// we only need the getTranslations on async functions.
-	const t = await getTranslations();
-
-	const metadata: Metadata = {
-		title: `${t("metadata.title.home")} - ${siteConfig.appNameDesc}`,
-	};
-
-	return metadata;
-}
-
-export default function HomePage() {
-	// const t = useTranslations();
-
-	return (
-		<div>
-			<ModeToggle />
-			<span className="flex items-center justify-center gap-2">
-				Language Toggle
-				<LocaleSwitcher inHamburger={true} />
-			</span>
-
-			<NewPage />
-		</div>
-	);
+// This page only renders when the app
+// is built statically (output: "export")
+export default function RootPage() {
+	redirect("/auth/sign-in");
 }

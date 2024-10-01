@@ -1,10 +1,15 @@
 {
 	"metadata": {
-		"description": "Build More Efficient, Engaging, and Profitable Online Stores: Relivator Enhances your eCommerce with the Power of shadcn/ui, Next.js 15, React 19, and more",
+		"description": "Build More Efficient, Engaging, and Profitable Document Management System: DMS Enhances your workflow with the Power of Automation, Collaboration, and Security.",
 		"title": {
-			"home": "Home"
+			"home": "Home",
+			"signin": "Sign In",
+			"features": "Features",
+			"pricing": "Pricing",
+			"contact": "Contact"
 		}
 	},
+
 	"PathnamesPage": {
 		"description": "",
 		"title": ""
@@ -25,5 +30,26 @@
 		"description": "We could not find the page you were looking for.",
 		"GoBack": "Go back to the",
 		"dashboard": "Dashboard"
+	},
+	"SignInForm": {
+		"title": "Login",
+		"description": "Enter your email below to login to your account",
+		"forget-password": "Forget your password?",
+		"email": "Email",
+		"password": "Password",
+		"login": "Login"
+	},
+	"sideBar": {
+		"title": "DMS System Admin",
+		"home": "Home",
+		"user": "User Management",
+		"organization": "Organization Management",
+		"system": "System Management",
+		"new": "new",
+		"settings": "Settings",
+		"logout": "Logout",
+		"upgrade": "Upgrade to Pro",
+		"UpgradeDescription": "Unlock all features and get unlimited access DMS.",
+		"UpgradeButton": "Upgrade"
 	}
 }
