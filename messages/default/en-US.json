@@ -1,0 +1,19 @@
+{
+	"metadata": {
+		"description": "Build More Efficient, Engaging, and Profitable Online Stores: Relivator Enhances your eCommerce with the Power of shadcn/ui, Next.js 15, React 19, and more",
+		"title": {
+			"home": "Home"
+		}
+	},
+	"mode-toggle": {
+		"dark": "Dark",
+		"light": "Light",
+		"system": "System",
+		"toggleTheme": "Toggle Theme"
+	},
+	"LocaleSwitcher": {
+		"changeLanguage": "Change Language",
+		"english": "English",
+		"amharic": "Amharic"
+	}
+}
