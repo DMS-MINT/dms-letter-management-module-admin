@@ -24,7 +24,7 @@ export default function NotFoundClient() {
 			<p>{t("Error.description")}</p>
 			<p>
 				{t("Error.GoBack")}{" "}
-				<Link href="/home" className="text-primary italic">
+				<Link href="/" className="text-primary italic">
 					{t("Error.dashboard")}{" "}
 					<MoveUpLeft className="inline-block" size={14} />
 				</Link>

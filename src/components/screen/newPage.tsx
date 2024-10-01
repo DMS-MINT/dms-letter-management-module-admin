@@ -16,7 +16,7 @@ const NewPage = (props: Props) => {
 
 		setTimeout(() => {
 			dispatch(SetLoading(false));
-			router.push("/home");
+			router.push("/");
 		}, 10000);
 	};
 	return (
