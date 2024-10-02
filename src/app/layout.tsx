@@ -10,5 +10,9 @@ type RootLayoutProps = {
 // Since we have a `not-found.tsx` page on the root, a layout
 // file is required, even if it's just passing children through.
 export default function RootLayout({ children }: RootLayoutProps) {
-	return children;
+	return (
+		<html>
+			<body>{children}</body>
+		</html>
+	);
 }
