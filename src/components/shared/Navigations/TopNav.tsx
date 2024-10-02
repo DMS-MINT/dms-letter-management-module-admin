@@ -28,7 +28,7 @@ const TopNav = () => {
 				<div className="flex items-center gap-2">
 					<div className="text-xl font-bold">DMS</div>
 					<Badge
-						className="text-lg font-bold text-primary flex items-center gap-2 hover:cursor-pointer"
+						className="xl:text-lg text-xs tracking-tighter leading-3 font-bold text-primary flex items-center gap-2 hover:cursor-pointer"
 						onClick={() => toast.success("Redirecting to frontend...")}
 						variant={"outline"}
 					>

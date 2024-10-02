@@ -3,6 +3,7 @@
 import { type ElementType, useState } from "react";
 
 import { ChevronsLeft, ChevronsRight } from "lucide-react";
+import useMedia from "use-media";
 
 import { SmallSideNav } from "@/components/shared/Navigations/SmallSideNav";
 import {
@@ -40,7 +41,8 @@ export function SubNavLayout({
 	description,
 	descIcon,
 }: LayoutProps) {
-	const [isCollapsed, setIsCollapsed] = useState(defaultCollapsed);
+	const isMobile = useMedia({ maxWidth: "767px" });
+	const [isCollapsed, setIsCollapsed] = useState(defaultCollapsed || !isMobile);
 
 	// Toggle collapse/expand state
 	const toggleCollapse = () => {
@@ -48,7 +50,6 @@ export function SubNavLayout({
 		document.cookie = `react-resizable-panels:collapsed=${JSON.stringify(!isCollapsed)}`;
 	};
 	// Handle link click
-
 	return (
 		<TooltipProvider delayDuration={0}>
 			<ResizablePanelGroup
@@ -74,7 +75,7 @@ export function SubNavLayout({
 						<div
 							className={cn(
 								"flex h-[44px] items-center justify-center",
-								isCollapsed ? "hidden" : "px-2"
+								isCollapsed || isMobile ? "hidden" : "px-2"
 							)}
 						>
 							<span className="text-xs font-bold text-center flex gap-2">
@@ -82,6 +83,7 @@ export function SubNavLayout({
 								{description}
 							</span>
 						</div>
+
 						<button
 							onClick={toggleCollapse}
 							className={cn(
