@@ -53,7 +53,8 @@ const DesktopSideBar = () => {
 						<SidebarItem
 							icon={HomeIcon}
 							label={t("sideBar.home")}
-							tag={t("sideBar.new")}
+							tag={"2"}
+							// tag={t("sideBar.new")}
 							onClick={() => {
 								route.push("/home");
 								setSelectedScreen("home");

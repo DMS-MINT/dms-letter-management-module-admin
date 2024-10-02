@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { type ElementType, useState } from "react";
 
 import { ChevronsLeft, ChevronsRight } from "lucide-react";
 
@@ -22,10 +22,12 @@ interface LayoutProps {
 	links: {
 		title: string;
 		label: string;
-		icon: React.ComponentType;
+		icon: ElementType;
 		variant: string;
 	}[];
 	separatorAfter?: number;
+	description?: string;
+	descIcon?: React.ReactNode;
 }
 
 export function SubNavLayout({
@@ -35,6 +37,8 @@ export function SubNavLayout({
 	children,
 	links,
 	separatorAfter = 5,
+	description,
+	descIcon,
 }: LayoutProps) {
 	const [isCollapsed, setIsCollapsed] = useState(defaultCollapsed);
 
@@ -73,8 +77,9 @@ export function SubNavLayout({
 								isCollapsed ? "hidden" : "px-2"
 							)}
 						>
-							<span className="text-xs font-bold text-center">
-								User Management Settings
+							<span className="text-xs font-bold text-center flex gap-2">
+								{descIcon && descIcon}
+								{description}
 							</span>
 						</div>
 						<button

@@ -1,7 +1,7 @@
-"use client";
+type Props = {};
 
-const statusPage = () => {
-	return <div>Hello, this is the main content area. member</div>;
+const Memberpage = (props: Props) => {
+	return <div>Memberpage</div>;
 };
 
-export default statusPage;
+export default Memberpage;
