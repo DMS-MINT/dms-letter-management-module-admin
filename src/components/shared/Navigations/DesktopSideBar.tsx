@@ -10,6 +10,7 @@ import {
 	HomeIcon,
 	LogOutIcon,
 	MonitorCog,
+	NotebookIcon,
 	Settings,
 	Users,
 } from "lucide-react";
@@ -50,6 +51,17 @@ const DesktopSideBar = () => {
 				</div>
 				<nav className="flex-grow p-2">
 					<ul className="space-y-2 lg:space-y-2">
+						<SidebarItem
+							icon={NotebookIcon}
+							label={t("sideBar.launchPad")}
+							tag={"2"}
+							// tag={t("sideBar.new")}
+							onClick={() => {
+								route.push("/launchPad");
+								setSelectedScreen("launchPad");
+							}}
+							active={selectedScreen === "launchPad"}
+						/>
 						<SidebarItem
 							icon={HomeIcon}
 							label={t("sideBar.home")}

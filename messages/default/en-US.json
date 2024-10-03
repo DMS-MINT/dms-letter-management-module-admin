@@ -41,6 +41,7 @@
 	},
 	"sideBar": {
 		"title": "DMS System Admin",
+		"launchPad": "Launch pad",
 		"home": "Home",
 		"user": "User Mgt",
 		"organization": "Organization Mgt",
@@ -52,6 +53,88 @@
 		"UpgradeDescription": "Unlock all features and get unlimited access DMS.",
 		"UpgradeButton": "Upgrade"
 	},
+
+	"LaunchScreen": {
+		"welcomeTitle": "Welcome to DMS! 👋",
+		"welcomeDescription": "This launch screen provides a step-by-step guide to help you configure your application during the initial setup.",
+		"firstStep": "🎯 First, add a subdomain and check its availability",
+		"secondStep": "🎯 Next, register your organization's information in the system",
+		"note": "Note:",
+		"noteDetails": "Please ensure you're ready to submit the required information before starting the forms. Your data will only be saved if all required steps are completed; incomplete submissions won't be stored.",
+		"here": "here"
+	},
+
+	"SubDomainForm": {
+		"title": "Sub Domain",
+		"description": "The subdomain is the name of your organization. It is used to identify your organization and to create the URL for your organization.",
+		"enterDomain": "Enter your domain",
+		"domainPlaceholder": "yourdomain",
+		"domainSuffix": ".DMSsaas.com",
+		"domainFormDescription": "Enter your desired subdomain for your SaaS application.",
+		"allowAdminChange": "Allow administrators to change the Sub domain.",
+		"submitButton": "Save",
+		"successMessage": "Subdomain Created!",
+		"domainError": "⛔ Please choose a valid subdomain."
+	},
+
+	"organizationForm": {
+		"title": "Create Your Organization",
+		"description": "This form allows you to create your organization.",
+		"fields": {
+			"organizationNameEn": {
+				"label": "Organization Name (English)",
+				"placeholder": "Enter Organization Name (English)",
+				"description": "This is the Organization name that will be displayed on the system.",
+				"error": "⛔ Please enter a valid organization name. Organization name must be at least 2 characters long."
+			},
+			"organizationNameAm": {
+				"label": "Organization Name (Amharic)",
+				"placeholder": "Enter Organization Name (Amharic)",
+				"description": "The Organization name in Amharic."
+			},
+			"description": {
+				"label": "Description",
+				"placeholder": "Brief description of your organization",
+				"description": "The Organization Description (e.g., Ministry office, Private company)."
+			},
+			"contactPhone": {
+				"label": "Phone Number",
+				"placeholder": "Enter a phone number",
+				"description": "Enter a phone number.",
+				"error": "⛔ Please enter a valid phone number."
+			},
+			"contactEmail": {
+				"label": "Contact Email",
+				"placeholder": "Enter Contact Email",
+				"description": "The Organization Email Address. Helps as contact information.",
+				"error": "⛔ Please enter a valid email address."
+			},
+			"address": {
+				"label": "Address",
+				"placeholder": "Enter Address",
+				"description": "The Organization Address / Location of the head office or headquarters."
+			},
+			"postalCode": {
+				"label": "Postal Code",
+				"placeholder": "Enter Postal Code",
+				"description": "The Organization Postal Address. Helps as contact information."
+			},
+			"domain": {
+				"label": "Subdomain",
+				"placeholder": "Choose a subdomain (e.g., yourcompany.saas.com)",
+				"description": "This selected sub-domain is for accessing the application.",
+				"error": "⛔ Please choose a valid subdomain."
+			},
+			"logo": {
+				"label": "Organization Logo"
+			}
+		},
+		"button": {
+			"submit": "Create Organization"
+		},
+		"successMessage": "Organization Created!"
+	},
+
 	"User": {
 		"title": "User Management",
 		"description": "User Management Settings",
@@ -146,5 +229,13 @@
 		"delete": "Delete",
 		"cancel": "Cancel",
 		"save": "Save"
+	},
+	"settings": {
+		"title": "Settings",
+		"description": "My Settings",
+		"general": "General",
+		"team": "Team",
+		"security": "Security",
+		"profile": "My Profile"
 	}
 }
