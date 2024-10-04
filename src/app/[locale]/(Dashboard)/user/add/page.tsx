@@ -1,7 +1,11 @@
-type Props = {};
+import AddUserScreen from "@/components/screen/user-Screen/AddUserScreen";
 
-const Addpage = (props: Props) => {
-	return <div>Addpage</div>;
+const Addpage = () => {
+	return (
+		<div>
+			<AddUserScreen />
+		</div>
+	);
 };
 
 export default Addpage;

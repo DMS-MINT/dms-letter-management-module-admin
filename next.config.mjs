@@ -2,9 +2,9 @@
 import createNextIntlPlugin from "next-intl/plugin";
 
 const nextConfig = {
-	experimental: {
-		typedRoutes: true,
-	},
+	// experimental: {
+	// 	typedRoutes: true,
+	// },
 };
 
 const withNextIntl = createNextIntlPlugin();

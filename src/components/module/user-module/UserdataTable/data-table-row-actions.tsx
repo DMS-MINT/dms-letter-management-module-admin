@@ -1,5 +1,7 @@
 "use client";
 
+import { useRouter } from "next/navigation";
+
 import { DotsHorizontalIcon } from "@radix-ui/react-icons";
 import { type Row } from "@tanstack/react-table";
 
@@ -28,7 +30,7 @@ export function DataTableRowActions<TData>({
 	row,
 }: DataTableRowActionsProps<TData>) {
 	const user = userSchema.parse(row.original);
-
+	const route = useRouter();
 	return (
 		<DropdownMenu>
 			<DropdownMenuTrigger asChild>
@@ -41,7 +43,9 @@ export function DataTableRowActions<TData>({
 				</Button>
 			</DropdownMenuTrigger>
 			<DropdownMenuContent align="end" className="w-[160px]">
-				<DropdownMenuItem>Edit</DropdownMenuItem>
+				<DropdownMenuItem onClick={() => route.push("user/2344")}>
+					Edit
+				</DropdownMenuItem>
 				<DropdownMenuItem>Make a copy</DropdownMenuItem>
 				<DropdownMenuItem>Favorite</DropdownMenuItem>
 				<DropdownMenuSeparator />
