@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import { useEffect, useRef, useState } from "react";
 
 import { CloudUpload, Replace, Save } from "lucide-react";
@@ -86,7 +87,7 @@ const SignatureUploadForm = () => {
 						/>
 						{imagePreview ? (
 							<div className="flex flex-col items-center">
-								<img
+								<Image
 									src={imagePreview}
 									alt="Signature Preview"
 									className="mt-4 w-48 h-auto"
@@ -97,7 +98,7 @@ const SignatureUploadForm = () => {
 							</div>
 						) : (
 							<p>
-								Drag 'n' drop a signature image here, or click to select one
+								Drag and drop a signature image here, or click to select one
 							</p>
 						)}
 					</div>
