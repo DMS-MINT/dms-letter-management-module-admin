@@ -15,7 +15,7 @@ export default function ResponsiveSidebar() {
 			className={`${
 				isMobile
 					? "fixed bottom-0 w-full"
-					: "h-screen w-[8%] border-r bg-primary-foreground lg:w-[14%] xl:w-[16%]"
+					: "h-full w-[8%] border-r bg-primary-foreground lg:w-[14%] xl:w-[16%]"
 			}`}
 		>
 			{isMobile ? <MobileNavigation /> : <DesktopSideBar />}

@@ -19,13 +19,13 @@ function DashboardLayoutContent({ children }: { children: ReactNode }) {
 		<GeneralShell>
 			<div className="flex flex-col h-screen md:flex-row">
 				<ResponsiveSidebar />
-				<main className="flex h-screen w-full flex-col md:w-[92%] lg:w-[84%] xl:w-[86%]">
+				<main className="flex w-full flex-col md:w-[92%] lg:w-[84%] xl:w-[86%]">
 					{/* Top Nav */}
 					<TopNav />
 
 					{/* Main Content */}
 					<>
-						<div className="flex flex-col gap-4 overflow-y-auto p-1">
+						<div className="flex h-screen flex-col gap-4 !overflow-y-auto p-1">
 							{children}
 						</div>
 					</>

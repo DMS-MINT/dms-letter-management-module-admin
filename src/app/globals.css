@@ -3,7 +3,9 @@
 @tailwind utilities;
 
 * {
-	@apply scroll-smooth;
+	box-sizing: border-box;
+	padding: 0;
+	margin: 0;
 }
 
 @layer base {

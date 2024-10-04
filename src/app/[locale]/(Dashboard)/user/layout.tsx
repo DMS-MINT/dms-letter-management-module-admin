@@ -90,7 +90,7 @@ function UserLayoutContent({ children }: { children: ReactNode }) {
 	];
 
 	return (
-		<div className="flex flex-col h-full">
+		<div className="flex flex-col">
 			<SubNavLayout
 				defaultLayout={[265, 440, 655]}
 				navCollapsedSize={50}

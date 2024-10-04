@@ -1,3 +1,7 @@
+"use client";
+
+import { useRouter } from "next/navigation";
+
 import { File, PlusCircle } from "lucide-react";
 
 import { columns } from "@/components/module/user-module/UserdataTable/columns";
@@ -8,6 +12,7 @@ import { Button } from "@/components/ui/button";
 import { users } from "@/constants/data/tobeChanged/schema";
 
 const UserScreen = () => {
+	const router = useRouter();
 	return (
 		<div className="flex flex-col gap-4 p-4 ">
 			<div className="flex flex-col gap-4 md:flex-row flex-wrap items-center justify-center">
@@ -31,7 +36,13 @@ const UserScreen = () => {
 							Export
 						</span>
 					</Button>
-					<Button size="sm" className="h-7 gap-1">
+					<Button
+						size="sm"
+						className="h-7 gap-1"
+						onClick={() => {
+							router.push("/user/add");
+						}}
+					>
 						<PlusCircle className="h-3.5 w-3.5" />
 						<span className="sr-only sm:not-sr-only sm:whitespace-nowrap">
 							Add Member
