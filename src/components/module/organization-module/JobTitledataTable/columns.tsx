@@ -4,7 +4,7 @@ import { type ColumnDef } from "@tanstack/react-table";
 
 import { Badge } from "@/components/ui/badge";
 import { Checkbox } from "@/components/ui/checkbox";
-import { type User } from "@/constants/data/tobeChanged/schema";
+import { User } from "@/constants/data/tobeChanged/schema";
 import { labels, statuses } from "@/constants/data/userData";
 
 import { DataTableColumnHeader } from "./data-table-column-header";

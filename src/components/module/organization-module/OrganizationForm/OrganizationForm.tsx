@@ -37,8 +37,17 @@ import {
 } from "@/components/ui/select";
 import { Textarea } from "@/components/ui/textarea";
 import { CityData } from "@/constants/data/cityData";
+import { type OrganizationType } from "@/types/OrganizationType";
 
-export function OrganizationForm() {
+export function OrganizationForm({
+	lounchScreen = true,
+	editOrganization = false,
+	dataToEdit = undefined,
+}: {
+	lounchScreen?: boolean;
+	editOrganization?: boolean;
+	dataToEdit?: OrganizationType;
+}) {
 	const t = useTranslations("organizationForm");
 	const [file, setFile] = useState<File | null>(null);
 
@@ -68,14 +77,14 @@ export function OrganizationForm() {
 	const form = useForm<OrganizationFormValues>({
 		resolver: zodResolver(organizationFormSchema),
 		defaultValues: {
-			organizationNameEn: "",
-			organizationNameAm: "",
-			description: "",
-			contactPhone: "",
-			contactEmail: "",
-			address: "",
-			postalCode: "",
-			domain: "",
+			organizationNameEn: dataToEdit?.organizationNameEn || "",
+			organizationNameAm: dataToEdit?.organizationNameAm || "",
+			description: dataToEdit?.description || "",
+			contactPhone: dataToEdit?.contactPhone || "",
+			contactEmail: dataToEdit?.contactEmail || "",
+			address: dataToEdit?.address || "",
+			postalCode: dataToEdit?.postalCode || "",
+			domain: dataToEdit?.domain || "",
 			logo: undefined,
 		},
 		mode: "onChange",
@@ -95,11 +104,13 @@ export function OrganizationForm() {
 	return (
 		<div id="organizationForm">
 			<Card className="relative">
-				<div className="absolute -top-1 -left-3 ">
-					<span className="flex items-center rounded-full bg-primary w-6 h-6 justify-center text-white text-sm">
-						2
-					</span>
-				</div>
+				{lounchScreen && (
+					<div className="absolute -top-1 -left-3 ">
+						<span className="flex items-center rounded-full bg-primary w-6 h-6 justify-center text-white text-sm">
+							2
+						</span>
+					</div>
+				)}
 				<CardHeader>
 					<CardTitle>{t("title")}</CardTitle>
 					<CardDescription>{t("description")}</CardDescription>

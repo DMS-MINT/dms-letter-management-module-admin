@@ -1,7 +1,13 @@
+import OrganizationProfileScreen from "@/components/screen/organization-Screen/OrganizationProfileScreen";
+
 type Props = {};
 
-const page = (props: Props) => {
-	return <div>page</div>;
+const Organizationpage = (props: Props) => {
+	return (
+		<div>
+			<OrganizationProfileScreen />
+		</div>
+	);
 };
 
-export default page;
+export default Organizationpage;

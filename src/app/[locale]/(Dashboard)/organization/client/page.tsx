@@ -1,4 +1,4 @@
-import RecipentScreen from "@/components/screen/organization-Screen/RecipentScreen";
+import RecipentScreen from "@/components/screen/organization-Screen/ClientScreen";
 
 type Props = {};
 

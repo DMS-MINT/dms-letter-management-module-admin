@@ -306,7 +306,8 @@
 		"orgProfile": "Organization Profile",
 		"workflow": "Workflow",
 		"department": "Department",
-		"recipient": "Recipient",
+		"job_title": "Job Title",
+		"client": "Client",
 		"letterMgmt": "Letter Management",
 		"letterRoute": "Letter Route",
 		"roleConfig": "Role Config",
@@ -339,5 +340,31 @@
 		"document": "Document Settings",
 		"notification": "Notification Settings",
 		"security": "Security Settings"
+	},
+	"JobTitleScreen": {
+		"title": "Job Title",
+		"description": "Here are all the job title for DMS",
+		"addjobtitle": "Add Job Title",
+		"list": "List"
+	},
+	"JobTitleForm": {
+		"title": "Add Job Title",
+		"description": "Here add all the valuable job title to create a member for DMS",
+		"fields": {
+			"jobTitleEn": {
+				"label": "Job Title (English)",
+				"placeholder": "Enter Job Title (English)",
+				"description": "The Job Title in English."
+			},
+			"jobTitleAm": {
+				"label": "Job Title (Amharic)",
+				"placeholder": "Enter Job Title (Amharic)",
+				"description": "The Job Title in Amharic."
+			}
+		},
+		"button": {
+			"submit": "Create Job Title"
+		},
+		"successMessage": "Job Title Created!"
 	}
 }

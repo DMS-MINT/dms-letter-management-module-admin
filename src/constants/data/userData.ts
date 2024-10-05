@@ -67,3 +67,29 @@ export const userPreferencesData = [
 	{ name: "SMS Alert", value: "Enabled" },
 	{ name: "Theme", value: "Light" },
 ];
+
+// Organization data table
+export const organizationData = [
+	{ name: "Organization Name", value: "DMS" },
+	{ name: "Organization Name (Amharic)", value: "ድርጅት" },
+	{
+		name: "Description",
+		value: "DMS is a platform for document management and collaboration.",
+	},
+	{ name: "Contact Phone", value: "+234 800 900 900" },
+	{ name: "Contact Email", value: "abekebede@gmail.com" },
+	{ name: "Address", value: "123 Main St, Addison, TX" },
+	{ name: "Postal Code", value: "12345" },
+	{ name: "Domain", value: "dms.com" },
+];
+
+export const organizationInfo = {
+	organizationNameEn: "Tech Solutions Ltd",
+	organizationNameAm: "ቴክ ሶሉሽንስ አ.ማ.",
+	description: "A leading provider of software solutions.",
+	contactPhone: "+251911123456",
+	contactEmail: "info@techsolutions.com",
+	address: "1234 Innovation St, Addis Ababa",
+	postalCode: "1000",
+	domain: "techsolutions.com",
+};
