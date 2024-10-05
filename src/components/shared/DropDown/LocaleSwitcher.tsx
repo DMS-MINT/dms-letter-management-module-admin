@@ -30,18 +30,36 @@ const LocaleSwitcher: NextPage<LocaleSwitcherProps> = ({
 	const path = usePathname();
 
 	// Safeguard against `undefined`
-	const pathName = path?.split("/").pop() ?? "";
+	// const pathName = path?.split("/").pop() ?? "";
 
 	type SupportedLocale = "en-US" | "am";
 
+	// const handleChange = (nextLocale: SupportedLocale) => {
+	// 	startTransition(() => {
+	// 		if (pathName === "en-US" || pathName === "am") {
+	// 			router.replace(`/${nextLocale}` as `/${string}`);
+	// 		} else {
+	// 			router.replace(`/${nextLocale}/${pathName}` as `/${string}`);
+	// 			router.refresh();
+	// 		}
+	// 	});
+	// };
 	const handleChange = (nextLocale: SupportedLocale) => {
 		startTransition(() => {
-			if (pathName === "en-US" || pathName === "am") {
-				router.replace(`/${nextLocale}` as `/${string}`);
-			} else {
-				router.replace(`/${nextLocale}/${pathName}` as `/${string}`);
-				router.refresh();
+			const pathSegments = path?.split("/") ?? [];
+			const currentLocaleIndex = pathSegments.findIndex(
+				(segment) => segment === localeValue
+			);
+
+			// Remove the current locale from the path segments
+			if (currentLocaleIndex !== -1) {
+				pathSegments.splice(currentLocaleIndex, 1);
 			}
+
+			// Create the new path with the selected locale
+			const newPath = `/${nextLocale}${pathSegments.length ? `/${pathSegments.join("/")}` : ""}`;
+			router.replace(newPath as `/${string}`);
+			router.refresh();
 		});
 	};
 

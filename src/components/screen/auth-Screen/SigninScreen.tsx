@@ -6,6 +6,7 @@ import { useRouter } from "next/navigation";
 
 import { useTranslations } from "next-intl";
 
+import BackButton from "@/components/shared/Button/BackButton";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
@@ -28,7 +29,7 @@ const SigninScreen = () => {
 	};
 	return (
 		<div className="flex-col items-center justify-center py-12 md:flex">
-			{/* <BackButton label="Go to Dashboard" href="/dashboard" /> */}
+			<BackButton label="Go to Signup" href="/auth/sign-up" left={false} />
 			<Card>
 				<CardContent>
 					<div className="mx-auto mt-4 grid w-[350px] gap-6">

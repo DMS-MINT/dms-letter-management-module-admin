@@ -6,8 +6,6 @@ import { File, PlusCircle } from "lucide-react";
 
 import { columns } from "@/components/module/user-module/UserdataTable/columns";
 import { DataTable } from "@/components/module/user-module/UserdataTable/data-table";
-import { ActiveUserChart } from "@/components/shared/Charts/ActiveUserChart";
-import { UserNumberPieChart } from "@/components/shared/Charts/UserNumberPieChart";
 import PageSubTitle from "@/components/shared/Titles/PageSubTitle";
 import { Button } from "@/components/ui/button";
 import { users } from "@/constants/data/tobeChanged/schema";
@@ -15,12 +13,7 @@ import { users } from "@/constants/data/tobeChanged/schema";
 const UserScreen = () => {
 	const route = useRouter();
 	return (
-		<div className="flex flex-col gap-4 p-4 ">
-			<div className="flex flex-col gap-4 md:flex-row flex-wrap items-center justify-center">
-				<UserNumberPieChart />
-				<ActiveUserChart />
-				<ActiveUserChart />
-			</div>
+		<div className="p-4 space-y-6 mb-20">
 			<div className="flex items-center justify-between space-y-2">
 				<PageSubTitle
 					title="All Organization Memeber"
@@ -37,7 +30,7 @@ const UserScreen = () => {
 						size="sm"
 						className="h-7 gap-1 font-bold text-white"
 						onClick={() => {
-							route.push("user/add");
+							route.push("/user/add" as `/${string}`);
 						}}
 					>
 						<PlusCircle className="h-3.5 w-3.5" />

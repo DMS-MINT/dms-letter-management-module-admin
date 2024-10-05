@@ -29,6 +29,7 @@ export const statuses = [
 	},
 ];
 
+// user detail data table
 export const userPersonalData = [
 	{ name: "Full Name", value: "Kebede Abebe" },
 	{ name: "Full Name (Amharic)", value: "ክብል አበባ" },

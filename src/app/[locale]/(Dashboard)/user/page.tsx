@@ -2,7 +2,7 @@ import UserScreen from "@/components/screen/user-Screen/UserScreen";
 
 type Props = {};
 
-const Memberpage = (props: Props) => {
+const Memberpage = () => {
 	return (
 		<div>
 			<UserScreen />

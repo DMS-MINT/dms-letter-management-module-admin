@@ -39,6 +39,29 @@
 		"password": "Password",
 		"login": "Login"
 	},
+	"SignUpForm": {
+		"title": "Signup",
+		"description": "Enter your email below to SignUp a new account",
+		"fields": {
+			"email": {
+				"label": "Email",
+				"placeholder": "Enter your email",
+				"error": "Please enter a valid email address."
+			},
+			"password": {
+				"label": "Password",
+				"placeholder": "Enter your password",
+				"error": "Password must be at least 8 characters long."
+			},
+			"confirmPassword": {
+				"label": "Confirm Password",
+				"placeholder": "Confirm your password",
+				"error": "Passwords must match!",
+				"mismatch": "Passwords must match!"
+			}
+		},
+		"submit": "Signup"
+	},
 	"sideBar": {
 		"title": "DMS System Admin",
 		"launchPad": "Launch pad",
@@ -133,6 +156,75 @@
 			"submit": "Create Organization"
 		},
 		"successMessage": "Organization Created!"
+	},
+	"userForm": {
+		"title": "Create Your User",
+		"description": "This form allows you to create your user.",
+		"fields": {
+			"first_name_en": {
+				"label": "First Name (English)",
+				"placeholder": "Enter First Name (English)",
+				"description": "This is the First Name that will be displayed on the system.",
+				"error": "⛔ Please enter a valid first name. First name must be at least 2 characters long."
+			},
+			"middle_name_en": {
+				"label": "Middle Name (English)",
+				"placeholder": "Enter Middle Name (English)",
+				"description": "The First Name in English.",
+				"error": "⛔ Please enter a valid middle name. Middle name must be at least 2 characters long."
+			},
+			"last_name_en": {
+				"label": "Last Name (English)",
+				"placeholder": "Enter Last Name (English)",
+				"description": "The Last Name in English.",
+				"error": "⛔ Please enter a valid last name. Last name must be at least 2 characters long."
+			},
+			"first_name_am": {
+				"label": "First Name (Amharic)",
+				"placeholder": "Enter First Name (Amharic)",
+				"description": "The First Name in Amharic.",
+				"error": "⛔ Please enter a valid first name. First name must be at least 2 characters long."
+			},
+			"middle_name_am": {
+				"label": "Middle Name (Amharic)",
+				"placeholder": "Enter Middle Name (Amharic)",
+				"description": "The Middle Name in Amharic.",
+				"error": "⛔ Please enter a valid middle name. Middle name must be at least 2 characters long."
+			},
+			"last_name_am": {
+				"label": "Last Name (Amharic)",
+				"placeholder": "Enter Last Name (Amharic)",
+				"description": "The Last Name in Amharic.",
+				"error": "⛔ Please enter a valid last name. Last name must be at least 2 characters long."
+			},
+			"job_title": {
+				"label": "Job Title",
+				"placeholder": "Enter Job Title",
+				"description": "The Job Title."
+			},
+			"department_name": {
+				"label": "Department Name",
+				"placeholder": "Enter Department Name",
+				"description": "The Department Name."
+			},
+			"phone_number": {
+				"label": "Phone Number",
+				"placeholder": "Enter a phone number",
+				"description": "Enter a phone number.",
+				"error": "⛔ Please enter a valid phone number."
+			},
+			"email": {
+				"label": "Email",
+				"placeholder": "Enter Email",
+				"description": "The Email Address. Helps as contact information.",
+				"error": "⛔ Please enter a valid email address."
+			}
+		},
+		"button": {
+			"submit": "Create User",
+			"clear": "Clear"
+		},
+		"successMessage": "User Created!"
 	},
 
 	"User": {
