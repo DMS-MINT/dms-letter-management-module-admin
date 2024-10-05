@@ -32,7 +32,9 @@ export default async function LocaleLayout({
 					href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>⚙️</text></svg>"
 				></link>
 			</head>
-			<body className={myFont.className}>
+			<body
+				className={`h-screen w-full box-border m-0 p-0 overflow-y-hidden ${myFont.className}`}
+			>
 				<StoreProvider>
 					<ThemeProvider
 						attribute="class"

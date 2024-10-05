@@ -1,7 +1,11 @@
-type Props = {};
+import SystemScreen from "@/components/screen/system-Screen/SystemScreen";
 
-const page = (props: Props) => {
-	return <div>page</div>;
+const page = () => {
+	return (
+		<div>
+			<SystemScreen />
+		</div>
+	);
 };
 
 export default page;

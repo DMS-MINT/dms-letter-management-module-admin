@@ -107,7 +107,7 @@ export function SubNavLayout({
 				</ResizablePanel>
 				<ResizableHandle withHandle />
 				<ResizablePanel defaultSize={defaultLayout[1]} minSize={30}>
-					<div className="flex flex-col gap-4 overflow-y-auto p-1">
+					<div className="flex flex-col gap-4 overflow-y-auto h-full p-1">
 						{children}
 					</div>
 				</ResizablePanel>

@@ -6,10 +6,12 @@ import {
 	Activity,
 	Building,
 	Building2,
+	ContactRound,
 	Download,
+	Mail,
 	Route,
+	Triangle,
 	UserCheck,
-	Workflow,
 } from "lucide-react";
 import { useTranslations } from "next-intl";
 
@@ -34,19 +36,34 @@ function OrganizationLayoutContent({ children }: { children: ReactNode }) {
 			href: "/organization",
 		},
 		{
-			title: t("organization.workflow"),
+			title: t("organization.department"),
 			label: "128",
-			icon: Workflow,
+			icon: Triangle,
 			variant: "ghost",
-			href: "/organization/workflow",
+			href: "/organization/department",
 		},
 		{
-			title: t("organization.letterRoute"),
-			label: "9",
-			icon: Route,
+			title: t("organization.recipient"),
+			label: "128",
+			icon: ContactRound,
+			variant: "ghost",
+			href: "/organization/recipiant",
+		},
+		{
+			title: t("organization.letterMgmt"),
+			label: "128",
+			icon: Mail,
 			variant: "ghost",
 			href: "/organization/letter",
 		},
+		{
+			title: t("organization.workflow"),
+			label: "128",
+			icon: Route,
+			variant: "ghost",
+			href: "/organization/workflow",
+		},
+
 		{
 			title: t("organization.roleConfig"),
 			label: "",
@@ -72,12 +89,12 @@ function OrganizationLayoutContent({ children }: { children: ReactNode }) {
 	];
 
 	return (
-		<div className="flex flex-col h-screen">
+		<div className="flex flex-col">
 			<SubNavLayout
 				defaultLayout={[265, 440, 655]}
 				navCollapsedSize={50}
 				links={links}
-				separatorAfter={4}
+				separatorAfter={6}
 				description={t("organization.description")}
 				descIcon={<Building2 className="text-primary" size={14} />}
 			>

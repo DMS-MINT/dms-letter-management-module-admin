@@ -17,7 +17,7 @@ function DashboardLayoutContent({ children }: { children: ReactNode }) {
 	const t = useTranslations();
 	return (
 		<GeneralShell>
-			<div className="flex h-screen flex-col md:flex-row">
+			<div className="flex flex-col h-screen md:flex-row">
 				<ResponsiveSidebar />
 				<main className="flex w-full flex-col md:w-[92%] lg:w-[84%] xl:w-[86%]">
 					{/* Top Nav */}
@@ -25,7 +25,7 @@ function DashboardLayoutContent({ children }: { children: ReactNode }) {
 
 					{/* Main Content */}
 					<>
-						<div className="flex flex-col gap-4 overflow-y-auto p-1">
+						<div className="flex h-screen flex-col gap-4 !overflow-y-auto p-1">
 							{children}
 						</div>
 					</>
