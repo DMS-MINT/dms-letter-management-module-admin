@@ -305,6 +305,9 @@
 		"description": "ድርጅት አስተዳደር ",
 		"orgProfile": "የድርጅት መገለጫ",
 		"workflow": "የሥርዓት እንቅስቃሴ",
+		"department": "የድርጅት ክፍል",
+		"recipient": "የመልዕክት ተቀባይ",
+		"letterMgmt": "የደብዳቤ ማስተዳደር",
 		"letterRoute": "የደብዳቤ መንገድ",
 		"roleConfig": "የሚናገር አቅጣጫ",
 		"activity": "እንቅስቃሴ",
@@ -330,5 +333,12 @@
 		"team": "አስተዳዳሪዎች",
 		"security": "ደህንነት",
 		"profile": "የኔ መገለጫ"
+	},
+	"system": {
+		"title": "የDMS ቅንብሮች",
+		"description": "DMS የሚከተሉት ቅንብሮች",
+		"document": "የሰነድ ቅንብሮች",
+		"notification": "ማሳወቂያዎች",
+		"security": "ደህንነት"
 	}
 }

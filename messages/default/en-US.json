@@ -305,6 +305,9 @@
 		"description": "Organization Management Settings",
 		"orgProfile": "Organization Profile",
 		"workflow": "Workflow",
+		"department": "Department",
+		"recipient": "Recipient",
+		"letterMgmt": "Letter Management",
 		"letterRoute": "Letter Route",
 		"roleConfig": "Role Config",
 		"activity": "Activity",
@@ -329,5 +332,12 @@
 		"team": "Team",
 		"security": "Security",
 		"profile": "My Profile"
+	},
+	"system": {
+		"title": "System Settings",
+		"description": "System Management Settings",
+		"document": "Document Settings",
+		"notification": "Notification Settings",
+		"security": "Security Settings"
 	}
 }
