@@ -6,6 +6,7 @@ import { Toaster } from "sonner";
 
 import StoreProvider from "@/providers/Store-provider";
 import LoadingProvider from "@/providers/loading-provider";
+import QueryProviders from "@/providers/query-provider";
 import { ThemeProvider } from "@/providers/theme-provider";
 
 // Define the type for the metadata function's parameter
@@ -35,20 +36,22 @@ export default async function LocaleLayout({
 			<body
 				className={`h-screen w-full box-border m-0 p-0 overflow-y-hidden ${myFont.className}`}
 			>
-				<StoreProvider>
-					<ThemeProvider
-						attribute="class"
-						defaultTheme="system"
-						enableSystem
-						disableTransitionOnChange
-					>
-						<NextIntlClientProvider messages={messages}>
-							<LoadingProvider />
-							{children}
-							<Toaster position="bottom-right" />
-						</NextIntlClientProvider>
-					</ThemeProvider>
-				</StoreProvider>
+				<QueryProviders>
+					<StoreProvider>
+						<ThemeProvider
+							attribute="class"
+							defaultTheme="system"
+							enableSystem
+							disableTransitionOnChange
+						>
+							<NextIntlClientProvider messages={messages}>
+								<LoadingProvider />
+								{children}
+								<Toaster position="bottom-right" />
+							</NextIntlClientProvider>
+						</ThemeProvider>
+					</StoreProvider>
+				</QueryProviders>
 			</body>
 		</html>
 	);

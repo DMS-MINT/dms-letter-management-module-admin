@@ -113,7 +113,8 @@
 			"organizationNameAm": {
 				"label": "Organization Name (Amharic)",
 				"placeholder": "Enter Organization Name (Amharic)",
-				"description": "The Organization name in Amharic."
+				"description": "The Organization name in Amharic.",
+				"error": "⛔ Please enter a valid organization name. Organization name must be at least 2 characters long. Organization name must be at least 2 characters long."
 			},
 			"description": {
 				"label": "Description",
@@ -135,7 +136,8 @@
 			"address": {
 				"label": "Address",
 				"placeholder": "Enter Address",
-				"description": "The Organization Address / Location of the head office or headquarters."
+				"description": "The Organization Address / Location of the head office or headquarters.",
+				"error": "⛔ Please enter a valid address."
 			},
 			"postalCode": {
 				"label": "Postal Code",
@@ -306,7 +308,8 @@
 		"orgProfile": "Organization Profile",
 		"workflow": "Workflow",
 		"department": "Department",
-		"recipient": "Recipient",
+		"job_title": "Job Title",
+		"client": "Client",
 		"letterMgmt": "Letter Management",
 		"letterRoute": "Letter Route",
 		"roleConfig": "Role Config",
@@ -339,5 +342,31 @@
 		"document": "Document Settings",
 		"notification": "Notification Settings",
 		"security": "Security Settings"
+	},
+	"JobTitleScreen": {
+		"title": "Job Title",
+		"description": "Here are all the job title for DMS",
+		"addjobtitle": "Add Job Title",
+		"list": "List"
+	},
+	"JobTitleForm": {
+		"title": "Add Job Title",
+		"description": "Here add all the valuable job title to create a member for DMS",
+		"fields": {
+			"jobTitleEn": {
+				"label": "Job Title (English)",
+				"placeholder": "Enter Job Title (English)",
+				"description": "The Job Title in English."
+			},
+			"jobTitleAm": {
+				"label": "Job Title (Amharic)",
+				"placeholder": "Enter Job Title (Amharic)",
+				"description": "The Job Title in Amharic."
+			}
+		},
+		"button": {
+			"submit": "Create Job Title"
+		},
+		"successMessage": "Job Title Created!"
 	}
 }

@@ -1,3 +1,6 @@
+import { DateConfigForm } from "@/components/module/system-module/SystemForm/DateConfigForm";
+import { ReferenceNoForm } from "@/components/module/system-module/SystemForm/ReferenceNoForm";
+import PageSubTitle from "@/components/shared/Titles/PageSubTitle";
 import {
 	Accordion,
 	AccordionContent,
@@ -7,26 +10,28 @@ import {
 
 const SystemScreen = () => {
 	return (
-		<div>
+		<div className="p-2">
 			<Accordion type="single" collapsible className="w-full">
 				<AccordionItem value="item-1">
-					<AccordionTrigger>Is it accessible?</AccordionTrigger>
+					<AccordionTrigger className="hover:no-underline text-start">
+						<PageSubTitle
+							title="Reference Number 🔢"
+							desc="Reference Number is a unique identifier for a letter or a document."
+						/>
+					</AccordionTrigger>
 					<AccordionContent>
-						Yes. It adheres to the WAI-ARIA design pattern.
+						<ReferenceNoForm />
 					</AccordionContent>
 				</AccordionItem>
 				<AccordionItem value="item-2">
-					<AccordionTrigger>Is it styled?</AccordionTrigger>
+					<AccordionTrigger className="hover:no-underline text-start">
+						<PageSubTitle
+							title="Date Automation 📅"
+							desc="Automation of date and time for letters and documents."
+						/>
+					</AccordionTrigger>
 					<AccordionContent>
-						Yes. It comes with default styles that matches the other
-						components&apos; aesthetic.
-					</AccordionContent>
-				</AccordionItem>
-				<AccordionItem value="item-3">
-					<AccordionTrigger>Is it animated?</AccordionTrigger>
-					<AccordionContent>
-						Yes. It&apos;s animated by default, but you can disable it if you
-						prefer.
+						<DateConfigForm />
 					</AccordionContent>
 				</AccordionItem>
 			</Accordion>

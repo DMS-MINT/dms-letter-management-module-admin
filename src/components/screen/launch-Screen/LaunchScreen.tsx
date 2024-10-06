@@ -2,8 +2,8 @@ import Link from "next/link";
 
 import { useTranslations } from "next-intl";
 
+import { OrganizationForm } from "@/components/module/organization-module/OrganizationForm/OrganizationForm";
 import { SubDomainForm } from "@/components/module/organization-module/SubDomainForm";
-import { OrganizationForm } from "@/components/module/organization-module/organizationForm";
 import {
 	Card,
 	CardContent,

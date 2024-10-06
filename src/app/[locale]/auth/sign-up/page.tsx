@@ -4,7 +4,7 @@ import Image from "next/image";
 import { getTranslations } from "next-intl/server";
 
 import { siteConfig } from "@/app";
-import { SignUpScreen } from "@/components/screen/auth-Screen/SignUpScreen";
+import SignUpScreen from "@/components/screen/auth-Screen/SignUpScreen";
 import { IMAGES } from "@/constants/files";
 
 export async function generateMetadata() {
@@ -21,7 +21,7 @@ export async function generateMetadata() {
 const SignUppage = () => {
 	return (
 		<section>
-			<div className="w-full lg:grid lg:min-h-screen lg:grid-cols-2 xl:min-h-screen">
+			<div className="w-full lg:grid h-full lg:grid-cols-2 xl:min-h-screen">
 				<SignUpScreen />
 				<div className="hidden items-center justify-center bg-muted lg:flex ">
 					<Image

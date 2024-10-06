@@ -112,7 +112,8 @@
 			"organizationNameAm": {
 				"label": "የድርጅት ስም (አማርኛ)",
 				"placeholder": "የድርጅት ስም ያስገቡ (አማርኛ)",
-				"description": "የድርጅቱ ስም በአማርኛ።"
+				"description": "የድርጅቱ ስም በአማርኛ።",
+				"error": "⛔ እባክዎ ትክክለኛ የድርጅቱ ስም ያስገቡ። የድርጅቱ ስም ከሁለት ፊደል በላይ መሆኑን ያረጋግጡ።"
 			},
 			"description": {
 				"label": "መግለጫ",
@@ -134,7 +135,8 @@
 			"address": {
 				"label": "አድራሻ",
 				"placeholder": "የአድራሻ ያስገቡ",
-				"description": "የድርጅቱ አድራሻ / የአስተዳደሩ መሥሪያ ቤት ስፍራ።"
+				"description": "የድርጅቱ አድራሻ / የአስተዳደሩ መሥሪያ ቤት ስፍራ።",
+				"error": "⛔ እባክዎ ትክክለኛ የድርጅቱ አድራሻ ያስገቡ።"
 			},
 			"postalCode": {
 				"label": "የፖስታ ኮድ",
@@ -305,11 +307,12 @@
 		"description": "ድርጅት አስተዳደር ",
 		"orgProfile": "የድርጅት መገለጫ",
 		"workflow": "የሥርዓት እንቅስቃሴ",
-		"department": "የድርጅት ክፍል",
-		"recipient": "የመልዕክት ተቀባይ",
+		"department": "መምሪያ",
+		"job_title": "የስራ መደብ",
+		"client": "ደንበኞች",
 		"letterMgmt": "የደብዳቤ ማስተዳደር",
 		"letterRoute": "የደብዳቤ መንገድ",
-		"roleConfig": "የሚናገር አቅጣጫ",
+		"roleConfig": "የስራ ሃላፊነት",
 		"activity": "እንቅስቃሴ",
 		"trash": "ቅርጽ",
 		"bulkActions": "የበለጠ ተግባራት",
@@ -340,5 +343,33 @@
 		"document": "የሰነድ ቅንብሮች",
 		"notification": "ማሳወቂያዎች",
 		"security": "ደህንነት"
+	},
+	"JobTitleScreen": {
+		"title": "የስራ መደብ መጨመሪያ",
+		"description": "የስራ መደብ ይፍጠሩ",
+		"addjobtitle": "የስራ መደብ መጨመሪያ",
+		"list": "ዝርዝር"
+	},
+	"JobTitleForm": {
+		"title": "የስራ መደብ መጨመሪያ",
+		"description": "የስራ መደብ ይፍጠሩ",
+		"fields": {
+			"jobTitleEn": {
+				"label": "የስራ መደብ (እንግሊዝ)",
+				"placeholder": "የስራ መደብ ይጻፉ (እንግሊዝ)",
+				"description": "የስራ መደብ አስተዳደር",
+				"error": "⛔ እባክዎ ትክክለኛ የስራ መደብ ይጻፉ።"
+			},
+			"jobTitleAm": {
+				"label": "የስራ መደብ (አማርኛ)",
+				"placeholder": "የስራ መደብ ይጻፉ (አማርኛ)",
+				"description": "የስራ መደብ አስተዳደር",
+				"error": "⛔ እባክዎ ትክክለኛ የስራ መደብ ይጻፉ።"
+			}
+		},
+		"button": {
+			"submit": "የስራ መደብ ይፍጠሩ"
+		},
+		"successMessage": "የስራ መደብ ተፈጥሯል!"
 	}
 }

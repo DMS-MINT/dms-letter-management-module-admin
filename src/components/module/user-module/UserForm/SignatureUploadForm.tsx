@@ -91,6 +91,8 @@ const SignatureUploadForm = () => {
 									src={imagePreview}
 									alt="Signature Preview"
 									className="mt-4 w-48 h-auto"
+									width={48}
+									height={48}
 								/>
 								<p className="mt-2 text-green-600">
 									Image uploaded successfully please save the file!

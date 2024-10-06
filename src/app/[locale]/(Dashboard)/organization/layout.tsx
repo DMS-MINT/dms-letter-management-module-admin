@@ -8,6 +8,7 @@ import {
 	Building2,
 	ContactRound,
 	Download,
+	Joystick,
 	Mail,
 	Route,
 	Triangle,
@@ -43,11 +44,18 @@ function OrganizationLayoutContent({ children }: { children: ReactNode }) {
 			href: "/organization/department",
 		},
 		{
-			title: t("organization.recipient"),
+			title: t("organization.job_title"),
+			label: "128",
+			icon: Joystick,
+			variant: "ghost",
+			href: "/organization/jobtitle",
+		},
+		{
+			title: t("organization.client"),
 			label: "128",
 			icon: ContactRound,
 			variant: "ghost",
-			href: "/organization/recipiant",
+			href: "/organization/client",
 		},
 		{
 			title: t("organization.letterMgmt"),
@@ -94,7 +102,7 @@ function OrganizationLayoutContent({ children }: { children: ReactNode }) {
 				defaultLayout={[265, 440, 655]}
 				navCollapsedSize={50}
 				links={links}
-				separatorAfter={6}
+				separatorAfter={7}
 				description={t("organization.description")}
 				descIcon={<Building2 className="text-primary" size={14} />}
 			>

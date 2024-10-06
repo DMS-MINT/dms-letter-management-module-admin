@@ -3,9 +3,9 @@
 	"version": "0.1.0",
 	"private": true,
 	"scripts": {
-		"dev": "next dev",
+		"dev": "next dev -p 5000",
 		"build": "next build",
-		"start": "next start",
+		"start": "next start -p 5000",
 		"lint": "next lint",
 		"prepare": "husky",
 		"format": "prettier --write .",
@@ -44,7 +44,10 @@
 		"@radix-ui/react-toggle-group": "^1.1.0",
 		"@radix-ui/react-tooltip": "^1.1.2",
 		"@reduxjs/toolkit": "^2.2.7",
+		"@tanstack/react-query": "^5.59.0",
+		"@tanstack/react-query-devtools": "^5.59.0",
 		"@tanstack/react-table": "^8.20.5",
+		"axios": "^1.7.7",
 		"class-variance-authority": "^0.7.0",
 		"clsx": "^2.1.1",
 		"cmdk": "1.0.0",
@@ -54,6 +57,7 @@
 		"flag-icons": "^7.2.3",
 		"framer-motion": "^11.9.0",
 		"input-otp": "^1.2.4",
+		"jose": "^5.9.3",
 		"lucide-react": "^0.429.0",
 		"next": "14.2.5",
 		"next-intl": "^3.17.4",
@@ -75,6 +79,7 @@
 		"zod": "^3.23.8"
 	},
 	"devDependencies": {
+		"@tanstack/eslint-plugin-query": "^5.59.1",
 		"@trivago/prettier-plugin-sort-imports": "^4.3.0",
 		"@types/node": "^20",
 		"@types/react": "^18",

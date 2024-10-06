@@ -1,14 +1,18 @@
 "use client";
 
 import Image from "next/image";
+import { useRouter } from "next/navigation";
+import { useState } from "react";
 
 import { zodResolver } from "@hookform/resolvers/zod";
-import { Save } from "lucide-react";
+import { useMutation } from "@tanstack/react-query";
+import { Eye, EyeOff, Save } from "lucide-react";
 import { useTranslations } from "next-intl";
 import { useForm } from "react-hook-form";
 import { toast } from "sonner";
 import { z } from "zod";
 
+import { type ICredentials, signUp } from "@/actions/auth/action";
 import BackButton from "@/components/shared/Button/BackButton";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
@@ -21,10 +25,16 @@ import {
 	FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
+import { Skeleton } from "@/components/ui/skeleton";
 import { IMAGES } from "@/constants/files";
+import { useAppDispatch } from "@/hooks/storehooks";
+import { SetLoading } from "@/lib/store/redux/loadersSlice";
 
-export function SignUpScreen() {
+export default function SignUpScreen() {
+	const [showPassword, setShowPassword] = useState<boolean>(false);
+	const dispatch = useAppDispatch();
 	const t = useTranslations("SignUpForm");
+	const router = useRouter();
 
 	// Validation schema using Zod
 	const signupFormSchema = z
@@ -57,13 +67,43 @@ export function SignUpScreen() {
 		mode: "onChange",
 	});
 
-	function onSubmit(data: SignupFormValues) {
-		toast.success("Signup Successful!");
-		console.log("Signup data", data);
+	const { mutate, isSuccess, isPending } = useMutation({
+		mutationKey: ["signUp"],
+		mutationFn: async (values: ICredentials) => {
+			const response = await signUp(values);
+
+			if (!response.ok) throw response;
+
+			return response;
+		},
+		onMutate: () => {
+			toast.dismiss();
+			toast.loading("ኢሜልዎን እና የይለፍ ቃልዎን በማረጋገጥ ላይ፣ እባክዎ ይጠብቁ...");
+		},
+		onSuccess: (data) => {
+			toast.dismiss();
+			toast.success(data.message.message);
+			router.push("/auth/sign-in" as `/${string}`);
+		},
+		onError: (error: any) => {
+			toast.dismiss();
+			toast.error(error.message);
+		},
+	});
+
+	function onSubmit(values: z.infer<typeof signupFormSchema>) {
+		dispatch(SetLoading(true));
+		const { email, password } = values;
+		const value = { email, password };
+		mutate(value as ICredentials);
+
+		setTimeout(() => {
+			dispatch(SetLoading(false));
+		}, 500);
 	}
 
-	return (
-		<div className="flex-col items-center justify-center py-12 md:flex">
+	return !isSuccess ? (
+		<div className="flex-col items-center justify-center py-2 lg:py-12 md:flex ">
 			<BackButton label="Go to Login" href="/auth/sign-in" />
 			<Card>
 				<CardContent>
@@ -72,7 +112,7 @@ export function SignUpScreen() {
 							<Image
 								src={IMAGES.adminLogo}
 								alt="Image"
-								width="200"
+								width="150"
 								height="200"
 								className="object-contain "
 							/>
@@ -87,7 +127,7 @@ export function SignUpScreen() {
 						<Form {...form}>
 							<form
 								onSubmit={form.handleSubmit(onSubmit)}
-								className="space-y-6"
+								className="space-y-5"
 							>
 								<div className="grid gap-4">
 									<FormField
@@ -99,6 +139,7 @@ export function SignUpScreen() {
 												<FormControl>
 													<Input
 														type="email"
+														readOnly={isPending}
 														placeholder={t("fields.email.placeholder")}
 														{...field}
 													/>
@@ -114,12 +155,31 @@ export function SignUpScreen() {
 										render={({ field }) => (
 											<FormItem>
 												<FormLabel>{t("fields.password.label")}</FormLabel>
+
 												<FormControl>
-													<Input
-														type="password"
-														placeholder={t("fields.password.placeholder")}
-														{...field}
-													/>
+													<div className="relative ">
+														<Input
+															readOnly={isPending}
+															type={showPassword ? "text" : "password"}
+															tabIndex={2}
+															placeholder={t("fields.password.placeholder")}
+															{...field}
+														/>
+														<Button
+															type="button"
+															size={"icon"}
+															variant={"ghost"}
+															aria-pressed={showPassword}
+															className="absolute right-1 top-0 hover:bg-transparent"
+															onClick={() => setShowPassword(!showPassword)}
+														>
+															{showPassword ? (
+																<Eye size={20} />
+															) : (
+																<EyeOff size={20} />
+															)}
+														</Button>
+													</div>
 												</FormControl>
 												<FormMessage />
 											</FormItem>
@@ -134,21 +194,45 @@ export function SignUpScreen() {
 												<FormLabel>
 													{t("fields.confirmPassword.label")}
 												</FormLabel>
+
 												<FormControl>
-													<Input
-														type="password"
-														placeholder={t(
-															"fields.confirmPassword.placeholder"
-														)}
-														{...field}
-													/>
+													<div className="relative ">
+														<Input
+															readOnly={isPending}
+															type={showPassword ? "text" : "password"}
+															tabIndex={2}
+															placeholder={t(
+																"fields.confirmPassword.placeholder"
+															)}
+															{...field}
+														/>
+														<Button
+															type="button"
+															size={"icon"}
+															variant={"ghost"}
+															aria-pressed={showPassword}
+															className="absolute right-1 top-0 hover:bg-transparent"
+															onClick={() => setShowPassword(!showPassword)}
+														>
+															{showPassword ? (
+																<Eye size={20} />
+															) : (
+																<EyeOff size={20} />
+															)}
+														</Button>
+													</div>
 												</FormControl>
 												<FormMessage />
 											</FormItem>
 										)}
 									/>
-
-									<Button type="submit" className="flex items-center gap-2">
+									<Button
+										disabled={isPending}
+										type="submit"
+										variant="secondary"
+										className="flex w-full items-center gap-2"
+										tabIndex={3}
+									>
 										<Save size={20} />
 										{t("submit")}
 									</Button>
@@ -159,5 +243,7 @@ export function SignUpScreen() {
 				</CardContent>
 			</Card>
 		</div>
+	) : (
+		<Skeleton />
 	);
 }

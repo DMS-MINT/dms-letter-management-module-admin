@@ -67,3 +67,32 @@ export const userPreferencesData = [
 	{ name: "SMS Alert", value: "Enabled" },
 	{ name: "Theme", value: "Light" },
 ];
+
+// Organization data table
+export const organizationData = [
+	{ name: "Organization Name", value: "DMS" },
+	{ name: "Organization Name (Amharic)", value: "ድርጅት" },
+	{
+		name: "Description",
+		value: "DMS is a platform for document management and collaboration.",
+	},
+	{ name: "Contact Phone", value: "+234 800 900 900" },
+	{ name: "Contact Email", value: "abekebede@gmail.com" },
+	{ name: "Address", value: "123 Main St, Addison, TX" },
+	{ name: "Postal Code", value: "12345" },
+	{ name: "Domain", value: "dms.com" },
+];
+
+export const organizationInfo = {
+	name_en: "Ministry of Innovation and Technology Addis Ababa",
+	name_am: "የኢኖቬሽን እና ቴክኖሎጂ ሚኒስቴር",
+	organization_slug: "mint-addis-ababa",
+	bio: "The Ministry of Innovation and Technology aims to enhance the national economy through innovation, technology development, and effective management of technology-related initiatives.",
+	contact_phone: "1234567890",
+	contact_email: "mint@et.org",
+	postal_code: "12345",
+	address: {
+		city_en: "Addis Ababa",
+		city_am: "አዲስ አበባ",
+	},
+};
