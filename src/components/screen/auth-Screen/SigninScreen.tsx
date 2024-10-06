@@ -1,33 +1,88 @@
 "use client";
 
 import Image from "next/image";
-import Link from "next/link";
 import { useRouter } from "next/navigation";
+import { useState } from "react";
 
+import { zodResolver } from "@hookform/resolvers/zod";
+import { useMutation } from "@tanstack/react-query";
+import { Eye, EyeOff, LogIn } from "lucide-react";
 import { useTranslations } from "next-intl";
+import { useForm } from "react-hook-form";
+import { toast } from "sonner";
+import { z } from "zod";
 
+import { type ICredentials, signIn } from "@/actions/auth/action";
 import BackButton from "@/components/shared/Button/BackButton";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
+import {
+	Form,
+	FormControl,
+	FormField,
+	FormItem,
+	FormLabel,
+	FormMessage,
+} from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
+import { Skeleton } from "@/components/ui/skeleton";
 import { IMAGES } from "@/constants/files";
 import { useAppDispatch } from "@/hooks/storehooks";
 import { SetLoading } from "@/lib/store/redux/loadersSlice";
 
-const SigninScreen = () => {
+const formSchema = z.object({
+	email: z.string().email({ message: "እባክዎ ትክክለኛ ኢሜል ያስገቡ።" }),
+	password: z.string().min(1, { message: "እባክዎ የይለፍ ቃልዎን ያስገቡ።" }),
+});
+
+export default function SigninScreen() {
+	const [showPassword, setShowPassword] = useState<boolean>(false);
 	const t = useTranslations();
 	const router = useRouter();
 	const dispatch = useAppDispatch();
-	const handleLogin = () => {
+	const form = useForm<z.infer<typeof formSchema>>({
+		resolver: zodResolver(formSchema),
+		defaultValues: {
+			email: "",
+			password: "",
+		},
+	});
+
+	const { mutate, isSuccess, isPending } = useMutation({
+		mutationKey: ["signIn"],
+		mutationFn: async (values: z.infer<typeof formSchema>) => {
+			const response = await signIn(values);
+
+			if (!response.ok) throw response;
+
+			return response;
+		},
+		onMutate: () => {
+			toast.dismiss();
+			toast.loading("ኢሜልዎን እና የይለፍ ቃልዎን በማረጋገጥ ላይ፣ እባክዎ ይጠብቁ...");
+		},
+		onSuccess: (data) => {
+			toast.dismiss();
+			toast.success(data.message);
+			router.push("/home");
+		},
+		onError: (error: any) => {
+			toast.dismiss();
+			toast.error(error.message);
+		},
+	});
+
+	function onSubmit(values: z.infer<typeof formSchema>) {
 		dispatch(SetLoading(true));
+		mutate(values as ICredentials);
 
 		setTimeout(() => {
 			dispatch(SetLoading(false));
 			router.push("/home");
-		}, 10000);
-	};
-	return (
+		}, 500);
+	}
+
+	return !isSuccess ? (
 		<div className="flex-col items-center justify-center py-12 md:flex">
 			<BackButton label="Go to Signup" href="/auth/sign-up" left={false} />
 			<Card>
@@ -48,48 +103,78 @@ const SigninScreen = () => {
 								{t("SignInForm.description")}
 							</p>
 						</div>
-						<div className="grid gap-4">
-							<div className="grid gap-2">
-								<Label htmlFor="email">{t("SignInForm.email")}</Label>
-								<Input
-									id="email"
-									type="email"
-									className="h-14 ring-2 ring-primary md:h-10 md:ring-0"
-									placeholder="m@example.com"
-									required
-								/>
-							</div>
-							<div className="grid gap-2">
-								<div className="flex items-center">
-									<Label htmlFor="password">{t("SignInForm.password")}</Label>
-									<Link
-										href="/forgot-password"
-										className="ml-auto inline-block text-sm underline"
-									>
-										{t("SignInForm.forget-password")}
-									</Link>
-								</div>
-								<Input
-									id="password"
-									type="password"
-									required
-									placeholder="password"
-									className="h-14 ring-2 ring-primary md:h-10 md:ring-0"
-								/>
-							</div>
-							<Button
-								type="submit"
-								onClick={() => handleLogin()}
-								className="mt-4 w-full  font-bold md:mt-0 "
+
+						<Form {...form}>
+							<form
+								onSubmit={form.handleSubmit(onSubmit)}
+								className="space-y-5"
 							>
-								{t("SignInForm.login")}
-							</Button>
-						</div>
+								<FormField
+									control={form.control}
+									name="email"
+									render={({ field }) => (
+										<FormItem>
+											<FormLabel>{t("SignInForm.email")}</FormLabel>
+											<FormControl>
+												<Input readOnly={isPending} tabIndex={1} {...field} />
+											</FormControl>
+											<FormMessage className="form-error-message" />
+										</FormItem>
+									)}
+								/>
+								<FormField
+									control={form.control}
+									name="password"
+									render={({ field }) => (
+										<FormItem>
+											<FormLabel className="flex justify-between">
+												{t("SignInForm.password")}
+											</FormLabel>
+											<FormControl>
+												<div className="relative ">
+													<Input
+														readOnly={isPending}
+														type={showPassword ? "text" : "password"}
+														tabIndex={2}
+														{...field}
+													/>
+													<Button
+														type="button"
+														size={"icon"}
+														variant={"ghost"}
+														className="absolute right-1 top-0 hover:bg-transparent"
+														onClick={() => setShowPassword(!showPassword)}
+													>
+														{showPassword ? (
+															<Eye size={20} />
+														) : (
+															<EyeOff size={20} />
+														)}
+													</Button>
+												</div>
+											</FormControl>
+											<FormMessage className="form-error-message" />
+										</FormItem>
+									)}
+								/>
+
+								<Button
+									disabled={isPending}
+									type="submit"
+									variant="secondary"
+									className="flex w-full items-center gap-2"
+									tabIndex={3}
+								>
+									<LogIn size={20} />
+									{t("SignInForm.login")}
+								</Button>
+							</form>
+						</Form>
 					</div>
 				</CardContent>
 			</Card>
 		</div>
+	) : (
+		<Skeleton />
 	);
-};
-
-export default SigninScreen;
+}

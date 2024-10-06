@@ -1,14 +1,18 @@
 "use client";
 
+import { useRouter } from "next/navigation";
 import { useState } from "react";
 
 import { zodResolver } from "@hookform/resolvers/zod";
+import { useMutation } from "@tanstack/react-query";
 import { useTranslations } from "next-intl";
 import { useForm } from "react-hook-form";
 import { isValidPhoneNumber } from "react-phone-number-input";
 import { toast } from "sonner";
 import { z } from "zod";
 
+import { signOut } from "@/actions/auth/action";
+import { setOrganization } from "@/actions/organization/action";
 import { Button } from "@/components/ui/button";
 import {
 	Card,
@@ -50,24 +54,29 @@ export function OrganizationForm({
 }) {
 	const t = useTranslations("organizationForm");
 	const [file, setFile] = useState<File | null>(null);
-
+	const router = useRouter();
 	// Validation schema using zod
 	const organizationFormSchema = z.object({
-		organizationNameEn: z.string().min(2, {
+		name_en: z.string().min(2, {
 			message: t("fields.organizationNameEn.error"),
 		}),
-		organizationNameAm: z.string().optional(),
-		description: z.string().optional(),
-		contactPhone: z
+		name_am: z.string().optional(),
+		bio: z.string().optional(),
+		contact_phone: z
 			.string()
 			.refine(isValidPhoneNumber, {
 				message: t("fields.contactPhone.error"),
 			})
 			.or(z.literal("")),
-		contactEmail: z.string().email({ message: t("fields.contactEmail.error") }),
-		address: z.string().optional(),
-		postalCode: z.string().optional(),
-		domain: z.string().min(2, { message: t("fields.domain.error") }),
+		contact_email: z
+			.string()
+			.email({ message: t("fields.contactEmail.error") }),
+		address: z.object({
+			city_en: z.string().min(2, { message: t("fields.address.error") }),
+			city_am: z.string().min(2, { message: t("fields.address.error") }),
+		}),
+		postal_code: z.string().optional(),
+		organization_slug: z.string().min(2, { message: t("fields.domain.error") }),
 		logo: z.instanceof(File).optional(),
 	});
 
@@ -77,14 +86,17 @@ export function OrganizationForm({
 	const form = useForm<OrganizationFormValues>({
 		resolver: zodResolver(organizationFormSchema),
 		defaultValues: {
-			organizationNameEn: dataToEdit?.organizationNameEn || "",
-			organizationNameAm: dataToEdit?.organizationNameAm || "",
-			description: dataToEdit?.description || "",
-			contactPhone: dataToEdit?.contactPhone || "",
-			contactEmail: dataToEdit?.contactEmail || "",
-			address: dataToEdit?.address || "",
-			postalCode: dataToEdit?.postalCode || "",
-			domain: dataToEdit?.domain || "",
+			name_en: dataToEdit?.name_en || "",
+			name_am: dataToEdit?.name_am || "",
+			bio: dataToEdit?.bio || "",
+			contact_phone: dataToEdit?.contact_phone || "",
+			contact_email: dataToEdit?.contact_email || "",
+			address: {
+				city_en: dataToEdit?.address?.city_en || "",
+				city_am: dataToEdit?.address?.city_am || "",
+			},
+			postal_code: dataToEdit?.postal_code || "",
+			organization_slug: dataToEdit?.organization_slug || "",
 			logo: undefined,
 		},
 		mode: "onChange",
@@ -96,9 +108,53 @@ export function OrganizationForm({
 		}
 	};
 
+	const { mutate } = useMutation({
+		mutationKey: ["createOrganization"],
+		mutationFn: async (values: OrganizationType) => {
+			const response = await setOrganization(values);
+
+			if (!response.ok) throw response;
+
+			return response;
+		},
+		onMutate: () => {
+			toast.dismiss();
+			toast.loading("አዲስ የድርጅት በመፍጠር ላይ...");
+		},
+		onSuccess: () => {
+			toast.success("አዲስ ድርጅት በተሳካ ሁኔታ ፈጥረዋል!");
+			toast.dismiss();
+			logOut();
+			router.push("/auth/sign-in" as `/${string}`);
+		},
+		onError: (error: any) => {
+			toast.error(error.message);
+			toast.dismiss();
+		},
+	});
+	const { mutate: logOut } = useMutation({
+		mutationKey: ["signOut"],
+		mutationFn: signOut,
+		onMutate: () => {
+			toast.dismiss();
+			toast.loading("በመውጣት ላይ፣ እባክዎን ትንሽ ይጠብቁ...");
+		},
+		onSuccess: () => {
+			toast.dismiss();
+			toast.success("Logout... 👋🏾BYE!");
+			router.push("/auth/sign-in " as `/${string}`);
+		},
+		onError: (errorMessage: string) => {
+			toast.dismiss();
+			toast.error(errorMessage);
+		},
+	});
+
 	function onSubmit(data: OrganizationFormValues) {
 		toast.success("Organization Created!");
+
 		console.log("data", data);
+		mutate(data as OrganizationType);
 	}
 
 	return (
@@ -120,7 +176,7 @@ export function OrganizationForm({
 						<form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
 							<FormField
 								control={form.control}
-								name="organizationNameEn"
+								name="name_en"
 								render={({ field }) => (
 									<FormItem>
 										<FormLabel>
@@ -142,7 +198,7 @@ export function OrganizationForm({
 
 							<FormField
 								control={form.control}
-								name="organizationNameAm"
+								name="name_am"
 								render={({ field }) => (
 									<FormItem>
 										<FormLabel>
@@ -164,7 +220,7 @@ export function OrganizationForm({
 
 							<FormField
 								control={form.control}
-								name="description"
+								name="bio"
 								render={({ field }) => (
 									<FormItem>
 										<FormLabel>{t("fields.description.label")}</FormLabel>
@@ -184,7 +240,7 @@ export function OrganizationForm({
 
 							<FormField
 								control={form.control}
-								name="contactPhone"
+								name="contact_phone"
 								render={({ field }) => (
 									<FormItem className="flex flex-col items-start">
 										<FormLabel className="text-left">
@@ -206,7 +262,7 @@ export function OrganizationForm({
 
 							<FormField
 								control={form.control}
-								name="contactEmail"
+								name="contact_email"
 								render={({ field }) => (
 									<FormItem>
 										<FormLabel>{t("fields.contactEmail.label")}</FormLabel>
@@ -225,7 +281,7 @@ export function OrganizationForm({
 								)}
 							/>
 
-							<FormField
+							{/* <FormField
 								control={form.control}
 								name="address"
 								render={({ field }) => (
@@ -243,7 +299,7 @@ export function OrganizationForm({
 												</SelectTrigger>
 												<SelectContent>
 													{CityData.map((city) => (
-														<SelectItem key={city.city_en} value={city.city_en}>
+														<SelectItem key={city.city_en} value={city.city_en, city.city_am}>
 															<div className="flex items-start gap-3 text-muted-foreground">
 																<span
 																	className={`size-5 fi fi-${city.conutrycode}`}
@@ -272,11 +328,76 @@ export function OrganizationForm({
 										</FormDescription>
 									</FormItem>
 								)}
+							/> */}
+							<FormField
+								control={form.control}
+								name="address"
+								render={({ field }) => (
+									<FormItem>
+										<FormLabel>{t("fields.address.label")}</FormLabel>
+										<FormControl>
+											<Select
+												onValueChange={(value) => {
+													const selectedCity = CityData.find(
+														(city) => city.city_en === value
+													);
+													if (selectedCity) {
+														// Set the city_en and city_am in the form
+														form.setValue(
+															"address.city_en",
+															selectedCity.city_en
+														);
+														form.setValue(
+															"address.city_am",
+															selectedCity.city_am
+														);
+													}
+												}}
+											>
+												<SelectTrigger
+													id="model"
+													className="items-start [&_[data-description]]:hidden"
+												>
+													<SelectValue
+														placeholder={t("fields.address.placeholder")}
+													/>
+												</SelectTrigger>
+												<SelectContent>
+													{CityData.map((city) => (
+														<SelectItem key={city.city_en} value={city.city_en}>
+															<div className="flex items-start gap-3 text-muted-foreground">
+																<span
+																	className={`size-5 fi fi-${city.countrycode}`}
+																></span>
+																<div className="grid gap-0.5">
+																	<p>
+																		{city.city_en} /
+																		<span className="font-medium text-foreground">
+																			{" "}
+																			{city.city_am}{" "}
+																		</span>
+																	</p>
+																	<p className="text-xs" data-description>
+																		Country: {city.country}
+																	</p>
+																</div>
+															</div>
+														</SelectItem>
+													))}
+												</SelectContent>
+											</Select>
+										</FormControl>
+										<FormMessage />
+										<FormDescription>
+											{t("fields.address.description")}
+										</FormDescription>
+									</FormItem>
+								)}
 							/>
 
 							<FormField
 								control={form.control}
-								name="postalCode"
+								name="postal_code"
 								render={({ field }) => (
 									<FormItem>
 										<FormLabel>{t("fields.postalCode.label")}</FormLabel>
@@ -296,7 +417,7 @@ export function OrganizationForm({
 
 							<FormField
 								control={form.control}
-								name="domain"
+								name="organization_slug"
 								render={({ field }) => (
 									<FormItem>
 										<FormLabel>{t("fields.domain.label")}</FormLabel>

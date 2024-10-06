@@ -113,7 +113,8 @@
 			"organizationNameAm": {
 				"label": "Organization Name (Amharic)",
 				"placeholder": "Enter Organization Name (Amharic)",
-				"description": "The Organization name in Amharic."
+				"description": "The Organization name in Amharic.",
+				"error": "⛔ Please enter a valid organization name. Organization name must be at least 2 characters long. Organization name must be at least 2 characters long."
 			},
 			"description": {
 				"label": "Description",
@@ -135,7 +136,8 @@
 			"address": {
 				"label": "Address",
 				"placeholder": "Enter Address",
-				"description": "The Organization Address / Location of the head office or headquarters."
+				"description": "The Organization Address / Location of the head office or headquarters.",
+				"error": "⛔ Please enter a valid address."
 			},
 			"postalCode": {
 				"label": "Postal Code",

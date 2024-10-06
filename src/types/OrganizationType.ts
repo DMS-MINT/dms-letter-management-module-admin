@@ -1,11 +1,26 @@
+export type Address = {
+	city_en: string;
+	city_am: string;
+};
+
+// export type OrganizationType = {
+// 	name_en: string;
+// 	name_am: string;
+// 	organization_slug: string;
+// 	bio: string;
+// 	contact_phone: string;
+// 	contact_email: string;
+// 	postal_code: string;
+// 	address: Address;
+// 	logo?: File | undefined;
+// };
 export type OrganizationType = {
-	organizationNameEn: string;
-	organizationNameAm: string;
-	description: string;
-	contactPhone: string;
-	contactEmail: string;
-	address: string;
-	postalCode: string;
-	domain: string;
-	logo?: File | undefined;
+	name_en: string;
+	name_am: string;
+	organization_slug: string;
+	bio: string;
+	contact_phone: string;
+	contact_email: string;
+	postal_code: string;
+	address: Address;
 };

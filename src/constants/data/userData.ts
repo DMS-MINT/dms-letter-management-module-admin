@@ -84,12 +84,15 @@ export const organizationData = [
 ];
 
 export const organizationInfo = {
-	organizationNameEn: "Tech Solutions Ltd",
-	organizationNameAm: "ቴክ ሶሉሽንስ አ.ማ.",
-	description: "A leading provider of software solutions.",
-	contactPhone: "+251911123456",
-	contactEmail: "info@techsolutions.com",
-	address: "1234 Innovation St, Addis Ababa",
-	postalCode: "1000",
-	domain: "techsolutions.com",
+	name_en: "Ministry of Innovation and Technology Addis Ababa",
+	name_am: "የኢኖቬሽን እና ቴክኖሎጂ ሚኒስቴር",
+	organization_slug: "mint-addis-ababa",
+	bio: "The Ministry of Innovation and Technology aims to enhance the national economy through innovation, technology development, and effective management of technology-related initiatives.",
+	contact_phone: "1234567890",
+	contact_email: "mint@et.org",
+	postal_code: "12345",
+	address: {
+		city_en: "Addis Ababa",
+		city_am: "አዲስ አበባ",
+	},
 };
