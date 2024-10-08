@@ -1,12 +1,9 @@
 "use client";
 
-import { useRouter } from "next/navigation";
-
-import { useMutation } from "@tanstack/react-query";
 import { CircleUser, MoveUpRight } from "lucide-react";
 import { toast } from "sonner";
 
-import { signOut } from "@/actions/auth/action";
+import { useLogout } from "@/actions/Query/user-query/authQuery";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { ModeToggle } from "@/components/ui/custom/modeToggle";
@@ -22,24 +19,7 @@ import {
 import LocaleSwitcher from "../DropDown/LocaleSwitcher";
 
 const TopNav = () => {
-	const router = useRouter();
-	const { mutate: logOut } = useMutation({
-		mutationKey: ["signOut"],
-		mutationFn: signOut,
-		onMutate: () => {
-			toast.dismiss();
-			toast.loading("በመውጣት ላይ፣ እባክዎን ትንሽ ይጠብቁ...");
-		},
-		onSuccess: () => {
-			toast.dismiss();
-			toast.success("Logout... 👋🏾BYE!");
-			router.push("/auth/sign-in " as `/${string}`);
-		},
-		onError: (errorMessage: string) => {
-			toast.dismiss();
-			toast.error(errorMessage);
-		},
-	});
+	const { mutate: logOut } = useLogout();
 
 	return (
 		<nav className="sticky top-0 z-30 h-14 w-full bg-primary-foreground px-4 py-2 backdrop-blur-sm">

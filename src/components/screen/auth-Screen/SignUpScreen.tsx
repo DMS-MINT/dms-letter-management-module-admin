@@ -1,18 +1,16 @@
 "use client";
 
 import Image from "next/image";
-import { useRouter } from "next/navigation";
 import { useState } from "react";
 
 import { zodResolver } from "@hookform/resolvers/zod";
-import { useMutation } from "@tanstack/react-query";
 import { Eye, EyeOff, Save } from "lucide-react";
 import { useTranslations } from "next-intl";
 import { useForm } from "react-hook-form";
-import { toast } from "sonner";
 import { z } from "zod";
 
-import { type ICredentials, signUp } from "@/actions/auth/action";
+import { useSignUp } from "@/actions/Query/user-query/authQuery";
+import { type ICredentials } from "@/actions/auth/action";
 import BackButton from "@/components/shared/Button/BackButton";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
@@ -34,7 +32,6 @@ export default function SignUpScreen() {
 	const [showPassword, setShowPassword] = useState<boolean>(false);
 	const dispatch = useAppDispatch();
 	const t = useTranslations("SignUpForm");
-	const router = useRouter();
 
 	// Validation schema using Zod
 	const signupFormSchema = z
@@ -67,29 +64,7 @@ export default function SignUpScreen() {
 		mode: "onChange",
 	});
 
-	const { mutate, isSuccess, isPending } = useMutation({
-		mutationKey: ["signUp"],
-		mutationFn: async (values: ICredentials) => {
-			const response = await signUp(values);
-
-			if (!response.ok) throw response;
-
-			return response;
-		},
-		onMutate: () => {
-			toast.dismiss();
-			toast.loading("ኢሜልዎን እና የይለፍ ቃልዎን በማረጋገጥ ላይ፣ እባክዎ ይጠብቁ...");
-		},
-		onSuccess: (data) => {
-			toast.dismiss();
-			toast.success(data.message.message);
-			router.push("/auth/sign-in" as `/${string}`);
-		},
-		onError: (error: any) => {
-			toast.dismiss();
-			toast.error(error.message);
-		},
-	});
+	const { mutate, isSuccess, isPending } = useSignUp();
 
 	function onSubmit(values: z.infer<typeof signupFormSchema>) {
 		dispatch(SetLoading(true));

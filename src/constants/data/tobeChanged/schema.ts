@@ -135,3 +135,42 @@ export const users = [
 		label: "member",
 	},
 ];
+
+// Define the department schema
+export const departmentSchema = z.object({
+	id: z.string(), // Department ID as a string
+	department_name_en: z.string(), // English department name
+	department_name_am: z.string(), // Amharic department name
+	abbreviation_en: z.string(), // English abbreviation
+	abbreviation_am: z.string(), // Amharic abbreviation
+	description: z.string(), // Department description
+	contact_phone: z.number().min(1000000000, "Invalid phone number"), // Phone number with validation for a reasonable length
+	contact_email: z.string().email("Invalid email format"), // Ensures a valid email format
+});
+
+// Infer the DepartmentType from the schema
+export type Department = z.infer<typeof departmentSchema>;
+
+// Example department data array
+export const departments: Department[] = [
+	{
+		id: "1",
+		department_name_en: "Finance Department",
+		department_name_am: "ገንዘብ ቢሮ",
+		abbreviation_en: "FD",
+		abbreviation_am: "ገቢ",
+		description: "Handles all financial matters",
+		contact_phone: 251912345678,
+		contact_email: "finance@organization.com",
+	},
+	{
+		id: "2",
+		department_name_en: "Human Resources",
+		department_name_am: "ሰው ኃብት",
+		abbreviation_en: "HR",
+		abbreviation_am: "ሰው ኃብት",
+		description: "Manages employee relations and recruitment",
+		contact_phone: 251911234567,
+		contact_email: "hr@organization.com",
+	},
+];

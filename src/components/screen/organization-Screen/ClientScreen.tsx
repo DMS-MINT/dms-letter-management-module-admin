@@ -11,7 +11,7 @@ import PageSubTitle from "@/components/shared/Titles/PageSubTitle";
 import { Button } from "@/components/ui/button";
 import { users } from "@/constants/data/tobeChanged/schema";
 
-import { CustomClientSheet } from "./CustomClientSheet";
+import { CustomClientSheet } from "../../module/organization-module/OrganizationForm/CustomClientSheet";
 
 const ClientScreen = () => {
 	const [isSheetOpen, setIsSheetOpen] = useState(false);

@@ -5,14 +5,13 @@ import { useRouter } from "next/navigation";
 import { useState } from "react";
 
 import { zodResolver } from "@hookform/resolvers/zod";
-import { useMutation } from "@tanstack/react-query";
 import { Eye, EyeOff, LogIn } from "lucide-react";
 import { useTranslations } from "next-intl";
 import { useForm } from "react-hook-form";
-import { toast } from "sonner";
 import { z } from "zod";
 
-import { type ICredentials, signIn } from "@/actions/auth/action";
+import { useSignIn } from "@/actions/Query/user-query/authQuery";
+import { type ICredentials } from "@/actions/auth/action";
 import BackButton from "@/components/shared/Button/BackButton";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
@@ -48,33 +47,10 @@ export default function SigninScreen() {
 		},
 	});
 
-	const { mutate, isSuccess, isPending } = useMutation({
-		mutationKey: ["signIn"],
-		mutationFn: async (values: z.infer<typeof formSchema>) => {
-			const response = await signIn(values);
-
-			if (!response.ok) throw response;
-
-			return response;
-		},
-		onMutate: () => {
-			toast.dismiss();
-			toast.loading("ኢሜልዎን እና የይለፍ ቃልዎን በማረጋገጥ ላይ፣ እባክዎ ይጠብቁ...");
-		},
-		onSuccess: (data) => {
-			toast.dismiss();
-			toast.success(data.message);
-			router.push("/home");
-		},
-		onError: (error: any) => {
-			toast.dismiss();
-			toast.error(error.message);
-		},
-	});
-
+	const { mutate: signInMutation, isSuccess, isPending } = useSignIn();
 	function onSubmit(values: z.infer<typeof formSchema>) {
 		dispatch(SetLoading(true));
-		mutate(values as ICredentials);
+		signInMutation(values as ICredentials);
 
 		setTimeout(() => {
 			dispatch(SetLoading(false));
@@ -85,6 +61,7 @@ export default function SigninScreen() {
 	return !isSuccess ? (
 		<div className="flex-col items-center justify-center py-12 md:flex">
 			<BackButton label="Go to Signup" href="/auth/sign-up" left={false} />
+
 			<Card>
 				<CardContent>
 					<div className="mx-auto mt-4 grid w-[350px] gap-6">

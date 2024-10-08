@@ -228,6 +228,63 @@
 		},
 		"successMessage": "User Created!"
 	},
+	"DepartmentForm": {
+		"title": "Add Department",
+		"titleEdit": "Edit Department",
+		"description": "Here you can add a department for DMS",
+		"descriptionEdit": "Here you can edit a department for DMS",
+		"contactInfo": "Contact Information",
+		"depratmentInfo": "Department Information",
+		"deleteDepartment": "Delete Department",
+		"fields": {
+			"departmentNameEn": {
+				"label": "Department Name (English)",
+				"placeholder": "Enter Department Name (English)",
+				"description": "The Department Name in English.",
+				"error": "⛔ Please enter a valid department name. Department name must be at least 2 characters long."
+			},
+			"departmentNameAm": {
+				"label": "Department Name (Amharic)",
+				"placeholder": "Enter Department Name (Amharic)",
+				"description": "The Department Name in Amharic.",
+				"error": "⛔ Please enter a valid department name. Department name must be at least 2 characters long."
+			},
+			"abbreviationEn": {
+				"label": "Abbreviation (English)",
+				"placeholder": "Enter Abbreviation (English)",
+				"description": "The Department Abbreviation in English.",
+				"error": "⛔ Please enter a valid abbreviation. Abbreviation must be at least 2 characters long."
+			},
+			"abbreviationAm": {
+				"label": "Abbreviation (Amharic)",
+				"placeholder": "Enter Abbreviation (Amharic)",
+				"description": "The Department Abbreviation in Amharic.",
+				"error": "⛔ Please enter a valid abbreviation. Abbreviation must be at least 2 characters long."
+			},
+			"description": {
+				"label": "Description",
+				"placeholder": "Brief description of your department",
+				"description": "The Department Description (e.g., Finance Department, Human Resources)."
+			},
+			"contactPhone": {
+				"label": "Contact Phone",
+				"placeholder": "Enter a phone number",
+				"description": "Enter a phone number.",
+				"error": "⛔ Please enter a valid phone number."
+			},
+			"contactEmail": {
+				"label": "Contact Email",
+				"placeholder": "Enter Contact Email",
+				"description": "The Department Email Address. Helps as contact information.",
+				"error": "⛔ Please enter a valid email address."
+			}
+		},
+		"button": {
+			"submit": "Create Department",
+			"clear": "Clear"
+		},
+		"successMessage": "Department Created!"
+	},
 
 	"User": {
 		"title": "User Management",

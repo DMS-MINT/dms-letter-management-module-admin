@@ -16,6 +16,7 @@ import {
 } from "lucide-react";
 import { useTranslations } from "next-intl";
 
+import { useLogout } from "@/actions/Query/user-query/authQuery";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import {
@@ -33,6 +34,7 @@ const DesktopSideBar = () => {
 	const t = useTranslations();
 	const [selectedScreen, setSelectedScreen] = useState<string>("home");
 	const route = useRouter();
+	const { mutate: logOut } = useLogout();
 	return (
 		<section className="flex h-full flex-col justify-between ">
 			<div>
@@ -132,7 +134,7 @@ const DesktopSideBar = () => {
 							icon={LogOutIcon}
 							label={t("sideBar.logout")}
 							onClick={() => {
-								route.push("/auth/sign-in" as `/${string}`);
+								logOut();
 							}}
 							active={selectedScreen === "logout"}
 						/>

@@ -1,18 +1,15 @@
 "use client";
 
-import { useRouter } from "next/navigation";
 import { useState } from "react";
 
 import { zodResolver } from "@hookform/resolvers/zod";
-import { useMutation } from "@tanstack/react-query";
 import { useTranslations } from "next-intl";
 import { useForm } from "react-hook-form";
 import { isValidPhoneNumber } from "react-phone-number-input";
 import { toast } from "sonner";
 import { z } from "zod";
 
-import { signOut } from "@/actions/auth/action";
-import { setOrganization } from "@/actions/organization/action";
+import { useAddOrganization } from "@/actions/Query/organization-query/organizationQuery";
 import { Button } from "@/components/ui/button";
 import {
 	Card,
@@ -54,7 +51,9 @@ export function OrganizationForm({
 }) {
 	const t = useTranslations("organizationForm");
 	const [file, setFile] = useState<File | null>(null);
-	const router = useRouter();
+
+	const { mutate: addOrganizationMutation } = useAddOrganization();
+
 	// Validation schema using zod
 	const organizationFormSchema = z.object({
 		name_en: z.string().min(2, {
@@ -108,53 +107,11 @@ export function OrganizationForm({
 		}
 	};
 
-	const { mutate } = useMutation({
-		mutationKey: ["createOrganization"],
-		mutationFn: async (values: OrganizationType) => {
-			const response = await setOrganization(values);
-
-			if (!response.ok) throw response;
-
-			return response;
-		},
-		onMutate: () => {
-			toast.dismiss();
-			toast.loading("አዲስ የድርጅት በመፍጠር ላይ...");
-		},
-		onSuccess: () => {
-			toast.success("አዲስ ድርጅት በተሳካ ሁኔታ ፈጥረዋል!");
-			toast.dismiss();
-			logOut();
-			router.push("/auth/sign-in" as `/${string}`);
-		},
-		onError: (error: any) => {
-			toast.error(error.message);
-			toast.dismiss();
-		},
-	});
-	const { mutate: logOut } = useMutation({
-		mutationKey: ["signOut"],
-		mutationFn: signOut,
-		onMutate: () => {
-			toast.dismiss();
-			toast.loading("በመውጣት ላይ፣ እባክዎን ትንሽ ይጠብቁ...");
-		},
-		onSuccess: () => {
-			toast.dismiss();
-			toast.success("Logout... 👋🏾BYE!");
-			router.push("/auth/sign-in " as `/${string}`);
-		},
-		onError: (errorMessage: string) => {
-			toast.dismiss();
-			toast.error(errorMessage);
-		},
-	});
-
 	function onSubmit(data: OrganizationFormValues) {
 		toast.success("Organization Created!");
 
 		console.log("data", data);
-		mutate(data as OrganizationType);
+		addOrganizationMutation(data as OrganizationType);
 	}
 
 	return (
