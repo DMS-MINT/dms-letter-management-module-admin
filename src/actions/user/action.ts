@@ -15,8 +15,9 @@ export async function getMyProfile() {
 	}
 }
 
-export async function getRecordOfficers(is_staff: boolean = true) {
+export async function getRecordOfficers() {
 	try {
+		const is_staff: boolean = true;
 		const response = await axiosInstance.get(`users/?is_staff=${is_staff}`);
 
 		return { ok: true, message: response.data.users };
@@ -24,8 +25,9 @@ export async function getRecordOfficers(is_staff: boolean = true) {
 		return { ok: false, message: getErrorMessage(error) };
 	}
 }
-export async function getMemberUsers(is_staff: boolean = false) {
+export async function getMemberUsers() {
 	try {
+		const is_staff: boolean = false;
 		const response = await axiosInstance.get(`users/?is_staff=${is_staff}`);
 
 		return { ok: true, message: response.data.users };
