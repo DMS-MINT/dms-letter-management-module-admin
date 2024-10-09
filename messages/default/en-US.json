@@ -43,6 +43,16 @@
 		"title": "Signup",
 		"description": "Enter your email below to SignUp a new account",
 		"fields": {
+			"first_name": {
+				"label": "First Name",
+				"placeholder": "Enter First Name",
+				"error": "Please enter a valid first name. First name must be at least 2 characters long."
+			},
+			"last_name": {
+				"label": "Last Name",
+				"placeholder": "Enter Last Name",
+				"error": "Please enter a valid last name. Last name must be at least 2 characters long."
+			},
 			"email": {
 				"label": "Email",
 				"placeholder": "Enter your email",

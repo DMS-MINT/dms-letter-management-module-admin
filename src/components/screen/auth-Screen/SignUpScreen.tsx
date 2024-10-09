@@ -36,6 +36,12 @@ export default function SignUpScreen() {
 	// Validation schema using Zod
 	const signupFormSchema = z
 		.object({
+			first_name: z.string().min(2, {
+				message: "First Name must be at least 2 characters long.",
+			}),
+			last_name: z.string().min(2, {
+				message: "Last Name must be at least 2 characters long.",
+			}),
 			email: z.string().email({
 				message: "Please enter a valid email address.",
 			}),
@@ -57,6 +63,8 @@ export default function SignUpScreen() {
 	const form = useForm<SignupFormValues>({
 		resolver: zodResolver(signupFormSchema),
 		defaultValues: {
+			first_name: "",
+			last_name: "",
 			email: "",
 			password: "",
 			confirmPassword: "",
@@ -105,6 +113,50 @@ export default function SignUpScreen() {
 								className="space-y-5"
 							>
 								<div className="grid gap-4">
+									<div className="grid grid-cols-2 gap-4">
+										<div className="grid gap-2">
+											<FormField
+												control={form.control}
+												name="first_name"
+												render={({ field }) => (
+													<FormItem>
+														<FormLabel>
+															{t("fields.first_name.label")}
+														</FormLabel>
+														<FormControl>
+															<Input
+																type="text"
+																readOnly={isPending}
+																placeholder={t("fields.first_name.placeholder")}
+																{...field}
+															/>
+														</FormControl>
+														<FormMessage />
+													</FormItem>
+												)}
+											/>
+										</div>
+										<div className="grid gap-2">
+											<FormField
+												control={form.control}
+												name="last_name"
+												render={({ field }) => (
+													<FormItem>
+														<FormLabel>{t("fields.last_name.label")}</FormLabel>
+														<FormControl>
+															<Input
+																type="text"
+																readOnly={isPending}
+																placeholder={t("fields.last_name.placeholder")}
+																{...field}
+															/>
+														</FormControl>
+														<FormMessage />
+													</FormItem>
+												)}
+											/>
+										</div>
+									</div>
 									<FormField
 										control={form.control}
 										name="email"

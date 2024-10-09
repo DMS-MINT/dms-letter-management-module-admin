@@ -64,7 +64,7 @@ const OrganizationProfileScreen = () => {
 			</div>
 
 			{formOpen ? (
-				<div className="pt-28 flex items-center justify-center">
+				<div className="pt-28 w-full px-10 ">
 					<OrganizationForm
 						lounchScreen={false}
 						editOrganization={true}
@@ -72,7 +72,7 @@ const OrganizationProfileScreen = () => {
 					/>
 				</div>
 			) : (
-				<div className="pt-28 flex items-center justify-center">
+				<div className="pt-28 px-10 w-full">
 					<UserDetailTable
 						data={organizationData}
 						title="Organization Profile"
