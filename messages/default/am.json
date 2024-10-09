@@ -162,6 +162,15 @@
 	"userForm": {
 		"title": "የእርስዎን ተጠቃሚ ይፍጠሩ",
 		"description": "ይህ ቅፅ የእርስዎን ተጠቃሚ ለማፍጠር ይፈቅዳል።",
+		"admin": "የDMS አስተዳዳሪ",
+		"adminDesc": "አስተዳዳሪ የአገልግሎቱን ሁሉም ተግባሮች ማካሄድ የሚችል በጣም ከፍተኛ የተጠቃሚ ደረጃ ነው።",
+		"record_officer": "መዝገብ አጠቃቀም ባለሙያ",
+		"record_officerDesc": "መዝገብ አጠቃቀም ባለሙያ ሰው የተጠቃሚ እንደርድካሽ ሁለተኛ ደረጃ ሲሆን መዝገቦችን ማስተካከል ይችላል።",
+		"personalInfo": "የግል መረጃ",
+		"addressInfo": "የአድራሻ መረጃ",
+		"organizationInfo": "የድርጅት መረጃ",
+		"role_permissions": "ሚና እና ፈቃዶች",
+
 		"fields": {
 			"first_name_en": {
 				"label": "የመጀመሪያ ስም (እንግሊዝ)",
@@ -220,11 +229,16 @@
 				"placeholder": "ኢሜይል ይጻፉ",
 				"description": "የኢሜይል አድራሻ። እንደ የእንቅስቃሴ መረጃ ይረዳል።",
 				"error": "⛔ እባኮትን የተረጋገው ኢሜይል አድራሻ ይጻፉ።"
+			},
+			"role": {
+				"label": "የተጠቃሚ ሚና",
+				"description": "ከተዘረዘሩት ውስጥ የተመዝጋቢውን ሚና ይምረጡ"
 			}
 		},
 		"button": {
 			"submit": "ተጠቃሚ ይፍጠሩ",
-			"clear": "አጽዳ"
+			"clear": "አጽዳ",
+			"submitUpdate": "ተጠቃሚ መረጃ ይቀይሩ"
 		},
 		"successMessage": "ተጠቃሚ ተፈጥሯል!"
 	},

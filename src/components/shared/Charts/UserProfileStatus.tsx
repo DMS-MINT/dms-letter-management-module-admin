@@ -16,23 +16,30 @@ import {
 	ChartTooltipContent,
 } from "@/components/ui/chart";
 
-// Profile completion data
-const profileCompletionData = [
-	{ name: "Profile Completion", value: 75, value_left: 25 }, // 75% completed, 25% remaining
-];
-
 const chartConfig = {
 	completion: {
 		label: "Profile Completion",
-		color: "hsl(var(--chart-1))", // color for the completion bar
+		color: "hsl(var(--chart-2))", // color for the completion bar
 	},
 	leftValueToComplete: {
 		label: "Left Percentage",
-		color: "hsl(var(--chart-2))", // color for the remaining bar
+		color: "hsl(var(--chart-4))", // color for the remaining bar
 	},
 } satisfies ChartConfig;
 
-export function UserProfileCompletion() {
+export function UserProfileCompletion({
+	profileCompletionPercentage,
+}: {
+	profileCompletionPercentage: string;
+}) {
+	const profileCompletionData = [
+		{
+			name: "Profile Completion",
+			value: Number(profileCompletionPercentage).toFixed(0),
+			value_left: 100 - Number(profileCompletionPercentage),
+		}, // 75% completed, 25% remaining
+	];
+
 	const profileCompletion = profileCompletionData[0].value;
 
 	return (

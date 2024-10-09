@@ -54,7 +54,7 @@ export async function signUp(credentials: ICredentials) {
 
 		storeEmail = response.data.email;
 
-		return { ok: true, message: response.data };
+		return { ok: true, message: response.data.message };
 	} catch (error: any) {
 		return { ok: false, message: getErrorMessage(error) };
 	}

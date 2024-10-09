@@ -1,6 +1,6 @@
 "use client";
 
-import { useRouter } from "next/navigation";
+import { useState } from "react";
 
 import { DotsHorizontalIcon } from "@radix-ui/react-icons";
 import { type Row } from "@tanstack/react-table";
@@ -10,17 +10,13 @@ import {
 	DropdownMenu,
 	DropdownMenuContent,
 	DropdownMenuItem,
-	DropdownMenuRadioGroup,
-	DropdownMenuRadioItem,
 	DropdownMenuSeparator,
 	DropdownMenuShortcut,
-	DropdownMenuSub,
-	DropdownMenuSubContent,
-	DropdownMenuSubTrigger,
 	DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
-import { userSchema } from "@/constants/data/tobeChanged/schema";
-import { labels } from "@/constants/data/userData";
+import { enterpriseSchema } from "@/constants/data/tobeChanged/schema";
+
+import { CustomClientSheet } from "../OrganizationForm/CustomClientSheet";
 
 interface DataTableRowActionsProps<TData> {
 	row: Row<TData>;
@@ -29,46 +25,45 @@ interface DataTableRowActionsProps<TData> {
 export function DataTableRowActions<TData>({
 	row,
 }: DataTableRowActionsProps<TData>) {
-	const user = userSchema.parse(row.original);
-	const route = useRouter();
+	const [isSheetOpen, setIsSheetOpen] = useState(false);
+	const enterprise = enterpriseSchema.parse(row.original);
+	const isAdding = false;
+	const handleCloseSheet = () => {
+		setIsSheetOpen(false);
+	};
 	return (
-		<DropdownMenu>
-			<DropdownMenuTrigger asChild>
-				<Button
-					variant="ghost"
-					className="flex h-8 w-8 p-0 data-[state=open]:bg-muted"
-				>
-					<DotsHorizontalIcon className="h-4 w-4" />
-					<span className="sr-only">Open menu</span>
-				</Button>
-			</DropdownMenuTrigger>
-			<DropdownMenuContent align="end" className="w-[160px]">
-				<DropdownMenuItem
-					onClick={() => route.push("user/2344" as `/${string}`)}
-				>
-					Edit
-				</DropdownMenuItem>
-				<DropdownMenuItem>Make a copy</DropdownMenuItem>
-				<DropdownMenuItem>Favorite</DropdownMenuItem>
-				<DropdownMenuSeparator />
-				<DropdownMenuSub>
-					<DropdownMenuSubTrigger>Labels</DropdownMenuSubTrigger>
-					<DropdownMenuSubContent>
-						<DropdownMenuRadioGroup value={user.first_name_en}>
-							{labels.map((label) => (
-								<DropdownMenuRadioItem key={label.value} value={label.value}>
-									{label.label}
-								</DropdownMenuRadioItem>
-							))}
-						</DropdownMenuRadioGroup>
-					</DropdownMenuSubContent>
-				</DropdownMenuSub>
-				<DropdownMenuSeparator />
-				<DropdownMenuItem>
-					Delete
-					<DropdownMenuShortcut>⌘⌫</DropdownMenuShortcut>
-				</DropdownMenuItem>
-			</DropdownMenuContent>
-		</DropdownMenu>
+		<>
+			<DropdownMenu>
+				<DropdownMenuTrigger asChild>
+					<Button
+						variant="ghost"
+						className="flex h-8 w-8 p-0 data-[state=open]:bg-muted"
+					>
+						<DotsHorizontalIcon className="h-4 w-4" />
+						<span className="sr-only">Open menu</span>
+					</Button>
+				</DropdownMenuTrigger>
+				<DropdownMenuContent align="end" className="w-[160px]">
+					<DropdownMenuItem onClick={() => setIsSheetOpen(!isSheetOpen)}>
+						Edit
+					</DropdownMenuItem>
+					<DropdownMenuItem>Make a copy</DropdownMenuItem>
+					<DropdownMenuItem>Favorite</DropdownMenuItem>
+					<DropdownMenuSeparator />
+
+					<DropdownMenuSeparator />
+					<DropdownMenuItem>
+						Delete
+						<DropdownMenuShortcut>⌘⌫</DropdownMenuShortcut>
+					</DropdownMenuItem>
+				</DropdownMenuContent>
+			</DropdownMenu>
+			<CustomClientSheet
+				isAdding={isAdding}
+				isOpen={isSheetOpen}
+				onClose={handleCloseSheet}
+				client={enterprise}
+			/>
+		</>
 	);
 }

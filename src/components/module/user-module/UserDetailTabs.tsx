@@ -1,5 +1,11 @@
+"use client";
+
+import { useParams } from "next/navigation";
+import { useState } from "react";
+
 import { Edit, File, Menu } from "lucide-react";
 
+import { useFetchUserDetail } from "@/actions/Query/user-query/userQuery";
 import { Button } from "@/components/ui/button";
 import {
 	DropdownMenu,
@@ -15,10 +21,15 @@ import UserDetailInfo from "./UserDetailInfo";
 import UserDetailReport from "./UserDetailReport";
 import UserDetailSetting from "./UserDetailSetting";
 import SignatureUploadForm from "./UserForm/SignatureUploadForm";
+import UserUpdateSheet from "./UserUpdateSheet";
 
 type Props = {};
 
 const UserDetailTabs = (props: Props) => {
+	const { id } = useParams();
+	const userId: string = Array.isArray(id) ? id[0] : id;
+	const [showSheet, setShowSheet] = useState(false);
+	const { data: userDetail, isSuccess } = useFetchUserDetail(userId);
 	return (
 		<div>
 			<Tabs defaultValue="all">
@@ -55,7 +66,11 @@ const UserDetailTabs = (props: Props) => {
 							</span>
 						</Button>
 
-						<Button size="sm" className="h-7 text-white gap-1">
+						<Button
+							size="sm"
+							className="h-7 text-white gap-1"
+							onClick={() => setShowSheet(!showSheet)}
+						>
 							<Edit className="h-3.5 w-3.5" />
 							<span className="sr-only  font-bold sm:not-sr-only sm:whitespace-nowrap">
 								Edit
@@ -76,6 +91,13 @@ const UserDetailTabs = (props: Props) => {
 					<UserDetailSetting />
 				</TabsContent>
 			</Tabs>
+			{isSuccess && userDetail && (
+				<UserUpdateSheet
+					show={showSheet}
+					setshowSheet={setShowSheet}
+					data={userDetail}
+				/>
+			)}
 		</div>
 	);
 };

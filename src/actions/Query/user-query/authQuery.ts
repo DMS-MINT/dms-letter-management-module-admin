@@ -34,15 +34,21 @@ export const useLogout = () => {
 };
 
 export const useSignIn = () => {
+	// const { refetch } = useFetchMe();
 	const router = useRouter();
 	return useToastMutation<ICredentials>(
 		"signIn",
 		signIn,
 		"ኢሜልዎን እና የይለፍ ቃልዎን በማረጋገጥ ላይ፣ እባክዎ ይጠብቁ...",
 		{
-			onSuccess: (variables) => {
-				router.push("/home");
-				console.log("Signed in successfully:", variables);
+			onSuccess: async (variables) => {
+				try {
+					// await refetch();
+					console.log("Signed up and fetched profile successfully:", variables);
+					router.push("/home");
+				} catch (error) {
+					console.error("Error fetching profile after signup:", error);
+				}
 			},
 		}
 	);

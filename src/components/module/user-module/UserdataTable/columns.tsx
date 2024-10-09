@@ -1,26 +1,48 @@
 "use client";
 
+import { CircleIcon } from "@radix-ui/react-icons";
 import { type ColumnDef } from "@tanstack/react-table";
+import { CircleX } from "lucide-react";
 
 import { Badge } from "@/components/ui/badge";
 import { Checkbox } from "@/components/ui/checkbox";
-import { User } from "@/constants/data/tobeChanged/schema";
-import { labels, statuses } from "@/constants/data/userData";
+// Updated import path
+import { type UserListType } from "@/types/user/UserType";
 
 import { DataTableColumnHeader } from "./data-table-column-header";
 import { DataTableRowActions } from "./data-table-row-actions";
 
-// "first_name_en": "Betelhem",
-// "middle_name_en": "Mekdes",
-// "last_name_en": "Asfaw",
-// "first_name_am": "ቤተልሄም",
-// "middle_name_am": "መካድስ",
-// "last_name_am": "አስፋው",
+// Generate labels based on is_staff and is_superuser
+export const labels = [
+	{
+		value: "member",
+		label: "Member",
+	},
+	{
+		value: "admin",
+		label: "Admin",
+	},
+	{
+		value: "recordOfficer",
+		label: "Record Officer",
+	},
+];
 
-// "department_name": "Strategic Affairs CEO",
+// Example statuses based on account status
+export const statuses = [
+	{
+		value: "active",
+		label: "Active",
+		icon: CircleIcon,
+	},
+	{
+		value: "deactivated",
+		label: "Deactivated",
+		icon: CircleX,
+	},
+];
 
-// "email": "betelhem.asfaw@mint.com",
-export const columns: ColumnDef<User>[] = [
+export const columns: ColumnDef<UserListType>[] = [
 	{
 		id: "select",
 		header: ({ table }) => (
@@ -46,21 +68,18 @@ export const columns: ColumnDef<User>[] = [
 		enableHiding: false,
 	},
 	{
-		accessorKey: "id",
-		header: ({ column }) => (
-			<DataTableColumnHeader column={column} title="Id" />
-		),
-		cell: ({ row }) => <div className="w-[20px]">{row.getValue("id")}</div>,
-		enableSorting: false,
-		enableHiding: false,
-	},
-	{
 		accessorKey: "name",
 		header: ({ column }) => (
 			<DataTableColumnHeader column={column} title="FullName" />
 		),
 		cell: ({ row }) => {
-			const label = labels.find((label) => label.value === row.original.label);
+			const labelValue = row.original.is_superuser
+				? "admin"
+				: row.original.is_staff
+					? "recordOfficer"
+					: "member";
+
+			const label = labels.find((label) => label.value === labelValue);
 			const fullName = `${row.original.first_name_en} ${row.original.middle_name_en} ${row.original.last_name_en}`;
 			const fullNameAm = `${row.original.first_name_am} ${row.original.middle_name_am} ${row.original.last_name_am}`;
 
@@ -77,16 +96,14 @@ export const columns: ColumnDef<User>[] = [
 			);
 		},
 	},
-
 	{
 		accessorKey: "status",
 		header: ({ column }) => (
 			<DataTableColumnHeader column={column} title="Status" />
 		),
 		cell: ({ row }) => {
-			const status = statuses.find(
-				(status) => status.value === row.getValue("status")
-			);
+			const statusValue = row.getValue("account_status") || "active"; // Assuming account_status exists
+			const status = statuses.find((status) => status.value === statusValue);
 
 			if (!status) {
 				return null;

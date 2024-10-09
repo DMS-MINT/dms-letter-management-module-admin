@@ -1,7 +1,7 @@
 "use server";
 
 import axiosInstance from "@/actions/axiosInstance";
-import { DepartmentType } from "@/types/DepartmentType";
+import { type DepartmentType, type JobTitleType } from "@/types/DepartmentType";
 import { type EnterpriseType } from "@/types/EnterpriseType";
 import { type OrganizationType } from "@/types/OrganizationType";
 
@@ -35,12 +35,31 @@ export async function getEnterprises() {
 		return { ok: false, message: getErrorMessage(error) };
 	}
 }
+export async function getOneEnterprises(id: string) {
+	try {
+		const response = await axiosInstance.get(`enterprises/${id}`);
+		console.log("Enterprises:", response.data);
+		return { ok: true, message: "የአዲስ ደንበኛ ተገኝቷል!", data: response.data };
+	} catch (error: any) {
+		return { ok: false, message: getErrorMessage(error) };
+	}
+}
 export async function setEnterprises(data: EnterpriseType) {
 	try {
 		const response = await axiosInstance.post("enterprises/create/", data);
 		console.log("Enterprises:", response.data);
 		return { ok: true, message: "የአዲስ ደንበኛ ተገኝቷል!" };
 	} catch (error: any) {
+		return { ok: false, message: getErrorMessage(error) };
+	}
+}
+export async function updateEnterprises(data: EnterpriseType) {
+	try {
+		const { id } = data;
+		const response = await axiosInstance.put(`enterprises/${id}/update`, data);
+		console.log("enterprise Update", response.data);
+		return { ok: true, message: "ደንበኛ ተቀይሯል!" };
+	} catch (error) {
 		return { ok: false, message: getErrorMessage(error) };
 	}
 }
@@ -71,7 +90,7 @@ export async function getJobTitle() {
 		return { ok: false, message: getErrorMessage(error) };
 	}
 }
-export async function setJobTitle(data: EnterpriseType) {
+export async function setJobTitle(data: JobTitleType) {
 	try {
 		const response = await axiosInstance.post("job_titles/create/", data);
 		console.log("Job Titles:", response.data);

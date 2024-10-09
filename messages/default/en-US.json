@@ -162,6 +162,15 @@
 	"userForm": {
 		"title": "Create Your User",
 		"description": "This form allows you to create your user.",
+		"admin": "Admin",
+		"adminDesc": "Admin is the highest level of user that can run all the functionalities of the system.",
+		"record_officer": "Record Officer",
+		"record_officerDesc": "Record Officer is the second level of user that can manage the records.",
+		"personalInfo": "Personal Information",
+		"organizationInfo": "Organization Information",
+		"addressInfo": "Address Information",
+		"role_permissions": "Role and Permissions",
+
 		"fields": {
 			"first_name_en": {
 				"label": "First Name (English)",
@@ -220,11 +229,16 @@
 				"placeholder": "Enter Email",
 				"description": "The Email Address. Helps as contact information.",
 				"error": "⛔ Please enter a valid email address."
+			},
+			"role": {
+				"label": "User Role",
+				"description": "Select the role you want the user to have."
 			}
 		},
 		"button": {
 			"submit": "Create User",
-			"clear": "Clear"
+			"clear": "Clear",
+			"submitUpdate": "Update User"
 		},
 		"successMessage": "User Created!"
 	},

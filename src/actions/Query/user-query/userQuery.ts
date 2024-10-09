@@ -1,17 +1,28 @@
-import { useQuery } from "@tanstack/react-query";
+import { useQuery, useQueryClient } from "@tanstack/react-query";
 import { toast } from "sonner";
 
 import {
+	getAllUser,
 	getMemberUsers,
 	getMyProfile,
+	getOneMember,
+	getOneUser,
 	getRecordOfficers,
+	setMemberUsers,
 	updateProfile,
+	updateUser,
 } from "@/actions/user/action";
 import { useAppDispatch } from "@/hooks/storehooks";
 import useToastMutation from "@/hooks/useToastMutation";
 import { SetCurrentUser } from "@/lib/store/redux/usersSlice";
-import { type CurrentUserType } from "@/types/user/UserType";
+import {
+	type CurrentUserType,
+	type UserDetailType,
+	type UserListType,
+	type UserType,
+} from "@/types/user/UserType";
 
+// * get - get current user details
 export const useFetchMe = () => {
 	const dispatch = useAppDispatch();
 
@@ -34,13 +45,15 @@ export const useFetchMe = () => {
 // TODO: Add a loading state for the query
 // TODO: Add a type for the return value of the query
 // TODO: This hook is not implemented yet
+
+// * get - get Record Officers
 export const useFetchRecordOfficers = () => {
 	return useQuery<CurrentUserType, Error>({
 		queryKey: ["recordOfficers"],
 		queryFn: async () => {
 			try {
 				const data = await getRecordOfficers();
-				return data.message;
+				return data.data;
 			} catch (error: any) {
 				toast.error(error.message);
 				throw error; // Rethrow the error to allow React Query to handle it
@@ -53,13 +66,15 @@ export const useFetchRecordOfficers = () => {
 // TODO: Add a loading state for the query
 // TODO: Add a type for the return value of the query
 // TODO: This hook is not implemented yet
+
+// * get - get Members without record officer
 export const useFetchMembers = () => {
-	return useQuery<CurrentUserType, Error>({
-		queryKey: ["members"],
+	return useQuery<UserType[], Error>({
+		queryKey: ["getmembers"],
 		queryFn: async () => {
 			try {
 				const data = await getMemberUsers();
-				return data.message;
+				return data.data;
 			} catch (error: any) {
 				toast.error(error.message);
 				throw error; // Rethrow the error to allow React Query to handle it
@@ -69,17 +84,99 @@ export const useFetchMembers = () => {
 	});
 };
 
+// * get - get All Users
+export const useFetchAllUsers = () => {
+	return useQuery<UserListType[], Error>({
+		queryKey: ["getallusers"],
+		queryFn: async () => {
+			try {
+				const data = await getAllUser();
+				return data.data;
+			} catch (error: any) {
+				toast.error(error.message);
+				throw error; // Rethrow the error to allow React Query to handle it
+			}
+		},
+		enabled: true,
+	});
+};
+
+// * get - get One Member detail
+export const useFetchMemeberDetail = (id: string) => {
+	return useQuery<UserDetailType, Error>({
+		queryKey: ["getMemberDetail"],
+		queryFn: async () => {
+			try {
+				const data = await getOneMember(id);
+				return data.data;
+			} catch (error: any) {
+				toast.error(error.message);
+				throw error;
+			}
+		},
+		enabled: true,
+	});
+};
+
+// * get - get One User detail
+export const useFetchUserDetail = (id: string) => {
+	return useQuery<UserListType, Error>({
+		queryKey: ["getUserDetail"],
+		queryFn: async () => {
+			try {
+				const data = await getOneUser(id);
+				return data.data;
+			} catch (error: any) {
+				toast.error(error.message);
+				throw error;
+			}
+		},
+		enabled: true,
+	});
+};
+
+export const useUpdateUser = () => {
+	return useToastMutation<UserListType>(
+		"updateMe",
+		updateUser,
+		"የእርስዎን መገለጫ በማሻሻል...",
+		{
+			onSuccess: (variables) => {
+				console.log("Updated successfully:", variables);
+			},
+		}
+	);
+};
+
 // TODO: Add a loading state for the query
 // TODO: wrong type for the form data
 // TODO: This hook is not implemented yet
+
+// * patch - update current user details
 export const useUpdateMe = () => {
-	return useToastMutation<CurrentUserType>(
+	return useToastMutation<UserType>(
 		"updateMe",
 		updateProfile,
 		"የእርስዎን መገለጫ በማሻሻል...",
 		{
 			onSuccess: (variables) => {
 				console.log("Updated successfully:", variables);
+			},
+		}
+	);
+};
+
+// * post - add new user
+export const useAddMembers = () => {
+	const queryclient = useQueryClient();
+	return useToastMutation<UserType>(
+		"addUserMember",
+		setMemberUsers,
+		"አዲስ ተተቃሚ በመመዝገብ ላይ ...",
+		{
+			onSuccess: (variables) => {
+				console.log("Add successfully:", variables);
+				queryclient.invalidateQueries({ queryKey: ["getmembers"] });
 			},
 		}
 	);

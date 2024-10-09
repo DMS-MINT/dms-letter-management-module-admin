@@ -16,7 +16,7 @@ import {
 } from "@/components/ui/sheet";
 
 // Zod schema for validation
-const contactSchema = z.object({
+export const enterpriseSchema = z.object({
 	full_name_en: z
 		.string()
 		.min(1, { message: "Full Name (English) is required" }),
@@ -37,16 +37,18 @@ const contactSchema = z.object({
 });
 
 // Define the type for the form data
-type ContactFormData = z.infer<typeof contactSchema>;
+export type EnterpriseFormData = z.infer<typeof enterpriseSchema>;
 
 type CustomSheetProps = {
 	isOpen: boolean;
+	client: EnterpriseFormData;
 	onClose: () => void;
 	isAdding: boolean;
 };
 
 export function CustomClientSheet({
 	isOpen,
+	client,
 	onClose,
 	isAdding,
 }: CustomSheetProps) {
@@ -55,22 +57,22 @@ export function CustomClientSheet({
 		handleSubmit,
 		reset,
 		formState: { errors },
-	} = useForm<ContactFormData>({
+	} = useForm<EnterpriseFormData>({
 		defaultValues: {
-			full_name_en: "",
-			full_name_am: "",
+			full_name_en: client.full_name_en || "",
+			full_name_am: client.full_name_am || "",
 			address: {
-				city_en: "",
-				city_am: "",
+				city_en: client.address.city_en || "",
+				city_am: client.address.city_am || "",
 			},
-			phone_number: "+251",
-			email: "",
+			phone_number: client.phone_number || "",
+			email: client.email || "",
 		},
-		resolver: zodResolver(contactSchema),
+		resolver: zodResolver(enterpriseSchema),
 	});
 
 	// Submit handler
-	const onSubmit = (data: ContactFormData) => {
+	const onSubmit = (data: EnterpriseFormData) => {
 		console.log("Form submitted with data:", data);
 		// Perform your form submission logic here
 

@@ -3,10 +3,13 @@ import { toast } from "sonner";
 
 import { getDepartment, setDepartment } from "@/actions/organization/action";
 import useToastMutation from "@/hooks/useToastMutation";
-import { DepartmentType } from "@/types/DepartmentType";
+import {
+	type DepartmentType,
+	type DepartmentTypeToUpdate,
+} from "@/types/DepartmentType";
 
 export const useFetchDepartments = () => {
-	return useQuery<DepartmentType[]>({
+	return useQuery<DepartmentTypeToUpdate[]>({
 		queryKey: ["departments"],
 		queryFn: async () => {
 			try {

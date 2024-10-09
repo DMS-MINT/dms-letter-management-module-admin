@@ -48,13 +48,13 @@ export default function SigninScreen() {
 	});
 
 	const { mutate: signInMutation, isSuccess, isPending } = useSignIn();
+
 	function onSubmit(values: z.infer<typeof formSchema>) {
 		dispatch(SetLoading(true));
 		signInMutation(values as ICredentials);
 
 		setTimeout(() => {
 			dispatch(SetLoading(false));
-			router.push("/home");
 		}, 500);
 	}
 
