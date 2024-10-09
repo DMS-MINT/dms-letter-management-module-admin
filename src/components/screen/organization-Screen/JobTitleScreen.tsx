@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 import { PlusCircleIcon } from "lucide-react";
 import { useTranslations } from "next-intl";
@@ -18,6 +18,20 @@ const JobTitleScreen = () => {
 	const t = useTranslations("JobTitleScreen");
 	const [formOpen, setFormOpen] = useState(false);
 	const { data: jobTitles, isLoading } = useFetchJobtitles();
+	const params = new URLSearchParams(window.location.search);
+
+	// Extracting the values from URL
+	const title_enURL = params.get("title_en") || "";
+	const title_amURL = params.get("title_am") || "";
+	const JobId = params.get("id") || "";
+	const [titleEngURL, setTitleEn] = useState(title_enURL);
+	const [titleAmURL, setTitleAm] = useState(title_amURL);
+
+	useEffect(() => {
+		if (titleEngURL && titleAmURL) {
+			setFormOpen(true);
+		}
+	}, [titleEngURL, titleAmURL]);
 	return (
 		<div className="p-2 space-y-4 mb-20">
 			<PageSubTitle title={t("title")} desc={t("description")} />
@@ -34,7 +48,14 @@ const JobTitleScreen = () => {
 				</Button>
 			</div>
 			<div className="flex flex-col gap-4">
-				{formOpen && <JobTitleForm />}
+				{formOpen && (
+					<JobTitleForm
+						titleEngURL={titleEngURL}
+						titleAmURL={titleAmURL}
+						update={true}
+						id={JobId}
+					/>
+				)}
 				{isLoading ? (
 					<Skeleton />
 				) : (

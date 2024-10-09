@@ -1,7 +1,13 @@
 import { useQuery } from "@tanstack/react-query";
 import { toast } from "sonner";
 
-import { getDepartment, setDepartment } from "@/actions/organization/action";
+import {
+	deleteDepartment,
+	getDepartment,
+	getOneDepartment,
+	setDepartment,
+	updateDepartment,
+} from "@/actions/organization/action";
 import useToastMutation from "@/hooks/useToastMutation";
 import {
 	type DepartmentType,
@@ -17,10 +23,25 @@ export const useFetchDepartments = () => {
 				return data.data;
 			} catch (error: any) {
 				toast.error(error.message);
-				throw error; // Rethrow the error to allow React Query to handle it
+				throw error;
 			}
 		},
 		enabled: true,
+	});
+};
+export const useFetchOneDepartments = (id: string, enabled: boolean = true) => {
+	return useQuery<DepartmentTypeToUpdate>({
+		queryKey: ["Onedepartments"],
+		queryFn: async () => {
+			try {
+				const data = await getOneDepartment(id);
+				return data.data;
+			} catch (error: any) {
+				toast.error(error.message);
+				throw error;
+			}
+		},
+		enabled: enabled,
 	});
 };
 
@@ -40,6 +61,44 @@ export const useAddDepartment = () => {
 				toast.success(
 					`Department ${variables.department_name_en} created successfully!`
 				);
+			},
+			onError: (error) => {
+				console.error("Error creating department:", error);
+			},
+		}
+	);
+};
+
+export const useUpdateDepartment = () => {
+	return useToastMutation<DepartmentTypeToUpdate>(
+		"updateDepartment",
+		updateDepartment,
+		"የመምሪያው መገለጫ በማሻሻል...",
+		{
+			onSuccess: (data, variables) => {
+				// 'data' contains the response from the server
+				// 'variables' contains the department data you passed in
+				console.log("Department updated successfully:", data.message);
+				console.log("New Department Data:", variables);
+			},
+			onError: (error) => {
+				console.error("Error creating department:", error);
+			},
+		}
+	);
+};
+
+export const useDeleteDepartment = () => {
+	return useToastMutation<string>(
+		"updateDepartment",
+		deleteDepartment,
+		"የመምሪያው መገለጫ በማሻሻል...",
+		{
+			onSuccess: (data, variables) => {
+				// 'data' contains the response from the server
+				// 'variables' contains the department data you passed in
+				console.log("Department deleted successfully:", data.message);
+				console.log("New Department Data:", variables);
 			},
 			onError: (error) => {
 				console.error("Error creating department:", error);

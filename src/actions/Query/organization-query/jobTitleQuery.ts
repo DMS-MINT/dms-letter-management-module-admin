@@ -1,7 +1,11 @@
 import { useQuery } from "@tanstack/react-query";
 import { toast } from "sonner";
 
-import { getJobTitle, setJobTitle } from "@/actions/organization/action";
+import {
+	getJobTitle,
+	setJobTitle,
+	updateJobTitle,
+} from "@/actions/organization/action";
 import useToastMutation from "@/hooks/useToastMutation";
 import {
 	type JobTitleListType,
@@ -36,6 +40,22 @@ export const useAddJobTitles = () => {
 				console.log("JobTitle created successfully:", data.message);
 				console.log("New JobTitle Data:", variables);
 				// queryClient.invalidateQueries({ queryKey: ["JobTitles"] });
+			},
+			onError: (error) => {
+				console.error("Error creating JobTitle:", error);
+			},
+		}
+	);
+};
+export const useUpdateJobTitles = () => {
+	return useToastMutation<JobTitleListType>(
+		"updateJobTitle",
+		updateJobTitle,
+		"የስራ ስም መገለጫ በማሻሻል...",
+		{
+			onSuccess: (data, variables) => {
+				console.log("JobTitle updated successfully:", data.message);
+				console.log("New JobTitle Data:", variables);
 			},
 			onError: (error) => {
 				console.error("Error creating JobTitle:", error);

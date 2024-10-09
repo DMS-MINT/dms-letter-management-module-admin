@@ -8,6 +8,10 @@ import { isValidPhoneNumber } from "react-phone-number-input";
 import { toast } from "sonner";
 import { z } from "zod";
 
+import {
+	useAddDepartment,
+	useUpdateDepartment,
+} from "@/actions/Query/organization-query/departmentQuery";
 import { Button } from "@/components/ui/button";
 import { PhoneInput } from "@/components/ui/custom/phone-input";
 import {
@@ -20,8 +24,15 @@ import {
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
+import { type DepartmentTypeToUpdate } from "@/types/DepartmentType";
 
-export function DepartmentForm() {
+export function DepartmentForm({
+	isEdit = false,
+	data,
+}: {
+	isEdit?: boolean;
+	data?: DepartmentTypeToUpdate;
+}) {
 	const t = useTranslations("DepartmentForm");
 	// Define the validation schema using Zod
 	const departmentFormSchema = z.object({
@@ -55,20 +66,28 @@ export function DepartmentForm() {
 	const form = useForm<DepartmentFormValues>({
 		resolver: zodResolver(departmentFormSchema),
 		defaultValues: {
-			department_name_en: "",
-			department_name_am: "",
-			abbreviation_en: "",
-			abbreviation_am: "",
-			description: "",
-			contact_phone: "",
-			contact_email: "",
+			department_name_en: data?.department_name_en || "",
+			department_name_am: data?.department_name_am || "",
+			abbreviation_en: data?.abbreviation_en || "",
+			abbreviation_am: data?.abbreviation_am || "",
+			description: data?.description || "",
+			contact_phone: data?.contact_phone || "",
+			contact_email: data?.contact_email || "",
 		},
 		mode: "onChange",
 	});
 
+	const { mutate: addDepartmentMutation } = useAddDepartment();
+	const { mutate: updateDepartmentMutation } = useUpdateDepartment();
+
 	function onSubmit(data: DepartmentFormValues) {
 		toast.success("Department Created!");
 		console.log("data", data);
+		if (isEdit) {
+			updateDepartmentMutation(data as DepartmentTypeToUpdate);
+		} else {
+			addDepartmentMutation(data as DepartmentFormValues);
+		}
 	}
 
 	return (

@@ -32,7 +32,7 @@ const UserDetailInfo = () => {
 	// }
 
 	// Personal Data
-	// Personal Data
+
 	const userPersonalData = [
 		{ name: "Full Name", value: userDetail?.personal.full_name_en || "N/A" },
 		{

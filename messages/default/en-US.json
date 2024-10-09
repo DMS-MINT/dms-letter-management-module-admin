@@ -427,16 +427,19 @@
 			"jobTitleEn": {
 				"label": "Job Title (English)",
 				"placeholder": "Enter Job Title (English)",
-				"description": "The Job Title in English."
+				"description": "The Job Title in English.",
+				"error": "⛔ Please enter a valid job title."
 			},
 			"jobTitleAm": {
 				"label": "Job Title (Amharic)",
 				"placeholder": "Enter Job Title (Amharic)",
-				"description": "The Job Title in Amharic."
+				"description": "The Job Title in Amharic.",
+				"error": "⛔ Please enter a valid job title."
 			}
 		},
 		"button": {
-			"submit": "Create Job Title"
+			"submit": "Create Job Title",
+			"updateSubmit": "Update Job Title"
 		},
 		"successMessage": "Job Title Created!"
 	}

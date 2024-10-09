@@ -9,7 +9,10 @@ import { isValidPhoneNumber } from "react-phone-number-input";
 import { toast } from "sonner";
 import { z } from "zod";
 
-import { useAddOrganization } from "@/actions/Query/organization-query/organizationQuery";
+import {
+	useAddOrganization,
+	useUpdateOrganization,
+} from "@/actions/Query/organization-query/organizationQuery";
 import { Button } from "@/components/ui/button";
 import {
 	Card,
@@ -38,7 +41,10 @@ import {
 } from "@/components/ui/select";
 import { Textarea } from "@/components/ui/textarea";
 import { CityData } from "@/constants/data/cityData";
-import { type OrganizationType } from "@/types/OrganizationType";
+import {
+	type OrganizationListType,
+	type OrganizationType,
+} from "@/types/OrganizationType";
 
 export function OrganizationForm({
 	lounchScreen = true,
@@ -53,6 +59,7 @@ export function OrganizationForm({
 	const [file, setFile] = useState<File | null>(null);
 
 	const { mutate: addOrganizationMutation } = useAddOrganization();
+	const { mutate: updateOrganizationMutation } = useUpdateOrganization();
 
 	// Validation schema using zod
 	const organizationFormSchema = z.object({
@@ -111,7 +118,11 @@ export function OrganizationForm({
 		toast.success("Organization Created!");
 
 		console.log("data", data);
-		addOrganizationMutation(data as OrganizationType);
+		if (editOrganization) {
+			updateOrganizationMutation(data as OrganizationListType);
+		} else {
+			addOrganizationMutation(data as OrganizationType);
+		}
 	}
 
 	return (
@@ -238,54 +249,6 @@ export function OrganizationForm({
 								)}
 							/>
 
-							{/* <FormField
-								control={form.control}
-								name="address"
-								render={({ field }) => (
-									<FormItem>
-										<FormLabel>{t("fields.address.label")}</FormLabel>
-										<FormControl>
-											<Select>
-												<SelectTrigger
-													id="model"
-													className="items-start [&_[data-description]]:hidden"
-												>
-													<SelectValue
-														placeholder={t("fields.address.placeholder")}
-													/>
-												</SelectTrigger>
-												<SelectContent>
-													{CityData.map((city) => (
-														<SelectItem key={city.city_en} value={city.city_en, city.city_am}>
-															<div className="flex items-start gap-3 text-muted-foreground">
-																<span
-																	className={`size-5 fi fi-${city.conutrycode}`}
-																></span>{" "}
-																<div className="grid gap-0.5">
-																	<p>
-																		{city.city_en} /
-																		<span className="font-medium text-foreground">
-																			{" "}
-																			{city.city_am}{" "}
-																		</span>
-																	</p>
-																	<p className="text-xs" data-description>
-																		Country: {city.country}
-																	</p>
-																</div>
-															</div>
-														</SelectItem>
-													))}
-												</SelectContent>
-											</Select>
-										</FormControl>
-										<FormMessage />
-										<FormDescription>
-											{t("fields.address.description")}
-										</FormDescription>
-									</FormItem>
-								)}
-							/> */}
 							<FormField
 								control={form.control}
 								name="address"

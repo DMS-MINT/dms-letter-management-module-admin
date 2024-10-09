@@ -5,9 +5,9 @@ import { useState } from "react";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { MoveRight, Send } from "lucide-react";
 import { useForm } from "react-hook-form";
-import { toast } from "sonner";
 import { z } from "zod";
 
+import { useUpdateDateConfig } from "@/actions/Query/system-query/documentQuery";
 import { Button } from "@/components/ui/button";
 import DatePickerWithRange from "@/components/ui/custom/date-picker-with-range";
 import {
@@ -20,6 +20,7 @@ import {
 } from "@/components/ui/form";
 import { Label } from "@/components/ui/label";
 import { Switch } from "@/components/ui/switch";
+import { DateConfigType } from "@/types/SystemType";
 
 const FormSchema = z.object({
 	automatic_date: z.boolean().default(true),
@@ -38,9 +39,14 @@ export function DateConfigForm() {
 		},
 	});
 
+	const { mutate: updateDateConfig } = useUpdateDateConfig();
 	const onSubmit = (data: z.infer<typeof FormSchema>) => {
-		toast.success("Date  Configuration Saved!");
-		console.log(data);
+		const value = {
+			auto_date_letters: data.automatic_date ? true : false,
+		};
+		updateDateConfig(value as DateConfigType);
+
+		// TODO the manual selected date range is not saved in the database
 	};
 
 	const handleAutomaticToggle = (value: boolean) => {

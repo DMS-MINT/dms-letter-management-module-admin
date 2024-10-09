@@ -6,6 +6,10 @@ import { useForm } from "react-hook-form";
 import { toast } from "sonner";
 import { z } from "zod";
 
+import {
+	useAddJobTitles,
+	useUpdateJobTitles,
+} from "@/actions/Query/organization-query/jobTitleQuery";
 import { Button } from "@/components/ui/button";
 import {
 	Card,
@@ -25,13 +29,24 @@ import {
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 
-export function JobTitleForm() {
+export function JobTitleForm({
+	titleEngURL,
+	titleAmURL,
+	id,
+	update = false,
+}: {
+	titleEngURL?: string;
+	titleAmURL?: string;
+	id?: string;
+	update?: boolean;
+}) {
 	const t = useTranslations("JobTitleForm");
+
 	const jobTitleFormSchema = z.object({
-		jobTitleEn: z.string().min(2, {
+		title_en: z.string().min(2, {
 			message: t("fields.jobTitleEn.error"),
 		}),
-		jobTitleAm: z.string().min(2, {
+		title_am: z.string().min(2, {
 			message: t("fields.jobTitleAm.error"),
 		}),
 	});
@@ -42,15 +57,24 @@ export function JobTitleForm() {
 	const form = useForm<JobTitleFormValues>({
 		resolver: zodResolver(jobTitleFormSchema),
 		defaultValues: {
-			jobTitleEn: "",
-			jobTitleAm: "",
+			title_en: titleEngURL?.toString() || "",
+			title_am: titleAmURL?.toString() || "",
 		},
 		mode: "onChange",
 	});
 
+	const { mutate: JobTitleMutation } = useAddJobTitles();
+	const { mutate: JobTitleUpdateMutation } = useUpdateJobTitles();
 	function onSubmit(data: JobTitleFormValues) {
 		toast.success("Organization Created!");
-		console.log("data", data);
+
+		if (update && id) {
+			const value = { ...data, id };
+			console.log("value", value);
+			JobTitleUpdateMutation(value);
+		} else {
+			JobTitleMutation(data);
+		}
 	}
 
 	return (
@@ -65,7 +89,7 @@ export function JobTitleForm() {
 						<form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
 							<FormField
 								control={form.control}
-								name="jobTitleEn"
+								name="title_en"
 								render={({ field }) => (
 									<FormItem>
 										<FormLabel>{t("fields.jobTitleEn.label")}</FormLabel>
@@ -85,7 +109,7 @@ export function JobTitleForm() {
 
 							<FormField
 								control={form.control}
-								name="jobTitleAm"
+								name="title_am"
 								render={({ field }) => (
 									<FormItem>
 										<FormLabel>{t("fields.jobTitleAm.label")}</FormLabel>
@@ -102,7 +126,9 @@ export function JobTitleForm() {
 									</FormItem>
 								)}
 							/>
-							<Button type="submit">{t("button.submit")}</Button>
+							<Button type="submit">
+								{update ? t("button.updateSubmit") : t("button.submit")}
+							</Button>
 						</form>
 					</Form>
 				</CardContent>

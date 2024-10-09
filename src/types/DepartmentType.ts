@@ -4,7 +4,7 @@ export type DepartmentType = {
 	abbreviation_en: string;
 	abbreviation_am: string;
 	description: string;
-	contact_phone: number;
+	contact_phone: string;
 	contact_email: string;
 };
 export type DepartmentTypeToUpdate = {
@@ -14,7 +14,7 @@ export type DepartmentTypeToUpdate = {
 	abbreviation_en: string;
 	abbreviation_am: string;
 	description: string;
-	contact_phone: number;
+	contact_phone: string;
 	contact_email: string;
 };
 

@@ -14,7 +14,7 @@ import {
 	DropdownMenuShortcut,
 	DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
-import { enterpriseSchema } from "@/constants/data/tobeChanged/schema";
+import { enterpriseSchema } from "@/constants/data/schema";
 
 import { CustomClientSheet } from "../OrganizationForm/CustomClientSheet";
 

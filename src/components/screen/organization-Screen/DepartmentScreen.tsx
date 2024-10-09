@@ -4,14 +4,16 @@ import { useRouter } from "next/navigation";
 
 import { File, PlusCircle } from "lucide-react";
 
+import { useFetchDepartments } from "@/actions/Query/organization-query/departmentQuery";
 import { columns } from "@/components/module/organization-module/DepartmentdataTable/columns";
 import { DepartmentDataTable } from "@/components/module/organization-module/DepartmentdataTable/data-table";
 import PageSubTitle from "@/components/shared/Titles/PageSubTitle";
 import { Button } from "@/components/ui/button";
-import { departments } from "@/constants/data/tobeChanged/schema";
+import { Skeleton } from "@/components/ui/skeleton";
 
 const DepartmentScreen = () => {
 	const route = useRouter();
+	const { data: departments, isLoading } = useFetchDepartments();
 	return (
 		<div className="p-4 space-y-6 mb-20">
 			<div className="flex items-center justify-between space-y-2">
@@ -40,7 +42,11 @@ const DepartmentScreen = () => {
 					</Button>
 				</div>
 			</div>
-			<DepartmentDataTable data={departments} columns={columns} />
+			{isLoading ? (
+				<Skeleton />
+			) : (
+				<DepartmentDataTable data={departments || []} columns={columns} />
+			)}
 		</div>
 	);
 };

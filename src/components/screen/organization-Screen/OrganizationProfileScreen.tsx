@@ -5,10 +5,10 @@ import { useState } from "react";
 
 import { Edit } from "lucide-react";
 
+import { useFetchOrganization } from "@/actions/Query/organization-query/organizationQuery";
 import { OrganizationForm } from "@/components/module/organization-module/OrganizationForm/OrganizationForm";
 import UserDetailTable from "@/components/module/user-module/UserDetailTable";
 import { Button } from "@/components/ui/button";
-import { organizationData, organizationInfo } from "@/constants/data/userData";
 import { IMAGES } from "@/constants/files";
 
 const OrganizationProfileScreen = () => {
@@ -16,6 +16,26 @@ const OrganizationProfileScreen = () => {
 	const handleEditOrganization = () => {
 		setFormOpen(!formOpen);
 	};
+	const { data: organization } = useFetchOrganization();
+	const organizationData = [
+		{
+			name: "Organization Name",
+			value: organization?.name_en || "N/A",
+		},
+		{
+			name: "Organization Name (Amharic)",
+			value: organization?.name_am || "N/A",
+		},
+		{
+			name: "Description",
+			value: organization?.bio || "N/A",
+		},
+		{ name: "Contact Phone", value: organization?.contact_phone || "N/A" },
+		{ name: "Contact Email", value: organization?.contact_email || "N/A" },
+		{ name: "Address", value: organization?.address.city_en || "N/A" },
+		{ name: "Postal Code", value: organization?.postal_code || "N/A" },
+		{ name: "Domain", value: organization?.organization_slug || "N/A" },
+	];
 	return (
 		<div className="flex flex-col space-y-4 mb-20">
 			<div className="w-full relative bg-muted/40 border-primary border-2 border-t-0 background-svg-pattern h-80 md:h-48 rounded-b-lg  ">
@@ -48,7 +68,7 @@ const OrganizationProfileScreen = () => {
 					<OrganizationForm
 						lounchScreen={false}
 						editOrganization={true}
-						dataToEdit={organizationInfo}
+						dataToEdit={organization}
 					/>
 				</div>
 			) : (

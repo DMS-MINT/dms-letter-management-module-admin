@@ -440,7 +440,8 @@
 			}
 		},
 		"button": {
-			"submit": "የስራ መደብ ይፍጠሩ"
+			"submit": "የስራ መደብ ይፍጠሩ",
+			"updateSubmit": "የስራ መደብ ያስተካክሉ"
 		},
 		"successMessage": "የስራ መደብ ተፈጥሯል!"
 	}

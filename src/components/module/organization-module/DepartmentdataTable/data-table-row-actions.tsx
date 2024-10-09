@@ -14,7 +14,7 @@ import {
 	DropdownMenuShortcut,
 	DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
-import { departmentSchema } from "@/constants/data/tobeChanged/schema";
+import { departmentSchema } from "@/constants/data/schema";
 
 interface DataTableRowActionsProps<TData> {
 	row: Row<TData>;
