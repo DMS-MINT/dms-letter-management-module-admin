@@ -1,0 +1,457 @@
+{
+	"metadata": {
+		"description": "Build More Efficient, Engaging, and Profitable Document Management System: DMS Enhances your workflow with the Power of Automation, Collaboration, and Security.",
+		"title": {
+			"home": "Home",
+			"signin": "Sign In",
+			"features": "Features",
+			"pricing": "Pricing",
+			"contact": "Contact"
+		}
+	},
+
+	"PathnamesPage": {
+		"description": "",
+		"title": ""
+	},
+	"mode-toggle": {
+		"dark": "Dark",
+		"light": "Light",
+		"system": "System",
+		"toggleTheme": "Toggle Theme"
+	},
+	"LocaleSwitcher": {
+		"changeLanguage": "Change Language",
+		"english": "English",
+		"amharic": "Amharic"
+	},
+	"Error": {
+		"title": "There was a problem",
+		"description": "We could not find the page you were looking for.",
+		"GoBack": "Go back to the",
+		"dashboard": "Dashboard"
+	},
+	"SignInForm": {
+		"title": "Login",
+		"description": "Enter your email below to login to your account",
+		"forget-password": "Forget your password?",
+		"email": "Email",
+		"password": "Password",
+		"login": "Login"
+	},
+	"SignUpForm": {
+		"title": "Signup",
+		"description": "Enter your email below to SignUp a new account",
+		"fields": {
+			"first_name": {
+				"label": "First Name",
+				"placeholder": "Enter First Name",
+				"error": "Please enter a valid first name. First name must be at least 2 characters long."
+			},
+			"last_name": {
+				"label": "Last Name",
+				"placeholder": "Enter Last Name",
+				"error": "Please enter a valid last name. Last name must be at least 2 characters long."
+			},
+			"email": {
+				"label": "Email",
+				"placeholder": "Enter your email",
+				"error": "Please enter a valid email address."
+			},
+			"password": {
+				"label": "Password",
+				"placeholder": "Enter your password",
+				"error": "Password must be at least 8 characters long."
+			},
+			"confirmPassword": {
+				"label": "Confirm Password",
+				"placeholder": "Confirm your password",
+				"error": "Passwords must match!",
+				"mismatch": "Passwords must match!"
+			}
+		},
+		"submit": "Signup"
+	},
+	"sideBar": {
+		"title": "DMS System Admin",
+		"launchPad": "Launch pad",
+		"home": "Home",
+		"user": "User Mgt",
+		"organization": "Organization Mgt",
+		"system": "System Mgt",
+		"new": "new",
+		"settings": "Settings",
+		"logout": "Logout",
+		"upgrade": "Upgrade to Pro",
+		"UpgradeDescription": "Unlock all features and get unlimited access DMS.",
+		"UpgradeButton": "Upgrade"
+	},
+
+	"LaunchScreen": {
+		"welcomeTitle": "Welcome to DMS! 👋",
+		"welcomeDescription": "This launch screen provides a step-by-step guide to help you configure your application during the initial setup.",
+		"firstStep": "🎯 First, add a subdomain and check its availability",
+		"secondStep": "🎯 Next, register your organization's information in the system",
+		"note": "Note:",
+		"noteDetails": "Please ensure you're ready to submit the required information before starting the forms. Your data will only be saved if all required steps are completed; incomplete submissions won't be stored.",
+		"here": "here"
+	},
+
+	"SubDomainForm": {
+		"title": "Sub Domain",
+		"description": "The subdomain is the name of your organization. It is used to identify your organization and to create the URL for your organization.",
+		"enterDomain": "Enter your domain",
+		"domainPlaceholder": "yourdomain",
+		"domainSuffix": ".DMSsaas.com",
+		"domainFormDescription": "Must be one lowercase word, no dots, dashes, underscores, or spaces.",
+		"allowAdminChange": "Allow administrators to change the Sub domain.",
+		"submitButton": "Save",
+		"successMessage": "Subdomain Created!",
+		"domainError": "⛔ Please choose a valid subdomain.",
+		"domainPatternError": "⛔ Must be one lowercase word, no dots, dashes, underscores, or spaces."
+	},
+
+	"organizationForm": {
+		"title": "Create Your Organization",
+		"description": "This form allows you to create your organization.",
+		"fields": {
+			"organizationNameEn": {
+				"label": "Organization Name (English)",
+				"placeholder": "Enter Organization Name (English)",
+				"description": "This is the Organization name that will be displayed on the system.",
+				"error": "⛔ Please enter a valid organization name. Organization name must be at least 2 characters long."
+			},
+			"organizationNameAm": {
+				"label": "Organization Name (Amharic)",
+				"placeholder": "Enter Organization Name (Amharic)",
+				"description": "The Organization name in Amharic.",
+				"error": "⛔ Please enter a valid organization name. Organization name must be at least 2 characters long. Organization name must be at least 2 characters long."
+			},
+			"description": {
+				"label": "Description",
+				"placeholder": "Brief description of your organization",
+				"description": "The Organization Description (e.g., Ministry office, Private company)."
+			},
+			"contactPhone": {
+				"label": "Phone Number",
+				"placeholder": "Enter a phone number",
+				"description": "Enter a phone number.",
+				"error": "⛔ Please enter a valid phone number."
+			},
+			"contactEmail": {
+				"label": "Contact Email",
+				"placeholder": "Enter Contact Email",
+				"description": "The Organization Email Address. Helps as contact information.",
+				"error": "⛔ Please enter a valid email address."
+			},
+			"address": {
+				"label": "Address",
+				"placeholder": "Enter Address",
+				"description": "The Organization Address / Location of the head office or headquarters.",
+				"error": "⛔ Please enter a valid address."
+			},
+			"postalCode": {
+				"label": "Postal Code",
+				"placeholder": "Enter Postal Code",
+				"description": "The Organization Postal Address. Helps as contact information."
+			},
+			"domain": {
+				"label": "Subdomain",
+				"placeholder": "Choose a subdomain (e.g., yourcompany.saas.com)",
+				"description": "This selected sub-domain is for accessing the application.",
+				"error": "⛔ Please choose a valid subdomain."
+			},
+			"logo": {
+				"label": "Organization Logo"
+			}
+		},
+		"button": {
+			"submit": "Create Organization"
+		},
+		"successMessage": "Organization Created!"
+	},
+	"userForm": {
+		"title": "Create Your User",
+		"description": "This form allows you to create your user.",
+		"admin": "Admin",
+		"adminDesc": "Admin is the highest level of user that can run all the functionalities of the system.",
+		"record_officer": "Record Officer",
+		"record_officerDesc": "Record Officer is the second level of user that can manage the records.",
+		"personalInfo": "Personal Information",
+		"organizationInfo": "Organization Information",
+		"addressInfo": "Address Information",
+		"role_permissions": "Role and Permissions",
+
+		"fields": {
+			"first_name_en": {
+				"label": "First Name (English)",
+				"placeholder": "Enter First Name (English)",
+				"description": "This is the First Name that will be displayed on the system.",
+				"error": "⛔ Please enter a valid first name. First name must be at least 2 characters long."
+			},
+			"middle_name_en": {
+				"label": "Middle Name (English)",
+				"placeholder": "Enter Middle Name (English)",
+				"description": "The First Name in English.",
+				"error": "⛔ Please enter a valid middle name. Middle name must be at least 2 characters long."
+			},
+			"last_name_en": {
+				"label": "Last Name (English)",
+				"placeholder": "Enter Last Name (English)",
+				"description": "The Last Name in English.",
+				"error": "⛔ Please enter a valid last name. Last name must be at least 2 characters long."
+			},
+			"first_name_am": {
+				"label": "First Name (Amharic)",
+				"placeholder": "Enter First Name (Amharic)",
+				"description": "The First Name in Amharic.",
+				"error": "⛔ Please enter a valid first name. First name must be at least 2 characters long."
+			},
+			"middle_name_am": {
+				"label": "Middle Name (Amharic)",
+				"placeholder": "Enter Middle Name (Amharic)",
+				"description": "The Middle Name in Amharic.",
+				"error": "⛔ Please enter a valid middle name. Middle name must be at least 2 characters long."
+			},
+			"last_name_am": {
+				"label": "Last Name (Amharic)",
+				"placeholder": "Enter Last Name (Amharic)",
+				"description": "The Last Name in Amharic.",
+				"error": "⛔ Please enter a valid last name. Last name must be at least 2 characters long."
+			},
+			"job_title": {
+				"label": "Job Title",
+				"placeholder": "Enter Job Title",
+				"description": "The Job Title."
+			},
+			"department_name": {
+				"label": "Department Name",
+				"placeholder": "Enter Department Name",
+				"description": "The Department Name."
+			},
+			"phone_number": {
+				"label": "Phone Number",
+				"placeholder": "Enter a phone number",
+				"description": "Enter a phone number.",
+				"error": "⛔ Please enter a valid phone number."
+			},
+			"email": {
+				"label": "Email",
+				"placeholder": "Enter Email",
+				"description": "The Email Address. Helps as contact information.",
+				"error": "⛔ Please enter a valid email address."
+			},
+			"role": {
+				"label": "User Role",
+				"description": "Select the role you want the user to have."
+			}
+		},
+		"button": {
+			"submit": "Create User",
+			"clear": "Clear",
+			"submitUpdate": "Update User"
+		},
+		"successMessage": "User Created!"
+	},
+	"DepartmentForm": {
+		"title": "Add Department",
+		"titleEdit": "Edit Department",
+		"description": "Here you can add a department for DMS",
+		"descriptionEdit": "Here you can edit a department for DMS",
+		"contactInfo": "Contact Information",
+		"depratmentInfo": "Department Information",
+		"deleteDepartment": "Delete Department",
+		"fields": {
+			"departmentNameEn": {
+				"label": "Department Name (English)",
+				"placeholder": "Enter Department Name (English)",
+				"description": "The Department Name in English.",
+				"error": "⛔ Please enter a valid department name. Department name must be at least 2 characters long."
+			},
+			"departmentNameAm": {
+				"label": "Department Name (Amharic)",
+				"placeholder": "Enter Department Name (Amharic)",
+				"description": "The Department Name in Amharic.",
+				"error": "⛔ Please enter a valid department name. Department name must be at least 2 characters long."
+			},
+			"abbreviationEn": {
+				"label": "Abbreviation (English)",
+				"placeholder": "Enter Abbreviation (English)",
+				"description": "The Department Abbreviation in English.",
+				"error": "⛔ Please enter a valid abbreviation. Abbreviation must be at least 2 characters long."
+			},
+			"abbreviationAm": {
+				"label": "Abbreviation (Amharic)",
+				"placeholder": "Enter Abbreviation (Amharic)",
+				"description": "The Department Abbreviation in Amharic.",
+				"error": "⛔ Please enter a valid abbreviation. Abbreviation must be at least 2 characters long."
+			},
+			"description": {
+				"label": "Description",
+				"placeholder": "Brief description of your department",
+				"description": "The Department Description (e.g., Finance Department, Human Resources)."
+			},
+			"contactPhone": {
+				"label": "Contact Phone",
+				"placeholder": "Enter a phone number",
+				"description": "Enter a phone number.",
+				"error": "⛔ Please enter a valid phone number."
+			},
+			"contactEmail": {
+				"label": "Contact Email",
+				"placeholder": "Enter Contact Email",
+				"description": "The Department Email Address. Helps as contact information.",
+				"error": "⛔ Please enter a valid email address."
+			}
+		},
+		"button": {
+			"submit": "Create Department",
+			"clear": "Clear"
+		},
+		"successMessage": "Department Created!"
+	},
+
+	"User": {
+		"title": "User Management",
+		"description": "User Management Settings",
+		"members": "Members",
+		"status": "Status",
+		"security": "Security",
+		"activity": "Activity",
+		"trash": "Trash",
+		"bulkActions": "Bulk Actions",
+		"export": "Export",
+		"feedback": "Feedback",
+		"notify": "Notify",
+		"settings": "Settings",
+		"password": "Password",
+		"profile": "Profile",
+		"roles": "Roles",
+		"permissions": "Permissions",
+		"invite": "Invite",
+		"edit": "Edit",
+		"delete": "Delete",
+		"cancel": "Cancel",
+		"save": "Save",
+		"add": "Add",
+		"role": "Role",
+		"roleName": "Role Name",
+		"roleDescription": "Role Description",
+		"permission": "Permission",
+		"permissionName": "Permission Name",
+		"permissionDescription": "Permission Description",
+		"user": "User",
+		"userName": "User Name",
+		"userEmail": "User Email",
+		"userRole": "User Role",
+		"userStatus": "User Status",
+		"userCreatedAt": "User Created At",
+		"userLastLogin": "User Last Login",
+		"userPermissions": "User Permissions",
+		"users": "Users",
+		"usersCount": "{count} users",
+		"rolesCount": "{count} roles",
+		"permissionsCount": "{count} permissions",
+		"invites": "Invites",
+		"invitesCount": "{count} invites",
+		"invited": "Invited",
+		"notInvited": "Not Invited",
+		"pending": "Pending",
+		"expired": "Expired",
+		"revoked": "Revoked",
+		"active": "Active",
+		"inactive": "Inactive",
+		"ban": "Ban",
+		"unban": "Unban",
+		"reset": "Reset",
+		"resetPassword": "Reset Password",
+		"changePassword": "Change Password",
+		"updatePassword": "Update Password",
+		"copy": "Copy",
+		"copied": "Copied!",
+		"search": "Search",
+		"searchPlaceholder": "Search...",
+		"noResults": "No results found.",
+		"create": "Create",
+		"created": "Created",
+		"createdBy": "Created by",
+		"updated": "Updated",
+		"updatedBy": "Updated by",
+		"deleted": "Deleted",
+		"deletedBy": "Deleted by",
+		"undelete": "Undelete",
+		"undeleted": "Undeleted",
+		"undeletedBy": "Undeleted by",
+		"revoke": "Revoke"
+	},
+	"organization": {
+		"title": "Organization Management",
+		"description": "Organization Management Settings",
+		"orgProfile": "Organization Profile",
+		"workflow": "Workflow",
+		"department": "Department",
+		"job_title": "Job Title",
+		"client": "Client",
+		"letterMgmt": "Letter Management",
+		"letterRoute": "Letter Route",
+		"roleConfig": "Role Config",
+		"activity": "Activity",
+		"trash": "Trash",
+		"bulkActions": "Bulk Actions",
+		"export": "Export",
+		"feedback": "Feedback",
+		"notify": "Notify",
+		"settings": "Settings",
+		"password": "Password",
+		"roles": "Roles",
+		"permissions": "Permissions",
+		"edit": "Edit",
+		"delete": "Delete",
+		"cancel": "Cancel",
+		"save": "Save"
+	},
+	"settings": {
+		"title": "Settings",
+		"description": "My Settings",
+		"general": "General",
+		"team": "Team",
+		"security": "Security",
+		"profile": "My Profile"
+	},
+	"system": {
+		"title": "System Settings",
+		"description": "System Management Settings",
+		"document": "Document Settings",
+		"notification": "Notification Settings",
+		"security": "Security Settings"
+	},
+	"JobTitleScreen": {
+		"title": "Job Title",
+		"description": "Here are all the job title for DMS",
+		"addjobtitle": "Add Job Title",
+		"list": "List"
+	},
+	"JobTitleForm": {
+		"title": "Add Job Title",
+		"description": "Here add all the valuable job title to create a member for DMS",
+		"fields": {
+			"jobTitleEn": {
+				"label": "Job Title (English)",
+				"placeholder": "Enter Job Title (English)",
+				"description": "The Job Title in English.",
+				"error": "⛔ Please enter a valid job title."
+			},
+			"jobTitleAm": {
+				"label": "Job Title (Amharic)",
+				"placeholder": "Enter Job Title (Amharic)",
+				"description": "The Job Title in Amharic.",
+				"error": "⛔ Please enter a valid job title."
+			}
+		},
+		"button": {
+			"submit": "Create Job Title",
+			"updateSubmit": "Update Job Title"
+		},
+		"successMessage": "Job Title Created!"
+	}
+}
