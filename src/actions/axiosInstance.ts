@@ -46,7 +46,7 @@ axiosInstance.interceptors.request.use(
 			// Extract subdomain from the session response cookies
 			const setCookie = session?.response?.headers["set-cookie"]; // Assuming the session response includes the headers
 			const subdomain = extractSubdomainFromCookies(setCookie);
-
+			// console.log("subdomain", subdomain);
 			if (subdomain) {
 				// Update the baseURL with the tenant's subdomain
 				config.baseURL = `http://${subdomain}.${process.env.BASE_DOMAIN}`;

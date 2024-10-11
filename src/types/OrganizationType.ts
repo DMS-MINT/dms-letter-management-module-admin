@@ -1,6 +1,25 @@
-export type Address = {
-	city_en: string;
-	city_am: string;
+import { type AddressType } from "./shared/AddressType";
+
+export type OrganizationType = {
+	name_en: string;
+	name_am: string;
+	tenant_slug: string;
+	bio: string;
+	contact_phone: string;
+	contact_email: string;
+	postal_code: string;
+	address: AddressType;
+};
+export type OrganizationListType = {
+	id: string;
+	name_en: string;
+	name_am: string;
+	tenant_slug: string;
+	bio: string;
+	contact_phone: string;
+	contact_email: string;
+	postal_code: string;
+	address: AddressType;
 };
 
 // export type OrganizationType = {
@@ -14,13 +33,3 @@ export type Address = {
 // 	address: Address;
 // 	logo?: File | undefined;
 // };
-export type OrganizationType = {
-	name_en: string;
-	name_am: string;
-	organization_slug: string;
-	bio: string;
-	contact_phone: string;
-	contact_email: string;
-	postal_code: string;
-	address: Address;
-};

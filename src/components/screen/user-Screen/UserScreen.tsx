@@ -4,15 +4,20 @@ import { useRouter } from "next/navigation";
 
 import { File, PlusCircle } from "lucide-react";
 
+import { useFetchAllUsers } from "@/actions/Query/user-query/userQuery";
 import { columns } from "@/components/module/user-module/UserdataTable/columns";
 import { DataTable } from "@/components/module/user-module/UserdataTable/data-table";
 import PageSubTitle from "@/components/shared/Titles/PageSubTitle";
 import { Button } from "@/components/ui/button";
-import { users } from "@/constants/data/tobeChanged/schema";
+import { Skeleton } from "@/components/ui/skeleton";
+
+// import { users } from "@/constants/data/tobeChanged/schema";
 
 const UserScreen = () => {
 	const route = useRouter();
-	return (
+	const { data: users, isLoading, isSuccess } = useFetchAllUsers();
+
+	return !isSuccess ? (
 		<div className="p-4 space-y-6 mb-20">
 			<div className="flex items-center justify-between space-y-2">
 				<PageSubTitle
@@ -40,8 +45,14 @@ const UserScreen = () => {
 					</Button>
 				</div>
 			</div>
-			<DataTable data={users} columns={columns} />
+			{isLoading ? (
+				<Skeleton />
+			) : (
+				<DataTable data={users || []} columns={columns} />
+			)}
 		</div>
+	) : (
+		<Skeleton />
 	);
 };
 

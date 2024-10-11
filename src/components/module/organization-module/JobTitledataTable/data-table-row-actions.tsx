@@ -10,27 +10,34 @@ import {
 	DropdownMenu,
 	DropdownMenuContent,
 	DropdownMenuItem,
-	DropdownMenuRadioGroup,
-	DropdownMenuRadioItem,
 	DropdownMenuSeparator,
 	DropdownMenuShortcut,
-	DropdownMenuSub,
-	DropdownMenuSubContent,
-	DropdownMenuSubTrigger,
 	DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
-import { userSchema } from "@/constants/data/tobeChanged/schema";
-import { labels } from "@/constants/data/userData";
+import { jobTitleSchema } from "@/constants/data/schema";
 
 interface DataTableRowActionsProps<TData> {
 	row: Row<TData>;
 }
 
+// Extract handleEdit function
+const handleEdit = (id: string, jobTitle: any, route: any) => {
+	const queryParams = new URLSearchParams({
+		id: id,
+		title_en: jobTitle.title_en,
+		title_am: jobTitle.title_am,
+	}).toString();
+
+	// Append query string to the URL
+	route.push(`jobtitle?${queryParams}` as `/${string}`);
+};
+
 export function DataTableRowActions<TData>({
 	row,
 }: DataTableRowActionsProps<TData>) {
-	const user = userSchema.parse(row.original);
+	const jobTitle = jobTitleSchema.parse(row.original);
 	const route = useRouter();
+
 	return (
 		<DropdownMenu>
 			<DropdownMenuTrigger asChild>
@@ -44,26 +51,14 @@ export function DataTableRowActions<TData>({
 			</DropdownMenuTrigger>
 			<DropdownMenuContent align="end" className="w-[160px]">
 				<DropdownMenuItem
-					onClick={() => route.push("user/2344" as `/${string}`)}
+					onClick={() => handleEdit(jobTitle.id, jobTitle, route)}
 				>
 					Edit
 				</DropdownMenuItem>
 				<DropdownMenuItem>Make a copy</DropdownMenuItem>
 				<DropdownMenuItem>Favorite</DropdownMenuItem>
 				<DropdownMenuSeparator />
-				<DropdownMenuSub>
-					<DropdownMenuSubTrigger>Labels</DropdownMenuSubTrigger>
-					<DropdownMenuSubContent>
-						<DropdownMenuRadioGroup value={user.first_name_en}>
-							{labels.map((label) => (
-								<DropdownMenuRadioItem key={label.value} value={label.value}>
-									{label.label}
-								</DropdownMenuRadioItem>
-							))}
-						</DropdownMenuRadioGroup>
-					</DropdownMenuSubContent>
-				</DropdownMenuSub>
-				<DropdownMenuSeparator />
+
 				<DropdownMenuItem>
 					Delete
 					<DropdownMenuShortcut>⌘⌫</DropdownMenuShortcut>

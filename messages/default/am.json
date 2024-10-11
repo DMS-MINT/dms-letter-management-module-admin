@@ -42,6 +42,16 @@
 		"title": "መመዝገቢያ",
 		"description": "ኢሜል አካውንቶን እና የሚስጥር ቁጥሮን በማስገባት ይመዝገቡ",
 		"fields": {
+			"first_name": {
+				"label": "ስም",
+				"placeholder": "ስም ያስገቡ",
+				"error": "እባክዎ ትክክለኛ ስም ያስገቡ። ስም ከሁለት ፊደል በላይ መሆኑን ያረጋግጡ።"
+			},
+			"last_name": {
+				"label": "የአባት ስም",
+				"placeholder": "የአባት ስም ያስገቡ",
+				"error": "እባክዎ ትክክለኛ የአባት ስም ያስገቡ። የአባት ስም ከሁለት ፊደል በላይ መሆኑን ያረጋግጡ።"
+			},
 			"email": {
 				"label": "ኢሜል",
 				"placeholder": "ኢሜል ያስገቡ",
@@ -92,11 +102,12 @@
 		"enterDomain": "ንዑስ ዶሜይንዎን አስገባ",
 		"domainPlaceholder": "ዶሜይንዎ",
 		"domainSuffix": ".DMSsaas.com",
-		"domainFormDescription": "ለSaaS መተግበሪያዎ የሚፈልጉትን ንዑስ ዶሜይን አስገቡ።",
+		"domainFormDescription": "ለSaaS መተግበሪያዎ የሚፈልጉትን ንዑስ ዶሜይን አስገቡ። አንድ ንዑስ ሆሄያት፣ ምንም ነጥብ፣ ሰረዝ፣ ግርጌ ወይም ክፍት መሆን አለበት።",
 		"allowAdminChange": "አስተዳዳሪዎችን ንዑስ ዶሜይኑን ለመቀየር እንዲችሉ ፍቀድ።",
 		"submitButton": "አስቀምጥ",
 		"successMessage": "ንዑስ ዶሜይን ተፈጠረ!",
-		"domainError": "⛔ እባክዎ ትክክለኛ ንዑስ ዶሜይን ይምረጡ።"
+		"domainError": "⛔ እባክዎ ትክክለኛ ዶሜን ከሁለት ፊደል መብለጥ አለበት።",
+		"domainPatternError": "አንድ ንዑስ ሆሄ መሄን አለበት፣ ምንም ስርዓተ ነጥብ፣ ሰረዝ፣ ግርጌ ወይም ክፍት መሆን የለበትም።"
 	},
 
 	"organizationForm": {
@@ -162,6 +173,15 @@
 	"userForm": {
 		"title": "የእርስዎን ተጠቃሚ ይፍጠሩ",
 		"description": "ይህ ቅፅ የእርስዎን ተጠቃሚ ለማፍጠር ይፈቅዳል።",
+		"admin": "የDMS አስተዳዳሪ",
+		"adminDesc": "አስተዳዳሪ የአገልግሎቱን ሁሉም ተግባሮች ማካሄድ የሚችል በጣም ከፍተኛ የተጠቃሚ ደረጃ ነው።",
+		"record_officer": "መዝገብ አጠቃቀም ባለሙያ",
+		"record_officerDesc": "መዝገብ አጠቃቀም ባለሙያ ሰው የተጠቃሚ እንደርድካሽ ሁለተኛ ደረጃ ሲሆን መዝገቦችን ማስተካከል ይችላል።",
+		"personalInfo": "የግል መረጃ",
+		"addressInfo": "የአድራሻ መረጃ",
+		"organizationInfo": "የድርጅት መረጃ",
+		"role_permissions": "ሚና እና ፈቃዶች",
+
 		"fields": {
 			"first_name_en": {
 				"label": "የመጀመሪያ ስም (እንግሊዝ)",
@@ -220,13 +240,76 @@
 				"placeholder": "ኢሜይል ይጻፉ",
 				"description": "የኢሜይል አድራሻ። እንደ የእንቅስቃሴ መረጃ ይረዳል።",
 				"error": "⛔ እባኮትን የተረጋገው ኢሜይል አድራሻ ይጻፉ።"
+			},
+			"role": {
+				"label": "የተጠቃሚ ሚና",
+				"description": "ከተዘረዘሩት ውስጥ የተመዝጋቢውን ሚና ይምረጡ"
 			}
 		},
 		"button": {
 			"submit": "ተጠቃሚ ይፍጠሩ",
-			"clear": "አጽዳ"
+			"clear": "አጽዳ",
+			"submitUpdate": "ተጠቃሚ መረጃ ይቀይሩ"
 		},
 		"successMessage": "ተጠቃሚ ተፈጥሯል!"
+	},
+
+	"DepartmentForm": {
+		"title": "አዲስ መምሪያ መመዝገቢያ",
+		"titleEdit": "የመምሪያው መገለጫ አድስ",
+		"description": "እዚህ አዲስ መምሪያ መገለጫ ይፍጠሩ",
+		"descriptionEdit": "እዚህ የመምሪያው መገለጫ ማደስ ወይም ማጥፋት ይችላሉ",
+		"contactInfo": "የመገናኛ መረጃ",
+		"depratmentInfo": "የመምሪያው መረጃ",
+		"deleteDepartment": "መምሪያውን አጥፋ",
+		"fields": {
+			"departmentNameEn": {
+				"label": "የመምሪያው ስም (እንግሊዝ)",
+				"placeholder": "የመምሪያው ስም ያስገቡ (እንግሊዝ)",
+				"description": "በስርዓቱ ላይ የሚታይ የዴፓርቱ ስም ነው።",
+				"error": "⛔ እባክዎ ትክክለኛ የዴፓርቱ ስም ያስገቡ። የዴፓርቱ ስም ከሁለት ፊደል በላይ መሆኑን ያረጋግጡ።"
+			},
+			"departmentNameAm": {
+				"label": "የመምሪያው ስም (አማርኛ)",
+				"placeholder": "የመምሪያው ስም ያስገቡ (አማርኛ)",
+				"description": "የዴፓርቱ ስም በአማርኛ።",
+				"error": "⛔ እባክዎ ትክክለኛ የዴፓርቱ ስም ያስገቡ። የዴፓርቱ ስም ከሁለት ፊደል በላይ መሆኑን ያረጋግጡ።"
+			},
+			"abbreviationEn": {
+				"label": "የመምሪያው ምንጻረ ቃል (እንግሊዝ)",
+				"placeholder": "የመምሪያው ምንጻረ ቃል ስም ያስገቡ (እንግሊዝ)",
+				"description": "በስርዓቱ ላይ የሚታይ የዴፓርቱ ምንጻረ ቃል ስም ነው።",
+				"error": "⛔ እባክዎ ትክክለኛ የዴፓርቱ ምንጻረ ቃል ስም ያስገቡ። የዴፓርቱ ምንጻረ ቃል ስም ከሁለት ፊደል በላይ መሆኑን ያረጋግጡ።"
+			},
+			"abbreviationAm": {
+				"label": "የመምሪያው ምንጻረ ቃል (አማርኛ)",
+				"placeholder": "የመምሪያው ምንጻረ ቃል ስም ያስገቡ (አማርኛ)",
+				"description": "የዴፓርቱ ምንጻረ ቃል ስም በአማርኛ።",
+				"error": "⛔ እባክዎ ትክክለኛ የዴፓርቱ ምንጻረ ቃል ስም ያስገቡ። የዴፓርቱ ምንጻረ ቃል ስም ከሁለት ፊደል በላይ መሆኑን ያረጋግጡ።"
+			},
+			"description": {
+				"label": "መግለጫ",
+				"placeholder": "የመምሪያውዎ እርዳታ መግለጫ",
+				"description": "የዴፓርቱ መግለጫ (ምሳሌ፦ ሚኒስትር ቢሮ፣ የግል ኩባንያ።)"
+			},
+			"contactPhone": {
+				"label": "ስልክ ቁጥር",
+				"placeholder": "ስልክ ቁጥር ያስገቡ",
+				"description": "ስልክ ቁጥር ያስገቡ።",
+				"error": "⛔ እባክዎ ትክክለኛ ስልክ ቁጥር ያስገቡ።"
+			},
+			"contactEmail": {
+				"label": "የእውቂያ ኢሜይል",
+				"placeholder": "የእውቂያ ኢሜይል ያስገቡ",
+				"description": "የዴፓርቱ ኢሜይል አድራሻ። እንደ አስተዳደሩ መረጃ ሆኖ ይረዳል።",
+				"error": "⛔ እባክዎ ትክክለኛ የእውቂያ ኢሜይል ያስገቡ።"
+			}
+		},
+		"button": {
+			"submit": "የመምሪያው መገለጫ ይፍጠሩ",
+			"clear": "አጽዳ"
+		},
+		"successMessage": "የመምሪያው መገለጫ ተፈጥሯል!"
 	},
 
 	"User": {
@@ -368,7 +451,8 @@
 			}
 		},
 		"button": {
-			"submit": "የስራ መደብ ይፍጠሩ"
+			"submit": "የስራ መደብ ይፍጠሩ",
+			"updateSubmit": "የስራ መደብ ያስተካክሉ"
 		},
 		"successMessage": "የስራ መደብ ተፈጥሯል!"
 	}

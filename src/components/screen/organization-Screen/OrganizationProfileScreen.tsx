@@ -5,17 +5,53 @@ import { useState } from "react";
 
 import { Edit } from "lucide-react";
 
+import { useFetchOrganization } from "@/actions/Query/organization-query/organizationQuery";
 import { OrganizationForm } from "@/components/module/organization-module/OrganizationForm/OrganizationForm";
 import UserDetailTable from "@/components/module/user-module/UserDetailTable";
 import { Button } from "@/components/ui/button";
-import { organizationData, organizationInfo } from "@/constants/data/userData";
 import { IMAGES } from "@/constants/files";
+import { useAppSelector } from "@/hooks/storehooks";
 
 const OrganizationProfileScreen = () => {
 	const [formOpen, setFormOpen] = useState(false);
 	const handleEditOrganization = () => {
 		setFormOpen(!formOpen);
 	};
+	const Organization = useAppSelector((state) => state.tenants.tenants);
+
+	// TODO Must have to be changed
+	const { data: organization } = useFetchOrganization(Organization.id);
+	const organizationData = [
+		{
+			name: "Organization Name",
+			value: organization?.name_en || "N/A",
+		},
+		{
+			name: "Organization Name (Amharic)",
+			value: organization?.name_am || "N/A",
+		},
+		{
+			name: "Description",
+			value: organization?.tenant_profile?.bio || "N/A",
+		},
+		{
+			name: "Contact Phone",
+			value: organization?.tenant_profile?.contact_phone.toString() || "N/A",
+		},
+		{
+			name: "Contact Email",
+			value: organization?.tenant_profile?.contact_email || "N/A",
+		},
+		{
+			name: "Address",
+			value: organization?.tenant_profile?.address.city_en || "N/A",
+		},
+		{
+			name: "Postal Code",
+			value: organization?.tenant_profile?.postal_code?.toString() || "N/A",
+		},
+		{ name: "Domain", value: organization?.slug || "N/A" },
+	];
 	return (
 		<div className="flex flex-col space-y-4 mb-20">
 			<div className="w-full relative bg-muted/40 border-primary border-2 border-t-0 background-svg-pattern h-80 md:h-48 rounded-b-lg  ">
@@ -44,15 +80,15 @@ const OrganizationProfileScreen = () => {
 			</div>
 
 			{formOpen ? (
-				<div className="pt-28 flex items-center justify-center">
+				<div className="pt-28 w-full px-10 ">
 					<OrganizationForm
 						lounchScreen={false}
 						editOrganization={true}
-						dataToEdit={organizationInfo}
+						dataToEdit={organization}
 					/>
 				</div>
 			) : (
-				<div className="pt-28 flex items-center justify-center">
+				<div className="pt-28 px-10 w-full">
 					<UserDetailTable
 						data={organizationData}
 						title="Organization Profile"

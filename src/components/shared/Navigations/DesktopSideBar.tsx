@@ -16,6 +16,7 @@ import {
 } from "lucide-react";
 import { useTranslations } from "next-intl";
 
+import { useLogout } from "@/actions/Query/user-query/authQuery";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import {
@@ -27,12 +28,19 @@ import {
 } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { IMAGES } from "@/constants/files";
+import { useAppSelector } from "@/hooks/storehooks";
+import { type RootState } from "@/lib/store/store";
 import { type SidebarItemProps } from "@/types/UI/DashboardTypes";
 
 const DesktopSideBar = () => {
 	const t = useTranslations();
 	const [selectedScreen, setSelectedScreen] = useState<string>("home");
 	const route = useRouter();
+	const haveTenant = useAppSelector(
+		(state: RootState) => state.tenants.sysTenant.haveTenant
+	);
+
+	const { mutate: logOut } = useLogout();
 	return (
 		<section className="flex h-full flex-col justify-between ">
 			<div>
@@ -51,55 +59,60 @@ const DesktopSideBar = () => {
 				</div>
 				<nav className="flex-grow p-2">
 					<ul className="space-y-2 lg:space-y-2">
-						<SidebarItem
-							icon={NotebookIcon}
-							label={t("sideBar.launchPad")}
-							tag={"2"}
-							// tag={t("sideBar.new")}
-							onClick={() => {
-								route.push("/launchPad");
-								setSelectedScreen("launchPad");
-							}}
-							active={selectedScreen === "launchPad"}
-						/>
-						<SidebarItem
-							icon={HomeIcon}
-							label={t("sideBar.home")}
-							tag={"2"}
-							// tag={t("sideBar.new")}
-							onClick={() => {
-								route.push("/home");
-								setSelectedScreen("home");
-							}}
-							active={selectedScreen === "home"}
-						/>
-						<SidebarItem
-							icon={Users}
-							label={t("sideBar.user")}
-							onClick={() => {
-								route.push("/user");
-								setSelectedScreen("user");
-							}}
-							active={selectedScreen === "user"}
-						/>
-						<SidebarItem
-							icon={Building2}
-							label={t("sideBar.organization")}
-							onClick={() => {
-								route.push("/organization");
-								setSelectedScreen("organization");
-							}}
-							active={selectedScreen === "organization"}
-						/>
-						<SidebarItem
-							icon={MonitorCog}
-							label={t("sideBar.system")}
-							onClick={() => {
-								route.push("/system");
-								setSelectedScreen("system");
-							}}
-							active={selectedScreen === "system"}
-						/>
+						{!haveTenant ? (
+							<SidebarItem
+								icon={NotebookIcon}
+								label={t("sideBar.launchPad")}
+								tag={"2"}
+								// tag={t("sideBar.new")}
+								onClick={() => {
+									route.push("/launchPad");
+									setSelectedScreen("launchPad");
+								}}
+								active={selectedScreen === "launchPad"}
+							/>
+						) : (
+							<>
+								<SidebarItem
+									icon={HomeIcon}
+									label={t("sideBar.home")}
+									tag={"2"}
+									// tag={t("sideBar.new")}
+									onClick={() => {
+										route.push("/home");
+										setSelectedScreen("home");
+									}}
+									active={selectedScreen === "home"}
+								/>
+								<SidebarItem
+									icon={Users}
+									label={t("sideBar.user")}
+									onClick={() => {
+										route.push("/user");
+										setSelectedScreen("user");
+									}}
+									active={selectedScreen === "user"}
+								/>
+								<SidebarItem
+									icon={Building2}
+									label={t("sideBar.organization")}
+									onClick={() => {
+										route.push("/organization");
+										setSelectedScreen("organization");
+									}}
+									active={selectedScreen === "organization"}
+								/>
+								<SidebarItem
+									icon={MonitorCog}
+									label={t("sideBar.system")}
+									onClick={() => {
+										route.push("/system");
+										setSelectedScreen("system");
+									}}
+									active={selectedScreen === "system"}
+								/>
+							</>
+						)}
 					</ul>
 				</nav>
 			</div>
@@ -132,7 +145,7 @@ const DesktopSideBar = () => {
 							icon={LogOutIcon}
 							label={t("sideBar.logout")}
 							onClick={() => {
-								route.push("/auth/sign-in" as `/${string}`);
+								logOut();
 							}}
 							active={selectedScreen === "logout"}
 						/>

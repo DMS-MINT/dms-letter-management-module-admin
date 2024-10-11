@@ -1,18 +1,16 @@
 "use client";
 
 import Image from "next/image";
-import { useRouter } from "next/navigation";
 import { useState } from "react";
 
 import { zodResolver } from "@hookform/resolvers/zod";
-import { useMutation } from "@tanstack/react-query";
 import { Eye, EyeOff, Save } from "lucide-react";
 import { useTranslations } from "next-intl";
 import { useForm } from "react-hook-form";
-import { toast } from "sonner";
 import { z } from "zod";
 
-import { type ICredentials, signUp } from "@/actions/auth/action";
+import { useSignUp } from "@/actions/Query/user-query/authQuery";
+import { type ICredentials } from "@/actions/auth/action";
 import BackButton from "@/components/shared/Button/BackButton";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
@@ -34,11 +32,16 @@ export default function SignUpScreen() {
 	const [showPassword, setShowPassword] = useState<boolean>(false);
 	const dispatch = useAppDispatch();
 	const t = useTranslations("SignUpForm");
-	const router = useRouter();
 
 	// Validation schema using Zod
 	const signupFormSchema = z
 		.object({
+			first_name: z.string().min(2, {
+				message: "First Name must be at least 2 characters long.",
+			}),
+			last_name: z.string().min(2, {
+				message: "Last Name must be at least 2 characters long.",
+			}),
 			email: z.string().email({
 				message: "Please enter a valid email address.",
 			}),
@@ -60,6 +63,8 @@ export default function SignUpScreen() {
 	const form = useForm<SignupFormValues>({
 		resolver: zodResolver(signupFormSchema),
 		defaultValues: {
+			first_name: "",
+			last_name: "",
 			email: "",
 			password: "",
 			confirmPassword: "",
@@ -67,29 +72,7 @@ export default function SignUpScreen() {
 		mode: "onChange",
 	});
 
-	const { mutate, isSuccess, isPending } = useMutation({
-		mutationKey: ["signUp"],
-		mutationFn: async (values: ICredentials) => {
-			const response = await signUp(values);
-
-			if (!response.ok) throw response;
-
-			return response;
-		},
-		onMutate: () => {
-			toast.dismiss();
-			toast.loading("ኢሜልዎን እና የይለፍ ቃልዎን በማረጋገጥ ላይ፣ እባክዎ ይጠብቁ...");
-		},
-		onSuccess: (data) => {
-			toast.dismiss();
-			toast.success(data.message.message);
-			router.push("/auth/sign-in" as `/${string}`);
-		},
-		onError: (error: any) => {
-			toast.dismiss();
-			toast.error(error.message);
-		},
-	});
+	const { mutate, isSuccess, isPending } = useSignUp();
 
 	function onSubmit(values: z.infer<typeof signupFormSchema>) {
 		dispatch(SetLoading(true));
@@ -130,6 +113,50 @@ export default function SignUpScreen() {
 								className="space-y-5"
 							>
 								<div className="grid gap-4">
+									<div className="grid grid-cols-2 gap-4">
+										<div className="grid gap-2">
+											<FormField
+												control={form.control}
+												name="first_name"
+												render={({ field }) => (
+													<FormItem>
+														<FormLabel>
+															{t("fields.first_name.label")}
+														</FormLabel>
+														<FormControl>
+															<Input
+																type="text"
+																readOnly={isPending}
+																placeholder={t("fields.first_name.placeholder")}
+																{...field}
+															/>
+														</FormControl>
+														<FormMessage />
+													</FormItem>
+												)}
+											/>
+										</div>
+										<div className="grid gap-2">
+											<FormField
+												control={form.control}
+												name="last_name"
+												render={({ field }) => (
+													<FormItem>
+														<FormLabel>{t("fields.last_name.label")}</FormLabel>
+														<FormControl>
+															<Input
+																type="text"
+																readOnly={isPending}
+																placeholder={t("fields.last_name.placeholder")}
+																{...field}
+															/>
+														</FormControl>
+														<FormMessage />
+													</FormItem>
+												)}
+											/>
+										</div>
+									</div>
 									<FormField
 										control={form.control}
 										name="email"

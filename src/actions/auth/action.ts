@@ -54,7 +54,7 @@ export async function signUp(credentials: ICredentials) {
 
 		storeEmail = response.data.email;
 
-		return { ok: true, message: response.data };
+		return { ok: true, message: response.data.message };
 	} catch (error: any) {
 		return { ok: false, message: getErrorMessage(error) };
 	}
@@ -64,39 +64,45 @@ export async function signIn(credentials: ICredentials) {
 	try {
 		const response = await axiosInstance.post("auth/login/", credentials);
 
-		// Access the Set-Cookie header
-		const setCookie = response.headers["set-cookie"];
-		let domain;
-		// Check if the Set-Cookie header exists
-		if (setCookie) {
-			// Extract the Domain from the Set-Cookie string
-			const cookieString = setCookie[0]; // Assuming there's only one cookie set
-			const domainMatch = cookieString.match(/Domain=([^;]+)/);
+		// Access the Tenants
+		const tenants = response.data?.tenants;
+		let domain = null;
 
-			// Extract the domain if found
-			domain = domainMatch ? domainMatch[1] : null;
-			console.log("Extracted domain:", domain);
-
-			// You can now use the domain in your logic
+		// If tenants exist, pick the primary domain
+		if (tenants && tenants.length > 0) {
+			const primaryDomain = tenants[0].domains.find((d: any) => d.is_primary);
+			domain = primaryDomain
+				? primaryDomain.domain
+				: tenants[0].domains[0].domain;
 		}
 
-		// Process session ID from the response body as before
+		// Session data
 		const sessionId = response.data.session;
 		const expires = Date.now() + 24 * 60 * 60 * 1000;
 
-		// Encrypt the session with the domain (if extracted)
-		const session = await encrypt({ sessionId, expires, domain });
+		// Encrypt session with or without tenants
+		let session;
+		if (tenants) {
+			session = await encrypt({ sessionId, expires, domain, tenants });
+		} else {
+			session = await encrypt({ sessionId, expires, domain });
+		}
 
-		// Set the session cookie
+		// Set session cookie
 		cookies().set(SESSION_NAME, session, {
-			expires: expires,
+			expires: new Date(expires),
 			httpOnly: true,
 			sameSite: "lax",
-			secure: false,
+			secure: false, // Change to true in production
 		});
 
-		return { ok: true, message: "እንኳን ደህና መጡ! በተሳካ ሁኔታ ገብተዋል።" };
+		return {
+			ok: true,
+			message: "እንኳን ደህና መጡ! በተሳካ ሁኔታ ገብተዋል።",
+			data: response.data,
+		};
 	} catch (error: any) {
+		// Handle error case
 		return { ok: false, message: getErrorMessage(error) };
 	}
 }

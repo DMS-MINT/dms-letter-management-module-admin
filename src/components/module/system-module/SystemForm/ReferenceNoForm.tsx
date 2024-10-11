@@ -8,6 +8,7 @@ import { useForm } from "react-hook-form";
 import { toast } from "sonner";
 import { z } from "zod";
 
+import { useUpdateRefConfig } from "@/actions/Query/system-query/documentQuery";
 import { Button } from "@/components/ui/button";
 import DatePickerWithRange from "@/components/ui/custom/date-picker-with-range";
 import {
@@ -19,6 +20,7 @@ import {
 	FormLabel,
 } from "@/components/ui/form";
 import { Switch } from "@/components/ui/switch";
+import { type RefConfigType } from "@/types/SystemType";
 
 const FormSchema = z.object({
 	automatic_reference: z.boolean().default(true),
@@ -37,9 +39,16 @@ export function ReferenceNoForm() {
 		},
 	});
 
+	const { mutate: updateRefConfig } = useUpdateRefConfig();
+
 	const onSubmit = (data: z.infer<typeof FormSchema>) => {
 		toast.success("Reference Number Configuration Saved!");
-		console.log(data);
+		const value = {
+			auto_ref_number_letters: data.automatic_reference ? true : false,
+		};
+
+		updateRefConfig(value as RefConfigType);
+		// TODO the manual selected date range is not saved in the database
 	};
 
 	const handleAutomaticToggle = (value: boolean) => {

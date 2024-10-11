@@ -43,6 +43,16 @@
 		"title": "Signup",
 		"description": "Enter your email below to SignUp a new account",
 		"fields": {
+			"first_name": {
+				"label": "First Name",
+				"placeholder": "Enter First Name",
+				"error": "Please enter a valid first name. First name must be at least 2 characters long."
+			},
+			"last_name": {
+				"label": "Last Name",
+				"placeholder": "Enter Last Name",
+				"error": "Please enter a valid last name. Last name must be at least 2 characters long."
+			},
 			"email": {
 				"label": "Email",
 				"placeholder": "Enter your email",
@@ -93,11 +103,12 @@
 		"enterDomain": "Enter your domain",
 		"domainPlaceholder": "yourdomain",
 		"domainSuffix": ".DMSsaas.com",
-		"domainFormDescription": "Enter your desired subdomain for your SaaS application.",
+		"domainFormDescription": "Must be one lowercase word, no dots, dashes, underscores, or spaces.",
 		"allowAdminChange": "Allow administrators to change the Sub domain.",
 		"submitButton": "Save",
 		"successMessage": "Subdomain Created!",
-		"domainError": "⛔ Please choose a valid subdomain."
+		"domainError": "⛔ Please choose a valid subdomain.",
+		"domainPatternError": "⛔ Must be one lowercase word, no dots, dashes, underscores, or spaces."
 	},
 
 	"organizationForm": {
@@ -162,6 +173,15 @@
 	"userForm": {
 		"title": "Create Your User",
 		"description": "This form allows you to create your user.",
+		"admin": "Admin",
+		"adminDesc": "Admin is the highest level of user that can run all the functionalities of the system.",
+		"record_officer": "Record Officer",
+		"record_officerDesc": "Record Officer is the second level of user that can manage the records.",
+		"personalInfo": "Personal Information",
+		"organizationInfo": "Organization Information",
+		"addressInfo": "Address Information",
+		"role_permissions": "Role and Permissions",
+
 		"fields": {
 			"first_name_en": {
 				"label": "First Name (English)",
@@ -220,13 +240,75 @@
 				"placeholder": "Enter Email",
 				"description": "The Email Address. Helps as contact information.",
 				"error": "⛔ Please enter a valid email address."
+			},
+			"role": {
+				"label": "User Role",
+				"description": "Select the role you want the user to have."
 			}
 		},
 		"button": {
 			"submit": "Create User",
-			"clear": "Clear"
+			"clear": "Clear",
+			"submitUpdate": "Update User"
 		},
 		"successMessage": "User Created!"
+	},
+	"DepartmentForm": {
+		"title": "Add Department",
+		"titleEdit": "Edit Department",
+		"description": "Here you can add a department for DMS",
+		"descriptionEdit": "Here you can edit a department for DMS",
+		"contactInfo": "Contact Information",
+		"depratmentInfo": "Department Information",
+		"deleteDepartment": "Delete Department",
+		"fields": {
+			"departmentNameEn": {
+				"label": "Department Name (English)",
+				"placeholder": "Enter Department Name (English)",
+				"description": "The Department Name in English.",
+				"error": "⛔ Please enter a valid department name. Department name must be at least 2 characters long."
+			},
+			"departmentNameAm": {
+				"label": "Department Name (Amharic)",
+				"placeholder": "Enter Department Name (Amharic)",
+				"description": "The Department Name in Amharic.",
+				"error": "⛔ Please enter a valid department name. Department name must be at least 2 characters long."
+			},
+			"abbreviationEn": {
+				"label": "Abbreviation (English)",
+				"placeholder": "Enter Abbreviation (English)",
+				"description": "The Department Abbreviation in English.",
+				"error": "⛔ Please enter a valid abbreviation. Abbreviation must be at least 2 characters long."
+			},
+			"abbreviationAm": {
+				"label": "Abbreviation (Amharic)",
+				"placeholder": "Enter Abbreviation (Amharic)",
+				"description": "The Department Abbreviation in Amharic.",
+				"error": "⛔ Please enter a valid abbreviation. Abbreviation must be at least 2 characters long."
+			},
+			"description": {
+				"label": "Description",
+				"placeholder": "Brief description of your department",
+				"description": "The Department Description (e.g., Finance Department, Human Resources)."
+			},
+			"contactPhone": {
+				"label": "Contact Phone",
+				"placeholder": "Enter a phone number",
+				"description": "Enter a phone number.",
+				"error": "⛔ Please enter a valid phone number."
+			},
+			"contactEmail": {
+				"label": "Contact Email",
+				"placeholder": "Enter Contact Email",
+				"description": "The Department Email Address. Helps as contact information.",
+				"error": "⛔ Please enter a valid email address."
+			}
+		},
+		"button": {
+			"submit": "Create Department",
+			"clear": "Clear"
+		},
+		"successMessage": "Department Created!"
 	},
 
 	"User": {
@@ -356,16 +438,19 @@
 			"jobTitleEn": {
 				"label": "Job Title (English)",
 				"placeholder": "Enter Job Title (English)",
-				"description": "The Job Title in English."
+				"description": "The Job Title in English.",
+				"error": "⛔ Please enter a valid job title."
 			},
 			"jobTitleAm": {
 				"label": "Job Title (Amharic)",
 				"placeholder": "Enter Job Title (Amharic)",
-				"description": "The Job Title in Amharic."
+				"description": "The Job Title in Amharic.",
+				"error": "⛔ Please enter a valid job title."
 			}
 		},
 		"button": {
-			"submit": "Create Job Title"
+			"submit": "Create Job Title",
+			"updateSubmit": "Update Job Title"
 		},
 		"successMessage": "Job Title Created!"
 	}

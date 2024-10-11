@@ -1,9 +1,12 @@
+"use client";
+
 import Link from "next/link";
+import { useState } from "react";
 
 import { useTranslations } from "next-intl";
 
 import { OrganizationForm } from "@/components/module/organization-module/OrganizationForm/OrganizationForm";
-import { SubDomainForm } from "@/components/module/organization-module/SubDomainForm";
+import { SubDomainForm } from "@/components/module/organization-module/OrganizationForm/SubDomainForm";
 import {
 	Card,
 	CardContent,
@@ -16,6 +19,12 @@ import {
 const LaunchScreen = () => {
 	// Load translations
 	const t = useTranslations("LaunchScreen");
+	const [domainValue, setDomainValue] = useState("");
+	// Handler to receive domain value from SubDomainForm submission
+	const handleDomainSubmit = (value: string) => {
+		setDomainValue(value); // This updates the state in the parent
+		console.log("Domain Value Updated: ", value);
+	};
 
 	return (
 		<div className="flex flex-col gap-4 p-4">
@@ -57,8 +66,8 @@ const LaunchScreen = () => {
 			</Card>
 
 			<div className="grid md:grid-cols-2 grid-cols-1 mb-20 gap-4">
-				<SubDomainForm />
-				<OrganizationForm />
+				<SubDomainForm onDomainSubmit={handleDomainSubmit} />
+				{domainValue && <OrganizationForm domainValue={domainValue} />}
 			</div>
 		</div>
 	);

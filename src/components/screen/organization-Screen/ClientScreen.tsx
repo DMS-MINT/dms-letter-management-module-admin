@@ -1,32 +1,26 @@
 "use client";
 
-import { useRouter } from "next/navigation";
 import { useState } from "react";
 
 import { File, PlusCircle } from "lucide-react";
 
-import { columns } from "@/components/module/user-module/UserdataTable/columns";
-import { DataTable } from "@/components/module/user-module/UserdataTable/data-table";
+import { useFetchEnterprises } from "@/actions/Query/organization-query/enterpriseQuery";
+import { columns } from "@/components/module/organization-module/ClientdataTable/columns";
+import { ClientDataTable } from "@/components/module/organization-module/ClientdataTable/data-table";
 import PageSubTitle from "@/components/shared/Titles/PageSubTitle";
 import { Button } from "@/components/ui/button";
-import { users } from "@/constants/data/tobeChanged/schema";
-
-import { CustomClientSheet } from "./CustomClientSheet";
+import { Skeleton } from "@/components/ui/skeleton";
 
 const ClientScreen = () => {
 	const [isSheetOpen, setIsSheetOpen] = useState(false);
 
 	const [isAdding, setIsAdding] = useState(false);
-
 	const handleOpenSheet = (isAdding: boolean = false) => {
 		setIsAdding(isAdding);
 		setIsSheetOpen(true);
 	};
 
-	const handleCloseSheet = () => {
-		setIsSheetOpen(false);
-	};
-	const route = useRouter();
+	const { data: clients, isLoading } = useFetchEnterprises();
 	return (
 		<div className="p-4 space-y-6 mb-20">
 			<div className="flex items-center justify-between space-y-2">
@@ -53,12 +47,11 @@ const ClientScreen = () => {
 					</Button>
 				</div>
 			</div>
-			<DataTable data={users} columns={columns} />
-			<CustomClientSheet
-				isAdding={isAdding}
-				isOpen={isSheetOpen}
-				onClose={handleCloseSheet}
-			/>
+			{isLoading ? (
+				<Skeleton />
+			) : (
+				<ClientDataTable data={clients || []} columns={columns} />
+			)}
 		</div>
 	);
 };
