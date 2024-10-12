@@ -5,10 +5,9 @@ import { useState } from "react";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { MoveRight, Send } from "lucide-react";
 import { useForm } from "react-hook-form";
-import { toast } from "sonner";
 import { z } from "zod";
 
-import { useUpdateRefConfig } from "@/actions/Query/system-query/documentQuery";
+import { useUpdateSystemConfig } from "@/actions/Query/system-query/documentQuery";
 import { Button } from "@/components/ui/button";
 import DatePickerWithRange from "@/components/ui/custom/date-picker-with-range";
 import {
@@ -20,7 +19,7 @@ import {
 	FormLabel,
 } from "@/components/ui/form";
 import { Switch } from "@/components/ui/switch";
-import { type RefConfigType } from "@/types/SystemType";
+import { type TenantListType } from "@/types/TenantType";
 
 const FormSchema = z.object({
 	automatic_reference: z.boolean().default(true),
@@ -28,26 +27,34 @@ const FormSchema = z.object({
 	date_option: z.string().optional(),
 });
 
-export function ReferenceNoForm() {
+export function ReferenceNoForm({
+	organization,
+}: {
+	organization: TenantListType;
+}) {
 	const [isManual, setIsManual] = useState(false);
 	const [selectedOption, setSelectedOption] = useState("");
 	const form = useForm<z.infer<typeof FormSchema>>({
 		resolver: zodResolver(FormSchema),
 		defaultValues: {
-			automatic_reference: true,
-			manual_reference: false,
+			automatic_reference: organization?.tenant_settings.auto_ref_number_letters
+				? true
+				: false,
+			manual_reference: organization?.tenant_settings.auto_ref_number_letters
+				? false
+				: true,
 		},
 	});
 
-	const { mutate: updateRefConfig } = useUpdateRefConfig();
+	const { mutate: updateSystemConfig } = useUpdateSystemConfig();
 
 	const onSubmit = (data: z.infer<typeof FormSchema>) => {
-		toast.success("Reference Number Configuration Saved!");
 		const value = {
+			id: organization?.id,
 			auto_ref_number_letters: data.automatic_reference ? true : false,
 		};
+		updateSystemConfig(value);
 
-		updateRefConfig(value as RefConfigType);
 		// TODO the manual selected date range is not saved in the database
 	};
 

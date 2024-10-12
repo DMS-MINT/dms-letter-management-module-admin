@@ -11,13 +11,11 @@ import PageSubTitle from "@/components/shared/Titles/PageSubTitle";
 import { Button } from "@/components/ui/button";
 import { Skeleton } from "@/components/ui/skeleton";
 
-// import { users } from "@/constants/data/tobeChanged/schema";
-
 const UserScreen = () => {
 	const route = useRouter();
 	const { data: users, isLoading, isSuccess } = useFetchAllUsers();
 
-	return !isSuccess ? (
+	return isSuccess ? (
 		<div className="p-4 space-y-6 mb-20">
 			<div className="flex items-center justify-between space-y-2">
 				<PageSubTitle

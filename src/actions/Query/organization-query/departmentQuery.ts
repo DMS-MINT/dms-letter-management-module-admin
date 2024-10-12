@@ -36,7 +36,7 @@ export const useFetchOneDepartments = (id: string, enabled: boolean = true) => {
 		queryFn: async () => {
 			try {
 				const data = await getOneDepartment(id);
-				return data.data;
+				return data.data.department;
 			} catch (error: any) {
 				toast.error(error.message);
 				throw error;

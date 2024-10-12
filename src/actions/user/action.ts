@@ -80,7 +80,7 @@ export async function getOneMember(id: string) {
 		return {
 			ok: true,
 			message: "user fetched successfully",
-			data: response.data.users,
+			data: response.data.member,
 		};
 	} catch (error: any) {
 		return { ok: false, message: getErrorMessage(error) };

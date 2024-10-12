@@ -61,10 +61,20 @@ export type memeberType = {
 	member_profile: member_profile;
 	member_permissions: member_permissions;
 };
+export type member_settings = {
+	is_2fa_enabled: false;
+	is_verified: false;
+};
+export type memeberDetailType = {
+	id: string;
+	email: string;
+	member_profile: member_profile;
+	member_permissions: member_permissions;
+	member_settings: member_settings;
+};
 export type member_profile = {
 	full_name_en: string;
 	full_name_am: string;
-	email: string;
 	phone_number: string;
 	job_title: JobTitleType;
 	department: DepartmentNameType;

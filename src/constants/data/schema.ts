@@ -2,17 +2,31 @@ import { z } from "zod";
 
 export const userSchema = z.object({
 	id: z.string(),
-	first_name_en: z.string(),
-	middle_name_en: z.string(),
-	last_name_en: z.string(),
-	first_name_am: z.string(),
-	middle_name_am: z.string(),
-	last_name_am: z.string(),
-	department_name: z.string(),
 	email: z.string(),
-	status: z.string(),
-	label: z.string(),
+	member_profile: z.object({
+		full_name_en: z.string(),
+		full_name_am: z.string(),
+		job_title: z
+			.object({
+				title_en: z.string(),
+				title_am: z.string(),
+			})
+			.nullable(),
+		department: z
+			.object({
+				department_name_en: z.string(),
+				department_name_am: z.string(),
+			})
+			.nullable(),
+	}),
+	member_permissions: z.object({
+		is_admin: z.boolean(),
+		is_staff: z.boolean(),
+	}),
+	status: z.string().optional(),
+	label: z.string().optional(),
 });
+
 export type User = z.infer<typeof userSchema>;
 
 export const departmentSchema = z.object({

@@ -4,7 +4,6 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { Eraser, Save } from "lucide-react";
 import { useTranslations } from "next-intl";
 import { useForm } from "react-hook-form";
-import { isValidPhoneNumber } from "react-phone-number-input";
 import { toast } from "sonner";
 import { z } from "zod";
 
@@ -13,7 +12,6 @@ import {
 	useUpdateDepartment,
 } from "@/actions/Query/organization-query/departmentQuery";
 import { Button } from "@/components/ui/button";
-import { PhoneInput } from "@/components/ui/custom/phone-input";
 import {
 	Form,
 	FormControl,
@@ -35,6 +33,7 @@ export function DepartmentForm({
 }) {
 	const t = useTranslations("DepartmentForm");
 	// Define the validation schema using Zod
+	console.log("data", data);
 	const departmentFormSchema = z.object({
 		department_name_en: z
 			.string()
@@ -49,12 +48,13 @@ export function DepartmentForm({
 			.string()
 			.min(1, { message: t("fields.abbreviationAm.error") }),
 		description: z.string().min(5, { message: t("fields.description.error") }),
-		contact_phone: z
-			.string()
-			.refine(isValidPhoneNumber, {
-				message: t("fields.contactPhone.error"),
-			})
-			.or(z.literal("")),
+		contact_phone: z.union([
+			z
+				.string()
+				.regex(/^\d*$/, "Phone number must be a numeric value")
+				.transform((val) => (val === "" ? "" : Number(val))),
+			z.literal(""),
+		]),
 		contact_email: z
 			.string()
 			.email({ message: t("fields.contactEmail.error") }),
@@ -71,7 +71,7 @@ export function DepartmentForm({
 			abbreviation_en: data?.abbreviation_en || "",
 			abbreviation_am: data?.abbreviation_am || "",
 			description: data?.description || "",
-			contact_phone: data?.contact_phone || "",
+			contact_phone: data?.contact_phone || 0,
 			contact_email: data?.contact_email || "",
 		},
 		mode: "onChange",
@@ -85,8 +85,9 @@ export function DepartmentForm({
 		console.log("data", data);
 		if (isEdit) {
 			updateDepartmentMutation(data as DepartmentTypeToUpdate);
+			// TODO change this
 		} else {
-			addDepartmentMutation(data as DepartmentFormValues);
+			addDepartmentMutation(data as DepartmentTypeToUpdate);
 		}
 	}
 
@@ -197,9 +198,10 @@ export function DepartmentForm({
 								<FormItem>
 									<FormLabel>{t("fields.contactPhone.label")}</FormLabel>
 									<FormControl>
-										<PhoneInput
+										<Input
 											placeholder={t("fields.contactPhone.placeholder")}
 											{...field}
+											type="number"
 										/>
 									</FormControl>
 									<FormMessage />

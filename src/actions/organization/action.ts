@@ -119,7 +119,6 @@ export async function getDepartment() {
 export async function getOneDepartment(id: string) {
 	try {
 		const response = await axiosInstance.get(`departments/${id}`);
-		console.log("Departments:", response.data);
 		return { ok: true, message: "የመምሪያዎች ተገኝቷል!", data: response.data };
 	} catch (error: any) {
 		return { ok: false, message: getErrorMessage(error) };
@@ -127,9 +126,12 @@ export async function getOneDepartment(id: string) {
 }
 export async function updateDepartment(data: DepartmentTypeToUpdate) {
 	try {
-		const { id } = data;
-		const response = await axiosInstance.put(`enterprises/${id}/update`, data);
-		console.log("department Update", response.data);
+		const { id, ...dataToSend } = data;
+		console.log("dataToSend", dataToSend);
+		const response = await axiosInstance.put(`departments/${id}/update/`, {
+			dataToSend,
+		});
+		console.log("department Update", response.data.organization);
 		return { ok: true, message: "ደንበኛ ተቀይሯል!" };
 	} catch (error) {
 		return { ok: false, message: getErrorMessage(error) };

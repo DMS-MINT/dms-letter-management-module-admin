@@ -69,7 +69,7 @@ export const useFetchOrganization = (id: string) => {
 		queryFn: async () => {
 			try {
 				const data = await getOrganization(id);
-				console.log("fetched data", data);
+
 				return data.data.tenant as TenantListType;
 			} catch (error: any) {
 				toast.error(error.message);
