@@ -7,7 +7,7 @@ import { CircleX } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 import { Checkbox } from "@/components/ui/checkbox";
 // Updated import path
-import { type UserListType } from "@/types/user/UserType";
+import { type memeberType } from "@/types/user/UserType";
 
 import { DataTableColumnHeader } from "./data-table-column-header";
 import { DataTableRowActions } from "./data-table-row-actions";
@@ -42,7 +42,7 @@ export const statuses = [
 	},
 ];
 
-export const columns: ColumnDef<UserListType>[] = [
+export const columns: ColumnDef<memeberType>[] = [
 	{
 		id: "select",
 		header: ({ table }) => (
@@ -73,20 +73,20 @@ export const columns: ColumnDef<UserListType>[] = [
 			<DataTableColumnHeader column={column} title="FullName" />
 		),
 		cell: ({ row }) => {
-			const labelValue = row.original.is_superuser
+			const labelValue = row.original.member_permissions.is_staff
 				? "admin"
-				: row.original.is_staff
+				: row.original.member_permissions.is_staff
 					? "recordOfficer"
 					: "member";
 
 			const label = labels.find((label) => label.value === labelValue);
-			const fullName = `${row.original.first_name_en} ${row.original.middle_name_en} ${row.original.last_name_en}`;
-			const fullNameAm = `${row.original.first_name_am} ${row.original.middle_name_am} ${row.original.last_name_am}`;
+			const fullName = `${row.original.member_profile.full_name_en}`;
+			const fullNameAm = `${row.original.member_profile.full_name_am}`;
 
 			return (
 				<div className="flex space-x-2">
 					{label && <Badge>{label.label}</Badge>}
-					<span className="max-w-[500px] truncate font-medium flex gap-2">
+					<span className="max-w-[400px] truncate font-medium flex gap-2">
 						{fullName}
 						<span className="text-muted-foreground text-sm hidden xl:flex">
 							{fullNameAm}
@@ -130,7 +130,7 @@ export const columns: ColumnDef<UserListType>[] = [
 		cell: ({ row }) => {
 			return (
 				<div className="flex space-x-2">
-					<span className="max-w-[500px] truncate font-medium">
+					<span className="max-w-[200px] truncate font-medium">
 						{row.getValue("email")}
 					</span>
 				</div>
@@ -143,10 +143,18 @@ export const columns: ColumnDef<UserListType>[] = [
 			<DataTableColumnHeader column={column} title="Department" />
 		),
 		cell: ({ row }) => {
+			const departmentAm =
+				`${row.original.member_profile.department?.department_name_am}` || "";
+			const departmentEn =
+				`${row.original.member_profile.department?.department_name_en}` || "";
+
 			return (
 				<div className="flex space-x-2">
-					<span className="max-w-[500px] truncate font-medium">
-						{row.getValue("department_name")}
+					<span className="max-w-[300px] truncate font-medium flex gap-2">
+						{departmentEn}
+						<span className="text-muted-foreground text-sm hidden xl:flex">
+							{departmentAm}
+						</span>
 					</span>
 				</div>
 			);

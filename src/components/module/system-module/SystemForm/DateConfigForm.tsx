@@ -7,7 +7,7 @@ import { MoveRight, Send } from "lucide-react";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 
-import { useUpdateDateConfig } from "@/actions/Query/system-query/documentQuery";
+import { useUpdateSystemConfig } from "@/actions/Query/system-query/documentQuery";
 import { Button } from "@/components/ui/button";
 import DatePickerWithRange from "@/components/ui/custom/date-picker-with-range";
 import {
@@ -20,7 +20,8 @@ import {
 } from "@/components/ui/form";
 import { Label } from "@/components/ui/label";
 import { Switch } from "@/components/ui/switch";
-import { DateConfigType } from "@/types/SystemType";
+import { type SystemConfigType } from "@/types/SystemType";
+import { type TenantListType } from "@/types/TenantType";
 
 const FormSchema = z.object({
 	automatic_date: z.boolean().default(true),
@@ -28,23 +29,34 @@ const FormSchema = z.object({
 	date_option: z.string().optional(),
 });
 
-export function DateConfigForm() {
+export function DateConfigForm({
+	organization,
+}: {
+	organization: TenantListType;
+}) {
 	const [isManual, setIsManual] = useState(false);
 	const [selectedOption, setSelectedOption] = useState("");
+
 	const form = useForm<z.infer<typeof FormSchema>>({
 		resolver: zodResolver(FormSchema),
 		defaultValues: {
-			automatic_date: true,
-			manual_date: false,
+			automatic_date: organization?.tenant_settings?.auto_date_letters
+				? true
+				: false,
+			manual_date: organization?.tenant_settings?.auto_date_letters
+				? false
+				: true,
 		},
 	});
 
-	const { mutate: updateDateConfig } = useUpdateDateConfig();
+	const { mutate: updateSystemConfig } = useUpdateSystemConfig();
+
 	const onSubmit = (data: z.infer<typeof FormSchema>) => {
 		const value = {
+			id: organization?.id,
 			auto_date_letters: data.automatic_date ? true : false,
 		};
-		updateDateConfig(value as DateConfigType);
+		updateSystemConfig(value as SystemConfigType);
 
 		// TODO the manual selected date range is not saved in the database
 	};

@@ -290,7 +290,8 @@
 			"description": {
 				"label": "መግለጫ",
 				"placeholder": "የመምሪያውዎ እርዳታ መግለጫ",
-				"description": "የዴፓርቱ መግለጫ (ምሳሌ፦ ሚኒስትር ቢሮ፣ የግል ኩባንያ።)"
+				"description": "የዴፓርቱ መግለጫ (ምሳሌ፦ ሚኒስትር ቢሮ፣ የግል ኩባንያ።)",
+				"error": "መግለጫ አልተሳካም"
 			},
 			"contactPhone": {
 				"label": "ስልክ ቁጥር",

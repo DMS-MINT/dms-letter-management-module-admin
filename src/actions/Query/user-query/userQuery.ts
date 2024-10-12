@@ -17,9 +17,10 @@ import useToastMutation from "@/hooks/useToastMutation";
 import { SetCurrentUser } from "@/lib/store/redux/usersSlice";
 import {
 	type CurrentUserType,
-	type UserDetailType,
 	type UserListType,
 	type UserType,
+	type memeberDetailType,
+	type memeberType,
 } from "@/types/user/UserType";
 
 // * get - get current user details
@@ -86,7 +87,7 @@ export const useFetchMembers = () => {
 
 // * get - get All Users
 export const useFetchAllUsers = () => {
-	return useQuery<UserListType[], Error>({
+	return useQuery<memeberType[], Error>({
 		queryKey: ["getallusers"],
 		queryFn: async () => {
 			try {
@@ -103,12 +104,13 @@ export const useFetchAllUsers = () => {
 
 // * get - get One Member detail
 export const useFetchMemeberDetail = (id: string) => {
-	return useQuery<UserDetailType, Error>({
+	return useQuery<memeberDetailType>({
 		queryKey: ["getMemberDetail"],
 		queryFn: async () => {
 			try {
 				const data = await getOneMember(id);
-				return data.data;
+
+				return data.data as memeberDetailType;
 			} catch (error: any) {
 				toast.error(error.message);
 				throw error;

@@ -18,7 +18,7 @@ const DepartmentScreen = () => {
 		<div className="p-4 space-y-6 mb-20">
 			<div className="flex items-center justify-between space-y-2">
 				<PageSubTitle
-					title="All Organization Department Settings"
+					title="Department Settings"
 					desc="Here are a list of your department for DMS"
 				/>
 				<div className="flex items-center space-x-2">

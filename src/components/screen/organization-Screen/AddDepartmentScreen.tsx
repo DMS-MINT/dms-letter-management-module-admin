@@ -13,17 +13,18 @@ import { DepartmentForm } from "@/components/module/organization-module/Organiza
 import PageSubTitle from "@/components/shared/Titles/PageSubTitle";
 import { Button } from "@/components/ui/button";
 import { Separator } from "@/components/ui/separator";
+import { type DepartmentTypeToUpdate } from "@/types/DepartmentType";
 
 const AddDepartmentScreen = ({ isEdit = false }: { isEdit?: boolean }) => {
 	const t = useTranslations("DepartmentForm");
 	const { id } = useParams();
 	const departmentId: string | undefined = Array.isArray(id) ? id[0] : id;
-
 	const { data: department } = useFetchOneDepartments(
 		departmentId || "",
 		isEdit && !!departmentId
 	);
 
+	console.log("department", department);
 	const { mutate: deleteDepartment } = useDeleteDepartment();
 	const handleDelete = () => {
 		console.log("Delete Department");
@@ -58,7 +59,16 @@ const AddDepartmentScreen = ({ isEdit = false }: { isEdit?: boolean }) => {
 			</div>
 			<Separator />
 			{/* Pass department data only when editing */}
-			<DepartmentForm isEdit={isEdit} data={isEdit ? department : undefined} />
+			{isEdit ? (
+				department && (
+					<DepartmentForm
+						isEdit={isEdit}
+						data={department as DepartmentTypeToUpdate}
+					/>
+				)
+			) : (
+				<DepartmentForm isEdit={isEdit} data={undefined} />
+			)}
 		</div>
 	);
 };

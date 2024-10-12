@@ -1,3 +1,6 @@
+"use client";
+
+import { useFetchOrganization } from "@/actions/Query/organization-query/organizationQuery";
 import { DateConfigForm } from "@/components/module/system-module/SystemForm/DateConfigForm";
 import { ReferenceNoForm } from "@/components/module/system-module/SystemForm/ReferenceNoForm";
 import PageSubTitle from "@/components/shared/Titles/PageSubTitle";
@@ -7,8 +10,13 @@ import {
 	AccordionItem,
 	AccordionTrigger,
 } from "@/components/ui/accordion";
+import { useAppSelector } from "@/hooks/storehooks";
 
 const SystemScreen = () => {
+	const Organization = useAppSelector((state) => state.tenants.tenants);
+
+	// TODO Must have to be changed
+	const { data: organization } = useFetchOrganization(Organization.id);
 	return (
 		<div className="p-2">
 			<Accordion type="single" collapsible className="w-full">
@@ -20,7 +28,7 @@ const SystemScreen = () => {
 						/>
 					</AccordionTrigger>
 					<AccordionContent>
-						<ReferenceNoForm />
+						{organization && <ReferenceNoForm organization={organization} />}
 					</AccordionContent>
 				</AccordionItem>
 				<AccordionItem value="item-2">
@@ -31,7 +39,7 @@ const SystemScreen = () => {
 						/>
 					</AccordionTrigger>
 					<AccordionContent>
-						<DateConfigForm />
+						{organization && <DateConfigForm organization={organization} />}
 					</AccordionContent>
 				</AccordionItem>
 			</Accordion>

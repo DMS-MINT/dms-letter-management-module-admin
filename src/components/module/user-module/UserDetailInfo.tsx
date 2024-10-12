@@ -25,7 +25,7 @@ const UserDetailInfo = () => {
 	const { id } = useParams();
 	const dispatch = useAppDispatch();
 	const memberId: string = Array.isArray(id) ? id[0] : id; // Handle array case
-	const { data: userDetail, isLoading } = useFetchMemeberDetail(memberId);
+	const { data: userDetail } = useFetchMemeberDetail(memberId);
 
 	// if (isLoading) {
 	// 	dispatch(SetLoading(true));
@@ -33,92 +33,113 @@ const UserDetailInfo = () => {
 
 	// Personal Data
 
+	const account_status = userDetail?.member_settings.is_verified
+		? "active"
+		: "deactivated";
 	const userPersonalData = [
-		{ name: "Full Name", value: userDetail?.personal.full_name_en || "N/A" },
+		{
+			name: "Full Name",
+			value: userDetail?.member_profile.full_name_en || "N/A",
+		},
 		{
 			name: "Full Name (Amharic)",
-			value: userDetail?.personal.full_name_am || "N/A",
+			value: userDetail?.member_profile.full_name_am || "N/A",
 		},
-		{ name: "Email", value: userDetail?.personal.email || "N/A" },
-		{ name: "Phone", value: userDetail?.personal.phone_number || "N/A" },
+		{ name: "Email", value: userDetail?.email || "N/A" },
+		{ name: "Phone", value: userDetail?.member_profile.phone_number || "N/A" },
 	];
 
 	// Organization Data
 	const userOrganizationData = [
-		{ name: "Job Title", value: userDetail?.organization.job_title || "N/A" },
-		{ name: "Department", value: userDetail?.organization.department || "N/A" },
+		{
+			name: "Job Title",
+			value: userDetail?.member_profile.job_title.title_am || "N/A",
+		},
+		{
+			name: "Department",
+			value: userDetail?.member_profile.department.department_name_en || "N/A",
+		},
 		{
 			name: "Organization",
-			value: userDetail?.organization.organization || "N/A",
+			value: "N/A",
 		},
-		{ name: "Address", value: userDetail?.organization.address || "N/A" },
+		{ name: "Address", value: "N/A" },
 	];
 
 	// Account Data
 	const userAccountData = [
-		{ name: "Account Type", value: userDetail?.account.account_type || "N/A" },
+		{
+			name: "Account Type",
+			value: userDetail?.member_permissions.is_admin
+				? "admin"
+				: userDetail?.member_permissions.is_staff
+					? "Record Officer"
+					: "Member",
+		},
 		{
 			name: "Account Verification",
-			value: userDetail?.account.account_verification || "N/A",
+			value: userDetail?.member_settings.is_verified
+				? "Verified"
+				: "Not Verified",
 		},
 		{
 			name: "Account Status",
-			value: userDetail?.account.account_status || "N/A",
+			value: userDetail?.member_settings.is_verified
+				? "Acitivated"
+				: "Deactivated",
 		},
 		{
 			name: "Account Created",
-			value: userDetail?.account.account_created || "N/A",
+			value: "N/A",
 		},
-		{ name: "Last Login", value: userDetail?.account.last_login || "N/A" },
+		{ name: "Last Login", value: "N/A" },
 		{
 			name: "Last Login IP",
-			value: userDetail?.account.last_login_ip || "N/A",
+			value: "N/A",
 		},
-		{ name: "Last Updated", value: userDetail?.account.last_updated || "N/A" },
-		{ name: "Created By", value: userDetail?.account.created_by || "N/A" },
+		{ name: "Last Updated", value: "N/A" },
+		{ name: "Created By", value: "N/A" },
 	];
 
 	// Security Data
 	const userSecurityData = [
 		{
 			name: "Last Password Change",
-			value: userDetail?.security.last_password_change || "N/A",
+			value: "N/A",
 		},
 		{
 			name: "Two Factor Authentication",
-			value: userDetail?.security.is_2fa_enabled ? "Enabled" : "Disabled",
-		},
-		{
-			name: "2FA (SMS)",
-			value: userDetail?.security.is_sms_2fa_enabled ? "Enabled" : "Disabled",
-		},
-		{
-			name: "2FA (Google Authenticator)",
-			value: userDetail?.security.is_google_authenticator_enabled
+			value: userDetail?.member_settings.is_2fa_enabled
 				? "Enabled"
 				: "Disabled",
 		},
 		{
+			name: "2FA (SMS)",
+			value: "Enabled",
+		},
+		{
+			name: "2FA (Google Authenticator)",
+			value: "Disabled",
+		},
+		{
 			name: "Password Strength",
-			value: userDetail?.security.password_strength || "N/A",
+			value: "N/A",
 		},
 	];
 
 	// Preferences Data
 	const userPreferencesData = [
-		{ name: "Language", value: userDetail?.preferences.language || "N/A" },
-		{ name: "Timezone", value: userDetail?.preferences.timezone || "N/A" },
+		{ name: "Language", value: "N/A" },
+		{ name: "Timezone", value: "N/A" },
 		{
 			name: "Email Notifications",
-			value: userDetail?.preferences.email_notifications
-				? "Enabled"
-				: "Disabled",
+			value: "Disabled",
 		},
 		{
 			name: "SMS Alerts",
-			value: userDetail?.preferences.sms_alert ? "Enabled" : "Disabled",
+			value: "Enabled",
 		},
-		{ name: "Theme", value: userDetail?.preferences.theme || "N/A" },
+		{ name: "Theme", value: "N/A" },
 	];
 
 	const calculateProfileCompletion = () => {
@@ -157,25 +178,21 @@ const UserDetailInfo = () => {
 							className="rounded-full border-2 border-primary border-dashed"
 						/>
 						<CardTitle className="flex gap-0 items-center ">
-							{userDetail?.personal.full_name_en || "N/A"}
+							{userDetail?.member_profile.full_name_en || "N/A"}
 						</CardTitle>
-						<CardDescription>
-							{userDetail?.personal.email || "N/A"}
-						</CardDescription>
+						<CardDescription>{userDetail?.email || "N/A"}</CardDescription>
 					</div>
 					<div className="lg:w-1/3 mt-4 lg:m-0 xl:flex-row flex flex-col w-full items-center lg:items-start space-y-2 lg:space-y-0 justify-center lg:justify-end">
 						<Badge
-							className={`flex xl:mx-4 ${userDetail?.account.account_status === "active" ? "bg-green-300" : "bg-red-300"} w-[130px] h-8 items-center justify-start hover:bg-transparent hover:border-green-500 border-2 border-transparent`}
+							className={`flex xl:mx-4 ${account_status === "active" ? "bg-green-300" : "bg-red-300"} w-[130px] h-8 items-center justify-start hover:bg-transparent hover:border-green-500 border-2 border-transparent`}
 						>
 							<DotIcon
 								size={48}
 								strokeWidth={3}
-								className={`${userDetail?.account.account_status === "active" ? "text-green-500" : "text-red-500"} `}
+								className={`${account_status === "active" ? "text-green-500" : "text-red-500"} `}
 							/>
 							<p className="text-black font-bold">
-								{userDetail?.account.account_status === "active"
-									? "Active"
-									: "Deactivated"}
+								{account_status === "active" ? "Active" : "Deactivated"}
 							</p>
 						</Badge>
 						<div className="xl:w-[80%] w-full">
