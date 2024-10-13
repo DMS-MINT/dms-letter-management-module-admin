@@ -19,7 +19,7 @@ const UserScreen = () => {
 		<div className="p-4 space-y-6 mb-20">
 			<div className="flex items-center justify-between space-y-2">
 				<PageSubTitle
-					title="All Organization Memeber"
+					title="All Memeber"
 					desc="Here are a list of your member for DMS"
 				/>
 				<div className="flex items-center space-x-2">
