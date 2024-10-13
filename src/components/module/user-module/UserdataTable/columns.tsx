@@ -73,15 +73,15 @@ export const columns: ColumnDef<memeberType>[] = [
 			<DataTableColumnHeader column={column} title="FullName" />
 		),
 		cell: ({ row }) => {
-			const labelValue = row.original.member_permissions.is_staff
+			const labelValue = row.original.member_permissions?.is_staff
 				? "admin"
 				: row.original.member_permissions.is_staff
 					? "recordOfficer"
 					: "member";
 
 			const label = labels.find((label) => label.value === labelValue);
-			const fullName = `${row.original.member_profile.full_name_en}`;
-			const fullNameAm = `${row.original.member_profile.full_name_am}`;
+			const fullName = `${row.original.member_profile?.full_name_en}`;
+			const fullNameAm = `${row.original.member_profile?.full_name_am}`;
 
 			return (
 				<div className="flex space-x-2">
@@ -144,9 +144,9 @@ export const columns: ColumnDef<memeberType>[] = [
 		),
 		cell: ({ row }) => {
 			const departmentAm =
-				`${row.original.member_profile.department?.department_name_am}` || "";
+				`${row.original.member_profile?.department?.department_name_am}` || "";
 			const departmentEn =
-				`${row.original.member_profile.department?.department_name_en}` || "";
+				`${row.original.member_profile?.department?.department_name_en}` || "";
 
 			return (
 				<div className="flex space-x-2">

@@ -3,26 +3,30 @@ import { z } from "zod";
 export const userSchema = z.object({
 	id: z.string(),
 	email: z.string(),
-	member_profile: z.object({
-		full_name_en: z.string(),
-		full_name_am: z.string(),
-		job_title: z
-			.object({
-				title_en: z.string(),
-				title_am: z.string(),
-			})
-			.nullable(),
-		department: z
-			.object({
-				department_name_en: z.string(),
-				department_name_am: z.string(),
-			})
-			.nullable(),
-	}),
-	member_permissions: z.object({
-		is_admin: z.boolean(),
-		is_staff: z.boolean(),
-	}),
+	member_profile: z
+		.object({
+			full_name_en: z.string(),
+			full_name_am: z.string(),
+			job_title: z
+				.object({
+					title_en: z.string(),
+					title_am: z.string(),
+				})
+				.nullable(),
+			department: z
+				.object({
+					department_name_en: z.string(),
+					department_name_am: z.string(),
+				})
+				.nullable(),
+		})
+		.nullable(),
+	member_permissions: z
+		.object({
+			is_admin: z.boolean(),
+			is_staff: z.boolean(),
+		})
+		.nullable(),
 	status: z.string().optional(),
 	label: z.string().optional(),
 });
