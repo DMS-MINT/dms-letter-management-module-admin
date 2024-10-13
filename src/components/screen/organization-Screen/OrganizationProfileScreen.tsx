@@ -88,7 +88,7 @@ const OrganizationProfileScreen = () => {
 					/>
 				</div>
 			) : (
-				<div className="pt-28 px-10 w-full">
+				<div className="md:pt-28 pt-5 md:px-10 px-2 w-full">
 					<UserDetailTable
 						data={organizationData}
 						title="Organization Profile"

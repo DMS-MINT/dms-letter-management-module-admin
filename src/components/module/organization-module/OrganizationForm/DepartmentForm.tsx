@@ -33,7 +33,7 @@ export function DepartmentForm({
 }) {
 	const t = useTranslations("DepartmentForm");
 	// Define the validation schema using Zod
-	console.log("data", data);
+
 	const departmentFormSchema = z.object({
 		department_name_en: z
 			.string()

@@ -2,6 +2,7 @@ import { useQuery, useQueryClient } from "@tanstack/react-query";
 import { toast } from "sonner";
 
 import {
+	deleteJobTitle,
 	getJobTitle,
 	setJobTitle,
 	updateJobTitle,
@@ -57,6 +58,25 @@ export const useUpdateJobTitles = () => {
 		{
 			onSuccess: (data, variables) => {
 				console.log("JobTitle updated successfully:", data.message);
+				console.log("New JobTitle Data:", variables);
+				queryClient.invalidateQueries({ queryKey: ["alljobtitles"] });
+			},
+			onError: (error) => {
+				console.error("Error creating JobTitle:", error);
+			},
+		}
+	);
+};
+
+export const useDeleteJobTitles = () => {
+	const queryClient = useQueryClient();
+	return useToastMutation<string>(
+		"deleteJobTitle",
+		deleteJobTitle,
+		"የስራ ስም መገለጫ በማሻሻል...",
+		{
+			onSuccess: (data, variables) => {
+				console.log("JobTitle deleted successfully:", data.message);
 				console.log("New JobTitle Data:", variables);
 				queryClient.invalidateQueries({ queryKey: ["alljobtitles"] });
 			},

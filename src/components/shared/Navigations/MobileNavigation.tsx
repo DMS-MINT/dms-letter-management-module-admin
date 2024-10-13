@@ -1,11 +1,4 @@
-import {
-	ChartLine,
-	Home,
-	NotebookPen,
-	Settings,
-	ShoppingBasket,
-	ShoppingCart,
-} from "lucide-react";
+import { Building2, Home, MonitorCog, Settings, Users } from "lucide-react";
 
 import { FloatingDockMobile } from "@/components/ui/custom/floatingDockMobile";
 
@@ -24,30 +17,25 @@ export function MobileNavigation() {
 			href: "/home",
 		},
 		{
-			title: "Product",
-			icon: <ShoppingCart className="h-6 w-6" />,
-			href: "/product",
+			title: "User",
+			icon: <Users className="h-6 w-6" />,
+			href: "/user",
 		},
 
 		{
-			title: "Order",
-			icon: <ShoppingBasket className="h-6 w-6" />,
-			href: "/order",
+			title: "Organization",
+			icon: <Building2 className="h-6 w-6" />,
+			href: "/organization",
 		},
 		{
-			title: "Dept",
-			icon: <NotebookPen className="h-6 w-6" />,
-			href: "/dept",
+			title: "System",
+			icon: <MonitorCog className="h-6 w-6" />,
+			href: "/system",
 		},
 		{
 			title: "Settings",
 			icon: <Settings className="h-6 w-6" />,
 			href: "/settings",
-		},
-		{
-			title: "Report",
-			icon: <ChartLine className="h-6 w-6" />,
-			href: "/report",
 		},
 	];
 

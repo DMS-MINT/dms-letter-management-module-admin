@@ -3,10 +3,9 @@
 import { useEffect, useState } from "react";
 
 import { zodResolver } from "@hookform/resolvers/zod";
-import { Eraser, Save } from "lucide-react";
+import { Eraser } from "lucide-react";
 import { useTranslations } from "next-intl";
 import { useForm } from "react-hook-form";
-import { isValidPhoneNumber } from "react-phone-number-input";
 import { toast } from "sonner";
 import { z } from "zod";
 
@@ -15,7 +14,6 @@ import { useFetchJobtitles } from "@/actions/Query/organization-query/jobTitleQu
 import { useUpdateUser } from "@/actions/Query/user-query/userQuery";
 import { Button } from "@/components/ui/button";
 import { Checkbox } from "@/components/ui/checkbox";
-import { PhoneInput } from "@/components/ui/custom/phone-input";
 import {
 	Form,
 	FormControl,
@@ -37,13 +35,21 @@ import {
 	type DepartmentListType,
 	type JobTitleListType,
 } from "@/types/DepartmentType";
-import { type UserListType } from "@/types/user/UserType";
+import {
+	type UserListType,
+	type memeberDetailType,
+} from "@/types/user/UserType";
 
-export function UpdateUserForm({ data }: { data: UserListType }) {
+export function UpdateUserForm({
+	dataValue,
+}: {
+	dataValue: memeberDetailType;
+}) {
 	const t = useTranslations("userForm");
+	const [data, setData] = useState<memeberDetailType>(dataValue);
 	const [departmentData, setDepartmentData] = useState<DepartmentListType[]>(
 		[]
-	); // Properly typed array
+	);
 	const [jobTitleData, setJobTitleData] = useState<JobTitleListType[]>([]);
 	const UserRole = [
 		{
@@ -79,12 +85,13 @@ export function UpdateUserForm({ data }: { data: UserListType }) {
 		}),
 		job_title: z.string().optional(),
 		department: z.string().optional(),
-		phone_number: z
-			.string()
-			.refine(isValidPhoneNumber, {
-				message: t("fields.phone_number.error"),
-			})
-			.or(z.literal("")),
+		phone_number: z.union([
+			z
+				.string()
+				.regex(/^\d*$/, "Phone number must be a numeric value")
+				.transform((val) => (val === "" ? " " : Number(val))),
+			z.literal(""),
+		]),
 		email: z.string().email({ message: t("fields.email.error") }),
 		role: z.array(z.string()).refine((value) => value.some((item) => item), {
 			message: "You have to select at least one item.",
@@ -99,19 +106,19 @@ export function UpdateUserForm({ data }: { data: UserListType }) {
 	const form = useForm<UserFormValues>({
 		resolver: zodResolver(userFormSchema),
 		defaultValues: {
-			first_name_en: data.first_name_am || "",
-			middle_name_en: data.middle_name_am || "",
-			last_name_en: data.last_name_am || "",
-			first_name_am: data.first_name_en || "",
-			middle_name_am: data.middle_name_en || "",
-			last_name_am: data.last_name_en || "",
-			job_title: data.job_title || "",
-			department: data.department || "",
-			phone_number: data.phone_number || "",
-			email: data.email || "",
-			role: [data.is_staff ? "record_officer" : "admin"],
-			is_staff: data.is_staff || false,
-			is_superuser: data.is_superuser || false,
+			first_name_en: data?.member_profile.full_name_en || "",
+			middle_name_en: data?.member_profile.full_name_en || "",
+			last_name_en: data?.member_profile.full_name_en || "",
+			first_name_am: data?.member_profile.full_name_am || "",
+			middle_name_am: data?.member_profile.full_name_am || "",
+			last_name_am: data?.member_profile.full_name_am || "",
+			job_title: data?.member_profile.job_title?.title_am || "",
+			department: data?.member_profile.department?.department_name_en || "",
+			phone_number: Number(data?.member_profile.phone_number) || 0,
+			email: data?.email || "",
+			role: [data?.member_permissions.is_staff ? "record_officer" : "admin"],
+			is_staff: data?.member_permissions.is_staff || false,
+			is_superuser: data?.member_permissions.is_admin || false,
 		},
 		mode: "onChange",
 	});
@@ -362,9 +369,10 @@ export function UpdateUserForm({ data }: { data: UserListType }) {
 										<FormItem>
 											<FormLabel>{t("fields.phone_number.label")}</FormLabel>
 											<FormControl>
-												<PhoneInput
+												<Input
 													placeholder={t("fields.phone_number.placeholder")}
 													{...field}
+													type="Number"
 												/>
 											</FormControl>
 											<FormMessage />
@@ -466,10 +474,10 @@ export function UpdateUserForm({ data }: { data: UserListType }) {
 								<Eraser size={20} />
 								{t("button.clear")}
 							</Button>
-							<Button type="submit" className="flex items-center gap-2">
+							{/* <Button type="submit" className="flex items-center gap-2">
 								<Save size={20} />
 								{t("button.submitUpdate")}
-							</Button>
+							</Button> */}
 						</div>
 					</div>
 				</form>

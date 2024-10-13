@@ -122,7 +122,7 @@ export const useFetchMemeberDetail = (id: string) => {
 
 // * get - get One User detail
 export const useFetchUserDetail = (id: string) => {
-	return useQuery<UserListType, Error>({
+	return useQuery<UserListType>({
 		queryKey: ["getUserDetail"],
 		queryFn: async () => {
 			try {

@@ -4,7 +4,7 @@ import {
 	SheetHeader,
 	SheetTitle,
 } from "@/components/ui/sheet";
-import { type UserListType } from "@/types/user/UserType";
+import { type memeberDetailType } from "@/types/user/UserType";
 
 import { UpdateUserForm } from "./UserForm/UpdateUserForm";
 
@@ -14,7 +14,7 @@ const UserUpdateSheet = ({
 	setshowSheet,
 }: {
 	show: boolean;
-	data: UserListType;
+	data: memeberDetailType;
 	setshowSheet: React.Dispatch<React.SetStateAction<boolean>>;
 }) => {
 	return (
@@ -24,7 +24,7 @@ const UserUpdateSheet = ({
 					<SheetHeader>
 						<SheetTitle>Update User Information</SheetTitle>
 					</SheetHeader>
-					<UpdateUserForm data={data} />
+					<UpdateUserForm dataValue={data} />
 				</SheetContent>
 			</Sheet>
 		</div>

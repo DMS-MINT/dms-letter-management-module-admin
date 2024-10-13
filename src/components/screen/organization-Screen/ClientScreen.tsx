@@ -7,20 +7,21 @@ import { File, PlusCircle } from "lucide-react";
 import { useFetchEnterprises } from "@/actions/Query/organization-query/enterpriseQuery";
 import { columns } from "@/components/module/organization-module/ClientdataTable/columns";
 import { ClientDataTable } from "@/components/module/organization-module/ClientdataTable/data-table";
+import { CustomClientSheet } from "@/components/module/organization-module/OrganizationForm/CustomClientSheet";
 import PageSubTitle from "@/components/shared/Titles/PageSubTitle";
 import { Button } from "@/components/ui/button";
 import { Skeleton } from "@/components/ui/skeleton";
 
 const ClientScreen = () => {
 	const [isSheetOpen, setIsSheetOpen] = useState(false);
+	const isAdding = true;
 
-	const [isAdding, setIsAdding] = useState(false);
-	const handleOpenSheet = (isAdding: boolean = false) => {
-		setIsAdding(isAdding);
-		setIsSheetOpen(true);
+	const handleCloseSheet = () => {
+		setIsSheetOpen(false);
 	};
 
 	const { data: clients, isLoading } = useFetchEnterprises();
+	console.log("Enterprise data", clients);
 	return (
 		<div className="p-4 space-y-6 mb-20">
 			<div className="flex items-center justify-between space-y-2">
@@ -38,7 +39,7 @@ const ClientScreen = () => {
 					<Button
 						size="sm"
 						className="h-7 gap-1 font-bold text-white"
-						onClick={() => handleOpenSheet()}
+						onClick={() => setIsSheetOpen(true)}
 					>
 						<PlusCircle className="h-3.5 w-3.5" />
 						<span className="sr-only sm:not-sr-only sm:whitespace-nowrap">
@@ -52,6 +53,11 @@ const ClientScreen = () => {
 			) : (
 				<ClientDataTable data={clients || []} columns={columns} />
 			)}
+			<CustomClientSheet
+				isAdding={isAdding}
+				isOpen={isSheetOpen}
+				onClose={handleCloseSheet}
+			/>
 		</div>
 	);
 };

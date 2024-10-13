@@ -8,10 +8,13 @@ import {
 	updateEnterprises,
 } from "@/actions/organization/action";
 import useToastMutation from "@/hooks/useToastMutation";
-import { type EnterpriseType } from "@/types/EnterpriseType";
+import {
+	type EnterpriseListType,
+	type EnterpriseType,
+} from "@/types/EnterpriseType";
 
 export const useFetchEnterprises = () => {
-	return useQuery<EnterpriseType[]>({
+	return useQuery<EnterpriseListType[]>({
 		queryKey: ["enterprises"],
 		queryFn: async () => {
 			try {
@@ -50,8 +53,8 @@ export const useAddEnterprise = () => {
 			onSuccess: (data, variables) => {
 				// 'data' contains the response from the server
 				// 'variables' contains the department data you passed in
-				console.log("Department created successfully:", data.message);
-				console.log("New Department Data:", variables);
+				console.log("Enterprise created successfully:", data.message);
+				console.log("New Enterprise Data:", variables);
 			},
 			onError: (error) => {
 				console.error("Error creating department:", error);
@@ -60,7 +63,7 @@ export const useAddEnterprise = () => {
 	);
 };
 export const useUpdateEnterprise = () => {
-	return useToastMutation<EnterpriseType>(
+	return useToastMutation<EnterpriseListType>(
 		"updateEnterprise",
 		updateEnterprises,
 		"የመምሪያው መገለጫ በማሻሻል...",

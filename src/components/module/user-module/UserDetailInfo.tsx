@@ -53,11 +53,11 @@ const UserDetailInfo = () => {
 	const userOrganizationData = [
 		{
 			name: "Job Title",
-			value: userDetail?.member_profile.job_title.title_am || "N/A",
+			value: userDetail?.member_profile.job_title?.title_am || "N/A",
 		},
 		{
 			name: "Department",
-			value: userDetail?.member_profile.department.department_name_en || "N/A",
+			value: userDetail?.member_profile.department?.department_name_en || "N/A",
 		},
 		{
 			name: "Organization",

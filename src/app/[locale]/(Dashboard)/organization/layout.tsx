@@ -95,9 +95,8 @@ function OrganizationLayoutContent({ children }: { children: ReactNode }) {
 			href: "/organization/export",
 		},
 	];
-
 	return (
-		<div className="flex flex-col">
+		<div className="flex flex-col mb-24 md:mb-0">
 			<SubNavLayout
 				defaultLayout={[265, 440, 655]}
 				navCollapsedSize={50}
