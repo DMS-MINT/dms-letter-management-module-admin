@@ -43,14 +43,15 @@ export type Department = z.infer<typeof departmentSchema>;
 
 export const enterpriseSchema = z.object({
 	id: z.string(),
-	full_name_en: z.string(),
-	full_name_am: z.string(),
+	name_en: z.string(),
+	name_am: z.string(),
 	address: z.object({
 		city_en: z.string(),
 		city_am: z.string(),
 	}),
 	email: z.string(),
-	phone_number: z.string(),
+	phone_number: z.number(),
+	postal_code: z.number(),
 	type: z.string(),
 	logo: z.string(),
 });

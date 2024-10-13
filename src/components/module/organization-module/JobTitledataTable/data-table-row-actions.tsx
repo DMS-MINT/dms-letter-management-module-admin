@@ -5,6 +5,7 @@ import { useRouter } from "next/navigation";
 import { DotsHorizontalIcon } from "@radix-ui/react-icons";
 import { type Row } from "@tanstack/react-table";
 
+import { useDeleteJobTitles } from "@/actions/Query/organization-query/jobTitleQuery";
 import { Button } from "@/components/ui/button";
 import {
 	DropdownMenu,
@@ -38,6 +39,13 @@ export function DataTableRowActions<TData>({
 	const jobTitle = jobTitleSchema.parse(row.original);
 	const route = useRouter();
 
+	const { mutate: deleteJobTitle } = useDeleteJobTitles();
+	const handleDelete = (id: string) => {
+		console.log("id", id);
+		deleteJobTitle(id);
+		// TODO: Implement the delete functionality
+	};
+
 	return (
 		<DropdownMenu>
 			<DropdownMenuTrigger asChild>
@@ -59,7 +67,7 @@ export function DataTableRowActions<TData>({
 				<DropdownMenuItem>Favorite</DropdownMenuItem>
 				<DropdownMenuSeparator />
 
-				<DropdownMenuItem>
+				<DropdownMenuItem onClick={() => handleDelete(jobTitle.id)}>
 					Delete
 					<DropdownMenuShortcut>⌘⌫</DropdownMenuShortcut>
 				</DropdownMenuItem>

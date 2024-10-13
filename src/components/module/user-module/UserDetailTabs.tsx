@@ -5,7 +5,7 @@ import { useState } from "react";
 
 import { Edit, File, Menu } from "lucide-react";
 
-import { useFetchUserDetail } from "@/actions/Query/user-query/userQuery";
+import { useFetchMemeberDetail } from "@/actions/Query/user-query/userQuery";
 import { Button } from "@/components/ui/button";
 import {
 	DropdownMenu,
@@ -29,7 +29,8 @@ const UserDetailTabs = (props: Props) => {
 	const { id } = useParams();
 	const userId: string = Array.isArray(id) ? id[0] : id;
 	const [showSheet, setShowSheet] = useState(false);
-	const { data: userDetail, isSuccess } = useFetchUserDetail(userId);
+	const { data: userDetail, isSuccess } = useFetchMemeberDetail(userId);
+
 	return (
 		<div>
 			<Tabs defaultValue="all">
@@ -91,7 +92,7 @@ const UserDetailTabs = (props: Props) => {
 					<UserDetailSetting />
 				</TabsContent>
 			</Tabs>
-			{isSuccess && userDetail && (
+			{userDetail && (
 				<UserUpdateSheet
 					show={showSheet}
 					setshowSheet={setShowSheet}

@@ -4,7 +4,7 @@ import { type ColumnDef } from "@tanstack/react-table";
 
 import { Badge } from "@/components/ui/badge";
 import { Checkbox } from "@/components/ui/checkbox";
-import { type EnterpriseType } from "@/types/EnterpriseType";
+import { type EnterpriseListType } from "@/types/EnterpriseType";
 
 import { DataTableColumnHeader } from "./data-table-column-header";
 import { DataTableRowActions } from "./data-table-row-actions";
@@ -24,7 +24,7 @@ export const types = [
 	},
 ];
 
-export const columns: ColumnDef<EnterpriseType>[] = [
+export const columns: ColumnDef<EnterpriseListType>[] = [
 	{
 		id: "select",
 		header: ({ table }) => (
@@ -57,8 +57,8 @@ export const columns: ColumnDef<EnterpriseType>[] = [
 		),
 		cell: ({ row }) => {
 			const label = types.find((label) => label.value === row.original.type);
-			const fullName = row.original.full_name_en;
-			const fullNameAm = row.original.full_name_am;
+			const fullName = row.original.name_en;
+			const fullNameAm = row.original.name_am;
 
 			return (
 				<div className="flex space-x-2">

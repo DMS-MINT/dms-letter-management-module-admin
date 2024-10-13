@@ -11,7 +11,7 @@ export const FloatingDockMobile: FC<{
 
 	return (
 		<div
-			className={`fixed bottom-0 left-0 w-full rounded-t-xl border-t-2 border-customOrange bg-primary-foreground px-4 ${className}`}
+			className={`fixed bottom-0 left-0 w-full rounded-t-xl border-t-2 border-primary bg-muted px-4 ${className}`}
 		>
 			<div className="flex h-16 items-center justify-around">
 				{items.map((item, index) => (
@@ -24,7 +24,7 @@ export const FloatingDockMobile: FC<{
 						<motion.div
 							className={`flex h-12 w-12 items-center justify-center rounded-full transition-transform duration-300 ${
 								index === activeIndex
-									? "bg-customOrange text-white shadow-lg"
+									? "bg-primary text-white shadow-lg"
 									: "bg-transparent text-primary"
 							}`}
 							initial={{ scale: 1, y: 0 }}

@@ -14,7 +14,7 @@ export default function ResponsiveSidebar() {
 		<aside
 			className={`${
 				isMobile
-					? "fixed bottom-0 w-full"
+					? "fixed bottom-0 w-full bg-muted z-50"
 					: "h-full w-[8%] border-r bg-primary-foreground lg:w-[14%] xl:w-[16%]"
 			}`}
 		>

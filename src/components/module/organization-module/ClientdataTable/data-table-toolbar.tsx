@@ -6,8 +6,6 @@ import { type Table } from "@tanstack/react-table";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 
-import { types } from "./columns";
-import { DataTableFacetedFilter } from "./data-table-faceted-filter";
 import { DataTableViewOptions } from "./data-table-view-options";
 
 interface DataTableToolbarProps<TData> {
@@ -32,13 +30,6 @@ export function DataTableToolbar<TData>({
 					}
 					className="h-8 w-[150px] lg:w-[250px]"
 				/>
-				{table.getColumn("status") && (
-					<DataTableFacetedFilter
-						column={table.getColumn("status")}
-						title="Status"
-						options={types}
-					/>
-				)}
 
 				{isFiltered && (
 					<Button
